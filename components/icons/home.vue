@@ -1,0 +1,19 @@
+<template>
+    <svg fill="#000000" viewBox="0 0 24 24" id="mosque" data-name="Flat Line" xmlns="http://www.w3.org/2000/svg"
+        class="icon flat-line">
+        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+        <g id="SVGRepo_iconCarrier">
+            <path id="secondary"
+                d="M19,21a8.93,8.93,0,0,0,1-3.67c0-2-.92-3.25-3.24-4.51A17.44,17.44,0,0,1,12,9a17.44,17.44,0,0,1-4.76,3.82C4.92,14.08,4,15.37,4,17.33A8.93,8.93,0,0,0,5,21Z"
+                style="fill: #2cba35; stroke-width:0.744;"></path>
+            <path id="primary" d="M13.5,5.49A1.76,1.76,0,0,1,11,3"
+                style="fill: none; stroke: #000000; stroke-linecap: round; stroke-linejoin: round; stroke-width:0.744;">
+            </path>
+            <path id="primary-2" data-name="primary"
+                d="M12,6V9m7,12a8.93,8.93,0,0,0,1-3.67c0-2-.92-3.25-3.24-4.51A17.44,17.44,0,0,1,12,9a17.44,17.44,0,0,1-4.76,3.82C4.92,14.08,4,15.37,4,17.33A8.93,8.93,0,0,0,5,21Z"
+                style="fill: none; stroke: #000000; stroke-linecap: round; stroke-linejoin: round; stroke-width:0.744;">
+            </path>
+        </g>
+    </svg>
+</template>

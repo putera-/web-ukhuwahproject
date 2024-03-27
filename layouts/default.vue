@@ -19,9 +19,11 @@
                         <div class="leading-4">MASJID<br />AL-ADHIM</div>
                     </div>
                     <div class="flex-1 hidden lg:flex lg:justify-center">
+                        <!-- Navbar menu content here -->
                         <ul class="menu menu-horizontal text-lg font-medium">
-                            <!-- Navbar menu content here -->
-                            <li><a>Beranda</a></li>
+                            <li>
+                                <NuxtLink to="/">Beranda</NuxtLink>
+                            </li>
                             <li><a>Itikaf Ramadhan</a></li>
                         </ul>
                     </div>
@@ -32,13 +34,27 @@
 
             <DefaultFooter />
         </div>
-        <div class="drawer-side z-20">
+        <div class="drawer-side z-50">
             <label for="my-drawer-3" aria-label="close sidebar" class="drawer-overlay"></label>
-            <ul class="menu p-4 w-80 min-h-full bg-base-200">
-                <!-- Sidebar content here -->
-                <li><a>Sidebar Item 1</a></li>
-                <li><a>Sidebar Item 2</a></li>
-            </ul>
+            <!-- Sidebar content here -->
+            <div class="p-4 w-80 min-h-full bg-base-200">
+                <div class="flex justify-center items-center gap-4 text-xl font-semibold">
+                    <IconsMosque class="w-24" />
+                    <div class="leading-4">MASJID<br />AL-ADHIM</div>
+                </div>
+                <ul class="menu">
+                    <li>
+                        <NuxtLink to="/" class="flex items-center">
+                            <IconsHome class="w-5" /> Beranda
+                        </NuxtLink>
+                    </li>
+                    <li>
+                        <NuxtLink to="/" class="flex items-center">
+                            <IconsPray class="w-5" /> Itikaf Ramadhan
+                        </NuxtLink>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </template>
