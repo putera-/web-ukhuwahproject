@@ -24,7 +24,9 @@
                             <li>
                                 <NuxtLink to="/">Beranda</NuxtLink>
                             </li>
-                            <li><a>Itikaf Ramadhan</a></li>
+                            <li>
+                                <NuxtLink to="/itikaf">Itikaf Ramadhan</NuxtLink>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -49,7 +51,7 @@
                         </NuxtLink>
                     </li>
                     <li>
-                        <NuxtLink to="/" class="flex items-center">
+                        <NuxtLink to="/itikaf" class="flex items-center">
                             <IconsPray class="w-5" /> Itikaf Ramadhan
                         </NuxtLink>
                     </li>

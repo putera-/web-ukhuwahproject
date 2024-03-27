@@ -8,6 +8,11 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+  runtimeConfig: {
+    public: {
+      apiUri: "",
+    },
+  },
   modules: ['@pinia/nuxt'],
   ssr: false
 })
