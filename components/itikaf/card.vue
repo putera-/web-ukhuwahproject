@@ -49,13 +49,19 @@
 
             </div>
 
-            <!-- PESERTA -->
-            <div class="flex max-md:flex-col gap-3">
-                <button class="btn btn-sm font-normal">
-                    <IconsIkhwan class="w-4" /> Peserta Ikhwan: {{ schedule.total_man }}
-                </button>
-                <button class="btn btn-sm font-normal">
-                    <IconsAkhwat class="w-4" /> Peserta Akhwat: {{ schedule.total_woman }}
+            <div class="flex justify-between items-center">
+                <!-- PESERTA -->
+                <div class="flex max-md:flex-col gap-3">
+                    <button class="btn btn-sm font-normal">
+                        <IconsIkhwan class="w-4" /> Peserta Ikhwan: {{ schedule.total_man }}
+                    </button>
+                    <button class="btn btn-sm font-normal">
+                        <IconsAkhwat class="w-4" /> Peserta Akhwat: {{ schedule.total_woman }}
+                    </button>
+                </div>
+
+                <button v-if="route.path == '/admin/itikaf'" class="btn rounded-full btn-sm bg-[#EE9A49]">
+                    <LucideEye :size="16" />Detail
                 </button>
             </div>
         </div>

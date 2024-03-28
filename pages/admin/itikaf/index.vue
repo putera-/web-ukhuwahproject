@@ -2,8 +2,14 @@
     <div>
         <!-- ITIKAF -->
         <div v-if="Itikaf.itikaf">
-            <div class="text-3xl font-semibold">
-                I'tikaf Ramadhan {{ Itikaf.itikaf.year }} / {{ Itikaf.itikaf.hijri_year }}
+            <div class="flex justify-between items-center gap-2">
+                <div class="text-3xl font-semibold my-3">
+                    I'tikaf Ramadhan {{ Itikaf.itikaf.year }} / {{ Itikaf.itikaf.hijri_year }} H
+                </div>
+
+                <button class="btn btn-circle bg-[#EE9A49] btn-sm">
+                    <LucidePencil :size="16" />
+                </button>
             </div>
             <!-- schedule.photos -->
             <div v-if="Itikaf.itikaf.photos" class="w-full h-40 md:h-52 lg:h-60 rounded-t-xl overflow-hidden relative">
@@ -36,7 +42,18 @@ import { useRoute } from 'vue-router';
 
 definePageMeta({
     layout: 'admin',
-    middleware: 'auth'
+    middleware: [
+        'auth',
+        () => {
+            const Auth = useAuthStore();
+
+            const adminRoles = ['SUPERUSER', 'ADMIN', 'STAFF'];
+            // redirect ke home admin
+            if (!adminRoles.includes(Auth.user!.role)) {
+                return navigateTo("/");
+            }
+        }
+    ]
 });
 
 const Itikaf = useItikafStore();

@@ -23,8 +23,8 @@
 
         <!-- ITIKAF -->
         <div v-if="Itikaf.itikaf">
-            <div class="text-3xl font-semibold">
-                I'tikaf Ramadhan {{ Itikaf.itikaf.year }} / {{ Itikaf.itikaf.hijri_year }}
+            <div class="text-3xl font-semibold my-3">
+                I'tikaf Ramadhan {{ Itikaf.itikaf.year }} / {{ Itikaf.itikaf.hijri_year }} H
             </div>
             <!-- schedule.photos -->
             <div v-if="Itikaf.itikaf.photos" class="w-full h-40 md:h-52 lg:h-60 rounded-t-xl overflow-hidden relative">
