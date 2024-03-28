@@ -159,14 +159,14 @@ export const useApiStore = defineStore('api', {
         handleError(error: any) {
             // RAPIHKAN
             // 401 UNAUTHORIZED / BELUM LOGIN
-            if (error.status == 401) {
-                // hapus token dari cookie
-                // const token = useCookie('token');
-                // token.value = '';
+            // if (error.status == 401) {
+            // hapus token dari cookie
+            // const token = useCookie('token');
+            // token.value = '';
 
-                // lempar ke halaman login
-                return navigateTo('/');
-            }
+            // lempar ke halaman login
+            // return navigateTo('/');
+            // }
 
             // 400 BAD REQUEST
             if (error.status == 400) {

@@ -67,7 +67,6 @@
 </template>
 
 <script setup lang="ts">
-import Joi from 'joi';
 // import { useAuthStore } from '~/stores/auth-store';
 
 definePageMeta({

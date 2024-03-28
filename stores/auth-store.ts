@@ -6,6 +6,14 @@ interface LoginForm {
     password: string
 }
 
+interface RegisterForm {
+    name: string
+    email: string
+    phone: string
+    password: string
+    confirm_password: string
+}
+
 interface AuthState {
     user?: User
 }
@@ -23,6 +31,29 @@ export const useAuthStore = defineStore("auth", {
 
                 // isi state user
                 const response = await Api.post("/auth/login", data) as any;
+                this.user = response.user;
+
+                Api.access_token = response.access_token;
+                Api.exp = response.exp;
+
+                window.localStorage.setItem("access_token", response.access_token);
+                window.localStorage.setItem("exp", response.exp.toString());
+
+                // redirect ke home admin
+                navigateTo("/");
+            } catch (error) {
+                throw error;
+            }
+        },
+        async register(data: RegisterForm): Promise<void> {
+            try {
+                const Api = useApiStore();
+
+                // throw jika error
+                data = Validate(isRegister, data);
+
+                // isi state user
+                const response = await Api.post("/auth/register", data) as any;
                 this.user = response.user;
 
                 Api.access_token = response.access_token;

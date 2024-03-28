@@ -32,7 +32,16 @@
                                 <NuxtLink to="/auth/login">Login</NuxtLink>
                             </li>
                             <li v-if="Auth.user">
-                                <button @click="Auth.logout">Logout</button>
+                                <!-- <button @click="Auth.logout">Logout</button> -->
+                                <details>
+                                    <summary>
+                                        {{ Auth.user.name }}
+                                    </summary>
+                                    <ul class="p-2 bg-gradient-to-bl from-[#FEF5ED] to-[#F8D7B6] rounded-lg z-[100]">
+                                        <li><button class="bg-[#EE9A49] btn btn-sm" @click="Auth.logout">Logout</button>
+                                        </li>
+                                    </ul>
+                                </details>
                             </li>
                         </ul>
                     </div>

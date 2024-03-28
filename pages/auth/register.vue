@@ -13,31 +13,57 @@
                 <!-- form login -->
                 <div class="w-full flex flex-col gap-4">
                     <!-- name -->
-                    <label class="input input-lg border-0 rounded-full bg-[#E8E5F8] flex items-center gap-2">
-                        <input type="text" class="grow" placeholder="Name" />
-                    </label>
+                    <div>
+                        <label class="input input-lg border-0 rounded-full bg-[#E8E5F8] flex items-center gap-2">
+                            <input v-model="formData.name" type="text" class="grow" placeholder="Nama" />
+                        </label>
+                        <div class="text-xs text-error my-1" v-if="errors.name">{{ errors.name }}</div>
+                    </div>
                     <!-- email -->
-                    <label class="input input-lg border-0 rounded-full bg-[#E8E5F8] flex items-center gap-2">
-                        <input type="text" class="grow" placeholder="Email" autocomplete="email" />
-                    </label>
+                    <div>
+
+                        <label class="input input-lg border-0 rounded-full bg-[#E8E5F8] flex items-center gap-2">
+                            <input v-model="formData.email" type="text" class="grow" placeholder="Email"
+                                autocomplete="email" />
+                        </label>
+                        <div class="text-xs text-error my-1" v-if="errors.email">{{ errors.email }}</div>
+                    </div>
                     <!-- phone -->
-                    <label class="input input-lg border-0 flex items-center gap-2 rounded-full w-full bg-[#E8E5F8]">
-                        <div>+62</div>
-                        <input type="text'" class="grow bg-[#E8E5F8]" placeholder="xxxx xxxx xxxx" autocomplete="tel" />
-                    </label>
+                    <div>
+                        <input v-model="formData.phone"
+                            class="input input-lg input-bordered border-0 rounded-full w-full bg-[#E8E5F8]" v-maska
+                            data-maska="+62 ###-####-#####" placeholder="Nomor Telepon" />
+                        <div class="text-xs text-error my-1" v-if="errors.phone">{{ errors.phone }}</div>
+                    </div>
                     <!-- password -->
-                    <label class="input input-lg border-0 flex items-center gap-2 rounded-full w-full bg-[#E8E5F8]">
-                        <input :type="showPassword ? 'text' : 'password'" class="grow bg-[#E8E5F8]"
-                            placeholder="Password" autocomplete="new-password" />
-                        <div @click="showPassword = !showPassword" class="cursor-pointer">
-                            <IconsEye class="w-4" v-if="!showPassword" />
-                            <IconsEyeSlash class="w-4" v-else />
-                        </div>
-                    </label>
+                    <div>
+                        <label class="input input-lg border-0 flex items-center gap-2 rounded-full w-full bg-[#E8E5F8]">
+                            <input v-model="formData.password" :type="showPassword ? 'text' : 'password'"
+                                class="grow bg-[#E8E5F8]" placeholder="Password" autocomplete="new-password" />
+                            <div @click="showPassword = !showPassword" class="cursor-pointer">
+                                <IconsEye class="w-4" v-if="!showPassword" />
+                                <IconsEyeSlash class="w-4" v-else />
+                            </div>
+                        </label>
+                        <div class="text-xs text-error my-1" v-if="errors.password">{{ errors.password }}</div>
+                    </div>
+                    <!-- confirm password -->
+                    <div>
+                        <label class="input input-lg border-0 flex items-center gap-2 rounded-full w-full bg-[#E8E5F8]">
+                            <input v-model="formData.confirm_password" :type="showConfirmPassword ? 'text' : 'password'"
+                                class="grow bg-[#E8E5F8]" placeholder="Ulangi Password" autocomplete="new-password" />
+                            <div @click="showConfirmPassword = !showConfirmPassword" class="cursor-pointer">
+                                <IconsEye class="w-4" v-if="!showConfirmPassword" />
+                                <IconsEyeSlash class="w-4" v-else />
+                            </div>
+                        </label>
+                        <div class="text-xs text-error my-1" v-if="errors.confirm_password">{{ errors.confirm_password
+                            }}</div>
+                    </div>
 
                     <!-- login button -->
                     <div class="w-full">
-                        <button @click="showActivationModal = true"
+                        <button @click="handleRegister"
                             class="btn btn-lg rounded-full w-40 flex justify-between pull-left bg-gradient-to-r from-[#00AB4E] to-[#128145] text-white border-0">
                             Register
                             <IconsPencilDot class="w-4" />
@@ -50,39 +76,52 @@
                 </div>
             </div>
         </div>
-
-
-        <!-- Open the modal using ID.showModal() method -->
-        <input type="checkbox" :checked="showActivationModal" class="modal-toggle" />
-        <div class="modal" role="dialog">
-            <div class="modal-box flex flex-col items-center w-96 aspect-square text-[#004E44]">
-                <div class="bg-[#059E4B] rounded-full p-6 my-5">
-                    <IconsCheck class="w-10 stroke-white" />
-                </div>
-                <h3 class="font-medium text-3xl">Good job!</h3>
-                <p class="py-4">Please check your email and<br />click link activation account</p>
-                <div class="modal-action">
-                    <div class="w-full flex justify-between items-center">
-                        <NuxtLink to="/auth/login"
-                            class="btn btn-lg rounded-full w-52 flex justify-between pull-left bg-gradient-to-r from-[#00AB4E] to-[#128145] text-white border-0">
-                            Login
-                            <IconsEnter class="w-4" />
-                        </NuxtLink>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </template>
 
 <script setup lang="ts">
 definePageMeta({
-    layout: 'auth'
+    layout: 'auth',
+    middleware: 'auth'
 });
 
 const showPassword = ref(false)
-const showActivationModal = ref(false);
+const showConfirmPassword = ref(false)
+
+const isLoading = ref(false);
+const errors = ref({});
+const fetchError = ref('')
+
+const formData = ref({
+    name: '',
+    email: '',
+    phone: '',
+    password: '',
+    confirm_password: ''
+})
+
+const AuthStore = useAuthStore();
+const handleRegister = async () => {
+    if (isLoading.value) return;
+
+    isLoading.value = true;
+    errors.value = {};
+    fetchError.value = '';
+    try {
+        await AuthStore.register(formData.value);
+    } catch (error: any) {
+        console.log(error);
+        if (error instanceof JoiError) {
+            errors.value = error.data
+        } else {
+            fetchError.value = error.message;
+        }
+
+        isLoading.value = false;
+    }
+}
 </script>
+
 
 <style scoped>
 /*Change text in autofill textbox*/

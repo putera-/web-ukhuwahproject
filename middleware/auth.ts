@@ -9,7 +9,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
         if (exp) Api.exp = parseInt(exp)
     }
 
-    if (to.path == '/auth/login') {
+    if (to.path == '/auth/login' || to.path == '/auth/register') {
         if (!Auth.user && Api.access_token) {
             await Auth.getUser();
             if (Auth.user) {
