@@ -15,8 +15,9 @@
                         </label>
                     </div>
                     <div class="lg:absolute px-2 mx-2 gap-3 text-xl font-semibold">
-                        <IconsMosque class="w-10" />
-                        <div class="leading-4">MASJID<br />AL-ADHIM</div>
+                        <!-- <IconsMosque class="w-10" /> -->
+                        <img src="/uplogo.png" alt="Ukhuwah Project Logo" class="w-10">
+                        <div class="leading-4">UKHUWAH<br />PROJECT</div>
                     </div>
                     <div class="flex-1 hidden lg:flex lg:justify-center">
                         <!-- Navbar menu content here -->
