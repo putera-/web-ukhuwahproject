@@ -108,5 +108,13 @@ export const useAuthStore = defineStore("auth", {
             // fetch user update
             this.user = await Api.patch("/auth/profile", data) as User;
         },
+        async changePassword(data: Record<string, any>) {
+            const Api = useApiStore();
+
+            data = Validate(changePassword, data);
+
+            // fetch user update
+            await Api.patch("/auth/change_password", data) as User;
+        },
     },
 });

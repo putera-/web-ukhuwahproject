@@ -1,5 +1,6 @@
 <template>
-    <div data-theme="nord" class="w-screen h-screen max-w-screen min-h-scren overflow-x-hidden font-poppins">
+    <div v-if="Auth.user" data-theme="nord"
+        class="w-screen h-screen max-w-screen min-h-scren overflow-x-hidden font-poppins">
         <!-- MOBILE HEADER -->
         <div class="lg:hidden h-[70px] relative border-b border-gray/20 px-3">
             <div class="h-full flex justify-between items-center">

@@ -11,10 +11,10 @@
             <AdminProfile v-if="!loading" />
         </div>
 
-        <!-- <input type="radio" name="my_tabs_2" role="tab" class="tab [--tab-bg:#f8fafc]" aria-label="Address" />
+        <input type="radio" name="my_tabs_2" role="tab" class="tab [--tab-bg:#f8fafc]" aria-label="Change Password" />
         <div role="tabpanel" class="tab-content p-6">
-            <AdminProfileAddress v-if="!loading" />
-        </div> -->
+            <AdminProfileChangePassword v-if="!loading" />
+        </div>
     </div>
 </template>
 

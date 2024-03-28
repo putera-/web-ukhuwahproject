@@ -168,7 +168,10 @@ export const useApiStore = defineStore('api', {
 
             // 400 BAD REQUEST
             if (error.status == 400) {
-                throw error;
+                throw createError({
+                    statusCode: 400, // <- default code 500
+                    statusMessage: error.data.message || error.data.error // <- default message
+                });
             }
 
             // SELAIN 401 & 400
