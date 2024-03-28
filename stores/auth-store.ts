@@ -39,8 +39,15 @@ export const useAuthStore = defineStore("auth", {
                 window.localStorage.setItem("access_token", response.access_token);
                 window.localStorage.setItem("exp", response.exp.toString());
 
-                // redirect ke home admin
-                navigateTo("/");
+                const redirect_path = window.localStorage.getItem('redirect_path');
+
+                if (redirect_path) {
+                    window.localStorage.removeItem('redirect_path')
+                    navigateTo(redirect_path);
+                } else {
+                    // redirect ke home admin
+                    navigateTo("/");
+                }
             } catch (error) {
                 throw error;
             }
@@ -62,8 +69,15 @@ export const useAuthStore = defineStore("auth", {
                 window.localStorage.setItem("access_token", response.access_token);
                 window.localStorage.setItem("exp", response.exp.toString());
 
-                // redirect ke home admin
-                navigateTo("/");
+                const redirect_path = window.localStorage.getItem('redirect_path');
+
+                if (redirect_path) {
+                    window.localStorage.removeItem('redirect_path')
+                    navigateTo(redirect_path);
+                } else {
+                    // redirect ke home admin
+                    navigateTo("/");
+                }
             } catch (error) {
                 throw error;
             }

@@ -49,7 +49,7 @@
                     <!-- login button -->
                     <div class="w-full flex flex-col">
                         <button @click="doLogin"
-                            class="btn btn-lg rounded-full w-52 flex justify-between pull-left bg-gradient-to-r from-[#00AB4E] to-[#128145] text-white border-0">
+                            class="btn btn-lg rounded-full w-52 flex justify-between pull-left bg-[#EE9A49] text-white border-0">
                             Login
                             <IconsEnter v-show="!isLoading" class="w-4" />
                             <IconsLoading v-show="isLoading" class="w-10" />

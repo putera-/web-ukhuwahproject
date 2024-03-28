@@ -64,10 +64,11 @@
                     <!-- login button -->
                     <div class="w-full">
                         <button @click="handleRegister"
-                            class="btn btn-lg rounded-full w-40 flex justify-between pull-left bg-gradient-to-r from-[#00AB4E] to-[#128145] text-white border-0">
+                            class="btn btn-lg rounded-full w-40 flex justify-between pull-left bg-[#EE9A49] text-white border-0">
                             Register
                             <IconsPencilDot class="w-4" />
                         </button>
+                        <div class="text-error ml-4">{{ fetchError }}</div>
                     </div>
                 </div>
 
@@ -110,7 +111,6 @@ const handleRegister = async () => {
     try {
         await AuthStore.register(formData.value);
     } catch (error: any) {
-        console.log(error);
         if (error instanceof JoiError) {
             errors.value = error.data
         } else {

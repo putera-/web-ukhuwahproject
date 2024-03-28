@@ -53,7 +53,7 @@
                                 <div class="text-2xl font-medium">Itikaf Malam ke {{ schedule.day_index }}</div>
                                 <div>{{ dayjs(schedule.date).format('DD MMM YYYY') }}</div>
                             </div>
-                            <button class="btn bg-[#EE9A49] rounded-full px-6">Ikut
+                            <button @click="toJoin(schedule.id)" class="btn bg-[#EE9A49] rounded-full px-6">Ikut
                                 Itikaf</button>
                         </div>
 
@@ -148,6 +148,9 @@
             </template>
         </div>
     </div>
+
+    <LazyItikafJoinForm v-if="showJoinForm && selected_scheduleId" :scheduleId="selected_scheduleId"
+        :show="showJoinForm" @close="showJoinForm = false; selected_scheduleId = null" @success="successJoin" />
 </template>
 
 <script setup lang="ts">
@@ -164,4 +167,42 @@ onBeforeMount(async () => {
         Itikaf.getSchedule()
     ]);
 });
+
+const showJoinForm = ref(false);
+const selected_scheduleId = ref<null | string>(null);
+
+const Api = useApiStore();
+const Auth = useAuthStore();
+const toJoin = async (scheduleId: string): Promise<void> => {
+    checkToken();
+
+    console.log(Api.access_token)
+
+    if (!Api.access_token) {
+        toLoginPage();
+        return;
+    }
+
+    if (!Auth.user) {
+        await Auth.getUser();
+        if (!Auth.user) {
+            toLoginPage();
+            return;
+        }
+    }
+
+    selected_scheduleId.value = scheduleId;
+    showJoinForm.value = true;
+}
+
+const successJoin = () => {
+    showJoinForm.value = false;
+    selected_scheduleId.value = null;
+}
+
+const route = useRoute();
+const toLoginPage = () => {
+    window.localStorage.setItem('redirect_path', route.path)
+    navigateTo('/auth/login');
+}
 </script>

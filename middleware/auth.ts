@@ -2,12 +2,14 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     const Auth = useAuthStore();
     const Api = useApiStore();
 
-    if (!Api.access_token) {
-        Api.access_token = window.localStorage.getItem('access_token') || undefined;
-        const exp = window.localStorage.getItem('exp');
+    // if (!Api.access_token) {
+    //     Api.access_token = window.localStorage.getItem('access_token') || undefined;
+    //     const exp = window.localStorage.getItem('exp');
 
-        if (exp) Api.exp = parseInt(exp)
-    }
+    //     if (exp) Api.exp = parseInt(exp)
+    // }
+
+    checkToken();
 
     if (to.path == '/auth/login' || to.path == '/auth/register') {
         if (!Auth.user && Api.access_token) {
