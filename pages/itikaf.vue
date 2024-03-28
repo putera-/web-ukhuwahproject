@@ -48,7 +48,7 @@
                         <!-- <img v-if="isURL(schedule.photos[0].path)" :src="schedule.photos[0].path" class="w-full z-10"> -->
                     </div>
                     <div class="card-body -mt-20 z-20">
-                        <div class="flex max-md:flex-col md:justify-between items-center">
+                        <div class="flex max-md:flex-col md:justify-between items-center gap-2">
                             <div>
                                 <div class="text-2xl font-medium">Itikaf Malam ke {{ schedule.day_index }}</div>
                                 <div>{{ dayjs(schedule.date).format('DD MMM YYYY') }}</div>
@@ -57,6 +57,7 @@
                                 class="btn bg-[#EE9A49] rounded-full px-6">Ikut
                                 Itikaf</button>
                             <button v-else class="btn btn-success rounded-full px-6">Anda Terdaftar</button>
+                            <button class="btn btn-xs" @click="toCancelJoin(schedule.id)">Batal Hadir</button>
                         </div>
 
                         <div>{{ schedule.description }}</div>
@@ -154,6 +155,10 @@
     <LazyItikafJoinForm v-if="showJoinForm && selected_scheduleId" :scheduleId="selected_scheduleId"
         :show="showJoinForm" @close="showJoinForm = false; selected_scheduleId = null" @success="successJoin" />
 
+    <LazyItikafCancelJoinForm v-if="showCancelJoinForm && selected_scheduleId" :scheduleId="selected_scheduleId"
+        :show="showCancelJoinForm" @close="showCancelJoinForm = false; selected_scheduleId = null"
+        @success="successCancelJoin" />
+
     <ModalSuccess v-if="showSuccess" :show="showSuccess" @close="showSuccess = false" />
 </template>
 
@@ -176,14 +181,13 @@ onBeforeMount(async () => {
 });
 
 const showJoinForm = ref(false);
+const showCancelJoinForm = ref(false);
 const selected_scheduleId = ref<null | string>(null);
 
 const Api = useApiStore();
 const Auth = useAuthStore();
 const toJoin = async (scheduleId: string): Promise<void> => {
     checkToken();
-
-    console.log(Api.access_token)
 
     if (!Api.access_token) {
         toLoginPage();
@@ -207,11 +211,25 @@ const successJoin = () => {
     showJoinForm.value = false;
     selected_scheduleId.value = null;
     showSuccess.value = true;
+
+    Itikaf.getSchedule();
 }
 
 const route = useRoute();
 const toLoginPage = () => {
     window.localStorage.setItem('redirect_path', route.path)
     navigateTo('/auth/login');
+}
+
+const toCancelJoin = (scheduleId: string) => {
+    selected_scheduleId.value = scheduleId;
+    showCancelJoinForm.value = true;
+}
+const successCancelJoin = () => {
+    showCancelJoinForm.value = false;
+    selected_scheduleId.value = null;
+    showSuccess.value = true;
+
+    Itikaf.getSchedule();
 }
 </script>

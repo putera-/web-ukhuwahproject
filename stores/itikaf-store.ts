@@ -43,6 +43,11 @@ export const useItikafStore = defineStore("itikaf", {
 
             Api.post('/itikaf-schedules/participate/' + scheduleId, data);
 
+        },
+        async cancelJoin(unparticipate_reason: string, scheduleId): Promise<void> {
+            const Api = useApiStore();
+
+            Api.patch('/itikaf-schedules/unparticipate/' + scheduleId, { unparticipate_reason });
         }
     }
 });

@@ -2,7 +2,6 @@
     <input type="checkbox" v-model="_show" class="modal-toggle" />
     <div class="modal" role="dialog">
         <div class="modal-box">
-            <div>{{ scheduleId }}</div>
             <h3 class="font-semibold text-lg">Ikut I'tikaf! </h3>
             <p class="py-4 text-sm">Masukkan jumlah anggota untuk disiapkan makan sahur!</p>
 
@@ -113,8 +112,6 @@ const joinItikaf = async () => {
 
         emits('success')
     } catch (error: any) {
-        console.log(error);
-        console.log(error.data);
         if (error instanceof JoiError) {
             errors.value = error.data
         } else {
