@@ -1,9 +1,43 @@
 <template>
     <div class="w-full min-h-screen max-w-7xl mx-auto pt-20 px-4 md:px-6">
 
-        <div class="flex flex-col gap-6">
+        <div v-if="Itikaf.itikaf">
+            <div class="text-center text-4xl font-medium mb-4">
+                Itikaf Ramadhan {{ Itikaf.itikaf.hijri_year }} / {{ Itikaf.itikaf.year }}
+            </div>
+
+            <Carousel>
+                <Slide v-for="photo in Itikaf.itikaf.photos" :key="photo.id">
+                    <div class="carousel__item w-full">
+                        <div class="w-full aspect-video overflow-hidden bg-indigo-500">
+                            <img v-if="isURL(photo.path)" :src="photo.path" class="min-w-full min-h-full">
+                        </div>
+                    </div>
+                </Slide>
+
+                <template #addons>
+                    <Navigation />
+                    <Pagination />
+                </template>
+            </Carousel>
+
+            <!-- SLIDER -->
+
+            <!-- DESKRIPSI -->
+            <div>{{ Itikaf.itikaf.description }}</div>
+            <!-- KONTAK PERSON -->
+            <div v-if="Itikaf.itikaf.contact_person_name">
+                <div>Informasi:</div>
+                <div>{{ Itikaf.itikaf.contact_person_name }}: {{ Itikaf.itikaf.contact_person_phone }}</div>
+            </div>
+        </div>
+
+        <!-- JADWAL -->
+
+        <div class="text-xl font-semibold mt-10">JADWAL I'TIKAF</div>
+        <div class="flex flex-col gap-6 mt-6">
             <template v-for="schedule in Itikaf.schedules" :key="schedule.id">
-                <div class="card shadow-lg">
+                <div class="card shadow-lg bg-white">
                     <!-- schedule.photos -->
                     <div v-if="schedule.photos" class="w-full h-60 rounded-t-xl overflow-hidden relative">
                         <div class="w-full h-full bg-gradient-to-t from-white via-white/0 to-white/0 absolute"></div>
@@ -99,6 +133,16 @@
 
 
                         </div>
+
+                        <!-- PESERTA -->
+                        <div class="flex gap-3">
+                            <button class="btn btn-sm font-normal">
+                                <IconsIkhwan class="w-4" /> Peserta Ikhwan: 20
+                            </button>
+                            <button class="btn btn-sm font-normal">
+                                <IconsAkhwat class="w-4" /> Peserta Akhwat: 20
+                            </button>
+                        </div>
                     </div>
                 </div>
             </template>
@@ -107,11 +151,17 @@
 </template>
 
 <script setup lang="ts">
+import { Carousel, Navigation, Pagination, Slide } from 'vue3-carousel';
+import 'vue3-carousel/dist/carousel.css';
+
 import dayjs from 'dayjs';
 
 const Itikaf = useItikafStore();
 
 onBeforeMount(async () => {
-    await Itikaf.getSchedule();
-})
+    await Promise.all([
+        Itikaf.get(),
+        Itikaf.getSchedule()
+    ]);
+});
 </script>

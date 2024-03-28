@@ -67,6 +67,10 @@ export const useItikafStore = defineStore("itikaf", {
         schedules: []
     }),
     actions: {
+        async get(): Promise<void> {
+            const Api = useApiStore();
+            this.itikaf = await Api.get('/itikafs/1445') as Itikaf
+        },
         async getSchedule(): Promise<void> {
             const Api = useApiStore();
             this.schedules = await Api.get('/itikaf-schedules') as ItikafSchedule[]
