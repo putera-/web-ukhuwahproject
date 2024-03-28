@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-export const useApiStore = defineStore("api", {
+export const OLDuseApiStore = defineStore("OLDapi", {
   state: () => ({
     access_token: undefined,
     exp: undefined,
