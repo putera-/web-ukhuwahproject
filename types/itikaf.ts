@@ -52,4 +52,8 @@ interface ItikafSchedule {
     imam_qiyamul_lail_id?: String
     ustadz_kajian?: Asaatidz
     ustadz_kajian_id?: String
+    total_member?: number
+    total_man?: number
+    total_woman?: number
+    auth_participant?: boolean
 }

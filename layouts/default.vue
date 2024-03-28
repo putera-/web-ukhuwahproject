@@ -32,7 +32,6 @@
                                 <NuxtLink to="/auth/login">Login</NuxtLink>
                             </li>
                             <li v-if="Auth.user">
-                                <!-- <button @click="Auth.logout">Logout</button> -->
                                 <details>
                                     <summary>
                                         {{ Auth.user.name }}
@@ -60,6 +59,11 @@
                     <IconsMosque class="w-24" />
                     <div class="leading-4">MASJID<br />AL-ADHIM</div>
                 </div>
+                <div v-if="Auth.user" class="text-center mt-10">
+                    <div class="text-sm font-semibold">{{ Auth.user.name }}</div>
+                    <div class="text-xs">{{ Auth.user.email }}</div>
+                </div>
+                <div class="divider mt-0"></div>
                 <ul class="menu">
                     <li>
                         <NuxtLink to="/" class="flex items-center">
@@ -70,9 +74,14 @@
                         <NuxtLink to="/itikaf" class="flex items-center">
                             <IconsPray class="w-5" /> Itikaf Ramadhan
                         </NuxtLink>
+                    </li>
+                    <li v-if="!Auth.user">
                         <NuxtLink to="/auth/login" class="flex items-center">
                             <IconsEnter class="w-5" /> Login
                         </NuxtLink>
+                    </li>
+                    <li v-if="Auth.user" class="mt-2">
+                        <button class="bg-[#EE9A49] btn btn-sm" @click="Auth.logout">Logout</button>
                     </li>
                 </ul>
             </div>

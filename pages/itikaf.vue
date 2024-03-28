@@ -48,13 +48,15 @@
                         <!-- <img v-if="isURL(schedule.photos[0].path)" :src="schedule.photos[0].path" class="w-full z-10"> -->
                     </div>
                     <div class="card-body -mt-20 z-20">
-                        <div class="flex justify-between items-center">
+                        <div class="flex max-md:flex-col md:justify-between items-center">
                             <div>
                                 <div class="text-2xl font-medium">Itikaf Malam ke {{ schedule.day_index }}</div>
                                 <div>{{ dayjs(schedule.date).format('DD MMM YYYY') }}</div>
                             </div>
-                            <button @click="toJoin(schedule.id)" class="btn bg-[#EE9A49] rounded-full px-6">Ikut
+                            <button v-if="!schedule.auth_participant" @click="toJoin(schedule.id)"
+                                class="btn bg-[#EE9A49] rounded-full px-6">Ikut
                                 Itikaf</button>
+                            <button v-else class="btn btn-success rounded-full px-6">Anda Terdaftar</button>
                         </div>
 
                         <div>{{ schedule.description }}</div>
@@ -135,12 +137,12 @@
                         </div>
 
                         <!-- PESERTA -->
-                        <div class="flex gap-3">
+                        <div class="flex max-md:flex-col gap-3">
                             <button class="btn btn-sm font-normal">
-                                <IconsIkhwan class="w-4" /> Peserta Ikhwan: 20
+                                <IconsIkhwan class="w-4" /> Peserta Ikhwan: {{ schedule.total_man }}
                             </button>
                             <button class="btn btn-sm font-normal">
-                                <IconsAkhwat class="w-4" /> Peserta Akhwat: 20
+                                <IconsAkhwat class="w-4" /> Peserta Akhwat: {{ schedule.total_woman }}
                             </button>
                         </div>
                     </div>
@@ -151,9 +153,14 @@
 
     <LazyItikafJoinForm v-if="showJoinForm && selected_scheduleId" :scheduleId="selected_scheduleId"
         :show="showJoinForm" @close="showJoinForm = false; selected_scheduleId = null" @success="successJoin" />
+
+    <ModalSuccess v-if="showSuccess" :show="showSuccess" @close="showSuccess = false" />
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+    middleware: ['onlyauth']
+})
 import { Carousel, Navigation, Pagination, Slide } from 'vue3-carousel';
 import 'vue3-carousel/dist/carousel.css';
 
@@ -195,9 +202,11 @@ const toJoin = async (scheduleId: string): Promise<void> => {
     showJoinForm.value = true;
 }
 
+const showSuccess = ref(false);
 const successJoin = () => {
     showJoinForm.value = false;
     selected_scheduleId.value = null;
+    showSuccess.value = true;
 }
 
 const route = useRoute();

@@ -24,7 +24,12 @@ export const useItikafStore = defineStore("itikaf", {
         },
         async getSchedule(): Promise<void> {
             const Api = useApiStore();
-            this.schedules = await Api.get('/itikaf-schedules') as ItikafSchedule[]
+            const Auth = useAuthStore();
+            if (Auth.user) {
+                this.schedules = await Api.get('/itikaf-schedules/me') as ItikafSchedule[]
+            } else {
+                this.schedules = await Api.get('/itikaf-schedules') as ItikafSchedule[]
+            }
         },
         async join(data: JoinItikafForm, scheduleId): Promise<void> {
             const Api = useApiStore();
