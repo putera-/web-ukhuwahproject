@@ -19,12 +19,35 @@
             </div>
         </div>
     </div>
-    <div class="max-w-7xl w-full mx-auto md:pt-40">
+    <div class="max-w-7xl w-full mx-auto md:pt-40 p-3 md:p-10">
 
+        <!-- ITIKAF -->
+        <div v-if="Itikaf.itikaf">
+            <div class="text-3xl font-semibold">
+                I'tikaf Ramadhan {{ Itikaf.itikaf.year }} / {{ Itikaf.itikaf.hijri_year }}
+            </div>
+            <!-- schedule.photos -->
+            <div v-if="Itikaf.itikaf.photos" class="w-full h-40 md:h-52 lg:h-60 rounded-t-xl overflow-hidden relative">
+                <div class="w-full h-full bg-gradient-to-t from-white via-white/0 to-white/0 absolute"></div>
+                <img v-if="isURL(Itikaf.itikaf.photos[0].path)" :src="Itikaf.itikaf.photos[0].path" class="w-full z-10">
+            </div>
+            <div v-else class="w-full h-40 md:h-52 lg:h-60 rounded-t-xl overflow-hidden relative">
+                <div class="w-full h-full bg-gradient-to-t from-white to-[#F8D7B6] absolute"></div>
+            </div>
+
+
+            <div class="mt-2">{{ Itikaf.itikaf.description }}</div>
+            <NuxtLink to="/itikaf" class="btn bg-[#EE9A49] mt-2">Lihat Jadwal I'tikaf</NuxtLink>
+        </div>
     </div>
 </template>
 
 <script setup lang="ts">
+const Itikaf = useItikafStore();
+
+onBeforeMount(async () => {
+    await Itikaf.get()
+});
 
 </script>
 
