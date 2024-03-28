@@ -45,8 +45,15 @@ export const useAuthStore = defineStore("auth", {
                     window.localStorage.removeItem('redirect_path')
                     navigateTo(redirect_path);
                 } else {
+                    const adminRoles = ['SUPERUSER', 'ADMIN', 'STAFF'];
+                    console.log(adminRoles)
+                    console.log(adminRoles.includes(this.user!.role))
                     // redirect ke home admin
-                    navigateTo("/");
+                    if (adminRoles.includes(this.user!.role)) {
+                        navigateTo("/admin");
+                    } else {
+                        navigateTo("/");
+                    }
                 }
             } catch (error) {
                 throw error;

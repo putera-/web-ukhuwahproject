@@ -13,6 +13,6 @@ export default defineNuxtConfig({
       apiUri: "",
     },
   },
-  modules: ['@pinia/nuxt'],
+  modules: ['@pinia/nuxt', 'nuxt-lucide-icons'],
   ssr: false
 })
