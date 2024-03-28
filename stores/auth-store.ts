@@ -102,13 +102,11 @@ export const useAuthStore = defineStore("auth", {
             //redirect ke home halaman login
             navigateTo("/");
         },
-        // async updateUser(data) {
-        //     const Api = useApiStore();
+        async updateUser(data: FormData) {
+            const Api = useApiStore();
 
-        //     data = Validate(updateUserValidation, data);
-
-        //     // fetch user update
-        //     this.user = await Api.patch("/auth/change_password", data);
-        // },
+            // fetch user update
+            this.user = await Api.patch("/auth/profile", data) as User;
+        },
     },
 });

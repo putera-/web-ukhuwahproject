@@ -11,9 +11,7 @@ export const useApiStore = defineStore('api', {
     }),
     getters: {
         headers: (state) => {
-            const headers: Record<string, any> = {
-                'Content-Type': 'application/json',
-            }
+            const headers: Record<string, any> = {}
             if (!state.access_token) {
                 return headers
             } else {

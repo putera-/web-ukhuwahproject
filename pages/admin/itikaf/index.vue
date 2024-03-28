@@ -43,16 +43,7 @@ import { useRoute } from 'vue-router';
 definePageMeta({
     layout: 'admin',
     middleware: [
-        'auth',
-        () => {
-            const Auth = useAuthStore();
-
-            const adminRoles = ['SUPERUSER', 'ADMIN', 'STAFF'];
-            // redirect ke home admin
-            if (!adminRoles.includes(Auth.user!.role)) {
-                return navigateTo("/");
-            }
-        }
+        'admin'
     ]
 });
 

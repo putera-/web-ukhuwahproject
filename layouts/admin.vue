@@ -1,5 +1,5 @@
 <template>
-    <div data-theme="nord" class="w-screen h-screen max-w-screen min-h-scren overflow-x-hidden">
+    <div data-theme="nord" class="w-screen h-screen max-w-screen min-h-scren overflow-x-hidden font-poppins">
         <!-- MOBILE HEADER -->
         <div class="lg:hidden h-[70px] relative border-b border-gray/20 px-3">
             <div class="h-full flex justify-between items-center">
@@ -36,10 +36,12 @@
 
                     <!-- avatar / account -->
                     <div class="dropdown dropdown-end">
-                        <div tabindex="0" role="button" class="btn w-10 h-10 min-h-10 btn-circle">
-                            <div class="flex justify-center items-center">
-                                <LucideUser :size="24" class="text-primary" />
-                            </div>
+                        <div tabindex="0" role="button" class="btn w-10 h-10 min-h-10 btn-circle overflow-hidden">
+                            <img v-if="Auth.user.avatar" :src="apiUri + Auth.user.avatar_md"
+                                class="min-w-full min-h-full">
+                            <LucideUser v-else :size="24" class="text-primary" />
+                            <!-- <div class="flex justify-center items-center">
+                            </div> -->
                         </div>
                         <div class="dropdown-content z-[2] menu bg-base-100 shadow rounded w-52">
                             <div class="p-2 border-b">
@@ -48,8 +50,8 @@
                             </div>
                             <ul tabindex="0" class="p-2">
                                 <li>
-                                    <NuxtLink to="/admin">
-                                        <LucideUser :size="16" /> User Setting
+                                    <NuxtLink to="/admin/profile">
+                                        <LucideUser :size="16" /> Profile
                                     </NuxtLink>
                                 </li>
                                 <li>
@@ -90,10 +92,12 @@
 </template>
 
 <script setup>
-// import 'v-calendar/style.css';
+import 'vue3-toastify/dist/index.css';
 
-// Auth state / pinia
+
 const Auth = useAuthStore();
+const { public: { apiUri } } = useRuntimeConfig();
+
 </script>
 
 <style scoped>

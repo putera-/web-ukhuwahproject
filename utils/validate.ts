@@ -11,7 +11,7 @@ export const Validate = (schema: any, request: any) => {
         for (let i = 0; i < result.error.details.length; i++) {
             const detail = result.error.details[i];
 
-            const key: string = detail.context.key;
+            const key: string = detail.context.key || detail.context.label;
             details[key] = detail.message.replaceAll('\"', '')
         }
         throw new JoiError(details);
