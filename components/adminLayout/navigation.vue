@@ -7,9 +7,16 @@
     </ul>
 </template>
 
-<script setup>
+<script setup lang="ts">
 
-const menus = [
+interface Menu {
+    label: string
+    icon: any
+    to?: string
+    children?: Menu[]
+}
+
+const menus: Menu[] = [
     {
         title: "Dashbord",
         to: "/admin",
@@ -20,11 +27,11 @@ const menus = [
     //     to: "/admin/profile",
     //     icon: resolveComponent("LucideUserRound")
     // },
-    // {
-    //     title: "Projects",
-    //     to: "/admin/projects",
-    //     icon: resolveComponent("LucideBriefcase"),
-    // },
+    {
+        title: "Itikaf",
+        to: "/admin/itikaf",
+        icon: resolveComponent("LucideBriefcase")
+    },
     // {
     //     title: "Education",
     //     to: "/admin/education",

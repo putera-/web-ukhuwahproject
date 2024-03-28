@@ -37,121 +37,7 @@
         <div class="text-xl font-semibold mt-10">JADWAL I'TIKAF</div>
         <div class="flex flex-col gap-6 mt-6">
             <template v-for="schedule in Itikaf.schedules" :key="schedule.id">
-                <div class="card shadow-lg bg-white">
-                    <!-- schedule.photos -->
-                    <div v-if="schedule.photos"
-                        class="w-full h-40 md:h-52 lg:h-60 rounded-t-xl overflow-hidden relative">
-                        <div class="w-full h-full bg-gradient-to-t from-white via-white/0 to-white/0 absolute"></div>
-                        <img v-if="isURL(schedule.photos[0].path)" :src="schedule.photos[0].path" class="w-full z-10">
-                    </div>
-                    <div v-else class="w-full h-40 md:h-52 lg:h-60 rounded-t-xl overflow-hidden relative">
-                        <div class="w-full h-full bg-gradient-to-t from-white to-[#F8D7B6] absolute"></div>
-                        <!-- <img v-if="isURL(schedule.photos[0].path)" :src="schedule.photos[0].path" class="w-full z-10"> -->
-                    </div>
-                    <div class="card-body -mt-20 z-20">
-                        <div class="flex max-md:flex-col md:justify-between items-center gap-2">
-                            <div>
-                                <div class="text-2xl font-medium">Itikaf Malam ke {{ schedule.day_index }}</div>
-                                <div>{{ dayjs(schedule.date).format('DD MMM YYYY') }}</div>
-                            </div>
-                            <button v-if="!schedule.auth_participant" @click="toJoin(schedule.id)"
-                                class="btn bg-[#EE9A49] rounded-full px-6">Ikut
-                                Itikaf</button>
-                            <div v-else class="flex max-md:flex-col gap-2 md:items-end max-md:items-center">
-                                <button class="btn btn-success rounded-full px-6">Anda Terdaftar</button>
-                                <button class="btn btn-xs w-min text-nowrap" @click="toCancelJoin(schedule.id)">Batal
-                                    Hadir</button>
-                            </div>
-                        </div>
-
-                        <div>{{ schedule.description }}</div>
-
-                        <div class=" grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <!-- KAJIAN -->
-                            <div v-if="schedule.ustadz_kajian" class="card bg-[#F8D7B6] max-md:w-full max-lg:grow">
-                                <div class="card-body w-full p-2">
-                                    <div class="flex items-center max-md:justify-center gap-3">
-                                        <!-- schedule.ustadz_kajian!.avatar_md -->
-                                        <template v-if="schedule.ustadz_kajian!.avatar_md">
-                                            <img v-if="isURL(schedule.ustadz_kajian.avatar_md)"
-                                                :src="schedule.ustadz_kajian.avatar_md" alt=""
-                                                class="rounded-full w-12 md:w-16 h-12 md:h-16">
-                                        </template>
-                                        <div v-else
-                                            class="rounded-full w-12 md:w-16 h-12 md:h-16 bg-gradient-to-br from-white to-[#EE9A49]">
-                                        </div>
-
-                                        <div>
-                                            <div class="text-xs md:text-sm text-gray-600">Kajian: Tematik</div>
-                                            <div class=" font-medium text-sm md:text-medium">
-                                                {{ schedule.ustadz_kajian.name }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-
-                            <!-- IMAM TARAWIH -->
-                            <div v-if="schedule.imam_tarawih" class="card bg-[#F8D7B6] max-md:w-full max-lg:grow">
-                                <div class="card-body w-full p-2">
-                                    <div class="flex items-center max-md:justify-center gap-3">
-                                        <template v-if="schedule.imam_tarawih.avatar_md">
-                                            <img v-if="isURL(schedule.imam_tarawih.avatar_md)"
-                                                :src="schedule.imam_tarawih.avatar_md" alt=""
-                                                class="rounded-full w-12 md:w-16 h-12 md:h-16">
-                                        </template>
-                                        <div v-else
-                                            class="rounded-full w-12 md:w-16 h-12 md:h-16 bg-gradient-to-br from-white to-[#EE9A49]">
-                                        </div>
-
-                                        <div>
-                                            <div class="text-xs md:text-sm text-gray-600">Imam Tarawih</div>
-                                            <div class=" font-medium text-sm md:text-medium">
-                                                {{ schedule.imam_tarawih.name }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- IMAM QIYAMUL LAIL -->
-                            <div v-if="schedule.imam_qiyamul_lail" class="card bg-[#F8D7B6] max-md:w-full max-lg:grow">
-                                <div class="card-body w-full p-2">
-                                    <div class="flex items-center max-md:justify-center gap-3">
-                                        <template v-if="schedule.imam_qiyamul_lail.avatar_md">
-                                            <img v-if="isURL(schedule.imam_qiyamul_lail.avatar_md)"
-                                                :src="schedule.imam_qiyamul_lail.avatar_md" alt=""
-                                                class="rounded-full w-12 md:w-16 h-12 md:h-16">
-                                        </template>
-                                        <div v-else
-                                            class="rounded-full w-12 md:w-16 h-12 md:h-16 bg-gradient-to-br from-white to-[#EE9A49]">
-                                        </div>
-
-                                        <div>
-                                            <div class="text-xs md:text-sm text-gray-600">Imam Qiyamul Lail</div>
-                                            <div class=" font-medium text-sm md:text-medium">
-                                                {{ schedule.imam_qiyamul_lail.name }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                        </div>
-
-                        <!-- PESERTA -->
-                        <div class="flex max-md:flex-col gap-3">
-                            <button class="btn btn-sm font-normal">
-                                <IconsIkhwan class="w-4" /> Peserta Ikhwan: {{ schedule.total_man }}
-                            </button>
-                            <button class="btn btn-sm font-normal">
-                                <IconsAkhwat class="w-4" /> Peserta Akhwat: {{ schedule.total_woman }}
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                <ItikafCard :schedule="schedule" @toJoin="toJoin(schedule.id)" @toCancelJoin="toCancelJoin(schedule)" />
             </template>
         </div>
     </div>
@@ -173,7 +59,7 @@ definePageMeta({
 import { Carousel, Navigation, Pagination, Slide } from 'vue3-carousel';
 import 'vue3-carousel/dist/carousel.css';
 
-import dayjs from 'dayjs';
+// import dayjs from 'dayjs';
 
 const Itikaf = useItikafStore();
 
