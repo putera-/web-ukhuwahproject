@@ -21,15 +21,18 @@
                     </div>
                     <div class="flex-1 hidden lg:flex lg:justify-center">
                         <!-- Navbar menu content here -->
-                        <ul class="menu menu-horizontal text-lg font-medium">
+                        <ul class="menu menu-horizontal text-lg font-medium gap-2">
                             <li>
                                 <NuxtLink to="/">Beranda</NuxtLink>
                             </li>
                             <li>
                                 <NuxtLink to="/itikaf">Itikaf Ramadhan</NuxtLink>
                             </li>
-                            <li>
+                            <li v-if="!Auth.user">
                                 <NuxtLink to="/auth/login">Login</NuxtLink>
+                            </li>
+                            <li v-if="Auth.user">
+                                <button @click="Auth.logout">Logout</button>
                             </li>
                         </ul>
                     </div>
@@ -69,6 +72,7 @@
 </template>
 
 <script setup lang="ts">
+const Auth = useAuthStore();
 </script>
 
 <style scoped></style>

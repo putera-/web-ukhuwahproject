@@ -13,30 +13,36 @@
                 <!-- form login -->
                 <div class="w-full flex flex-col gap-4">
                     <!-- email -->
-                    <label class="input input-lg border-0 rounded-full bg-[#E8E5F8] flex items-center gap-2">
-                        <input v-model="loginForm.loginid" type="text" class="grow" placeholder="Email"
-                            autocomplete="email" />
-                    </label>
+                    <div>
+                        <label class="input input-lg border-0 rounded-full bg-[#E8E5F8] flex items-center gap-2">
+                            <input v-model="loginForm.email" type="text" class="grow" placeholder="Email"
+                                autocomplete="email" />
+                        </label>
+                        <div class="text-xs text-error my-1" v-if="errors.email">{{ errors.email }}</div>
+                    </div>
                     <!-- password -->
-                    <label class="input input-lg border-0 flex items-center gap-2 rounded-full w-full bg-[#E8E5F8]">
-                        <input v-model="loginForm.password" :type="showPassword ? 'text' : 'password'"
-                            class="grow bg-[#E8E5F8]" placeholder="Password" autocomplete="current-password" />
-                        <div @click="showPassword = !showPassword" class="cursor-pointer">
-                            <IconsEye class="w-4" v-if="!showPassword" />
-                            <IconsEyeSlash class="w-4" v-else />
-                        </div>
-                    </label>
+                    <div>
+                        <label class="input input-lg border-0 flex items-center gap-2 rounded-full w-full bg-[#E8E5F8]">
+                            <input v-model="loginForm.password" :type="showPassword ? 'text' : 'password'"
+                                class="grow bg-[#E8E5F8]" placeholder="Password" autocomplete="current-password" />
+                            <div @click="showPassword = !showPassword" class="cursor-pointer">
+                                <IconsEye class="w-4" v-if="!showPassword" />
+                                <IconsEyeSlash class="w-4" v-else />
+                            </div>
+                        </label>
+                        <div class="text-xs text-error my-1" v-if="errors.password">{{ errors.password }}</div>
+                    </div>
 
                     <!-- remeber & forget password -->
-                    <div class="w-full flex justify-between items-center">
-                        <div class="form-control">
+                    <div v-show="false" class="w-full flex justify-end items-center">
+                        <!-- <div class="form-control">
                             <label class="label cursor-pointer">
                                 <input type="checkbox" class="checkbox checkbox-sm" />
                                 <span class="label-text ml-2 font-semibold text-xs text-[#575F6A]">
                                     Remember me
                                 </span>
                             </label>
-                        </div>
+                        </div> -->
                         <div class="font-semibold text-xs">Forget your password?</div>
                     </div>
 
@@ -61,34 +67,43 @@
 </template>
 
 <script setup lang="ts">
+import Joi from 'joi';
 // import { useAuthStore } from '~/stores/auth-store';
 
 definePageMeta({
-    layout: 'auth'
+    layout: 'auth',
+    middleware: ['auth']
 });
 
 const showPassword = ref(false);
 const isLoading = ref(false);
+const errors = ref({});
 const fetchError = ref('');
 
 const loginForm = ref({
-    loginid: '',
+    email: '',
     password: ''
 });
 
-// const AuthStore = useAuthStore();
-// const doLogin = async (): Promise<void> => {
-//     if (isLoading.value) return;
+const AuthStore = useAuthStore();
+const doLogin = async (): Promise<void> => {
+    if (isLoading.value) return;
 
-//     isLoading.value = true;
-//     try {
-//         await AuthStore.login(loginForm.value);
-//     } catch (error: any) {
-//         // TODO validation error
-//         fetchError.value = error.message;
-//         isLoading.value = false;
-//     }
-// }
+    isLoading.value = true;
+    errors.value = {};
+    fetchError.value = '';
+    try {
+        await AuthStore.login(loginForm.value);
+    } catch (error: any) {
+        if (error instanceof JoiError) {
+            errors.value = error.data
+        } else {
+            fetchError.value = error.message;
+        }
+
+        isLoading.value = false;
+    }
+}
 
 
 </script>

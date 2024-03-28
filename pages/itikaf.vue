@@ -9,7 +9,7 @@
             <Carousel>
                 <Slide v-for="photo in Itikaf.itikaf.photos" :key="photo.id">
                     <div class="carousel__item w-full">
-                        <div class="w-full aspect-video overflow-hidden bg-indigo-500">
+                        <div class="w-full aspect-video overflow-hidden">
                             <img v-if="isURL(photo.path)" :src="photo.path" class="min-w-full min-h-full">
                         </div>
                     </div>
