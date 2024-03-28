@@ -39,11 +39,12 @@
             <template v-for="schedule in Itikaf.schedules" :key="schedule.id">
                 <div class="card shadow-lg bg-white">
                     <!-- schedule.photos -->
-                    <div v-if="schedule.photos" class="w-full h-60 rounded-t-xl overflow-hidden relative">
+                    <div v-if="schedule.photos"
+                        class="w-full h-40 md:h-52 lg:h-60 rounded-t-xl overflow-hidden relative">
                         <div class="w-full h-full bg-gradient-to-t from-white via-white/0 to-white/0 absolute"></div>
                         <img v-if="isURL(schedule.photos[0].path)" :src="schedule.photos[0].path" class="w-full z-10">
                     </div>
-                    <div v-else class="w-full h-60 rounded-t-xl overflow-hidden relative">
+                    <div v-else class="w-full h-40 md:h-52 lg:h-60 rounded-t-xl overflow-hidden relative">
                         <div class="w-full h-full bg-gradient-to-t from-white to-[#F8D7B6] absolute"></div>
                         <!-- <img v-if="isURL(schedule.photos[0].path)" :src="schedule.photos[0].path" class="w-full z-10"> -->
                     </div>
@@ -56,8 +57,11 @@
                             <button v-if="!schedule.auth_participant" @click="toJoin(schedule.id)"
                                 class="btn bg-[#EE9A49] rounded-full px-6">Ikut
                                 Itikaf</button>
-                            <button v-else class="btn btn-success rounded-full px-6">Anda Terdaftar</button>
-                            <button class="btn btn-xs" @click="toCancelJoin(schedule.id)">Batal Hadir</button>
+                            <div v-else class="flex max-md:flex-col gap-2 md:items-end max-md:items-center">
+                                <button class="btn btn-success rounded-full px-6">Anda Terdaftar</button>
+                                <button class="btn btn-xs w-min text-nowrap" @click="toCancelJoin(schedule.id)">Batal
+                                    Hadir</button>
+                            </div>
                         </div>
 
                         <div>{{ schedule.description }}</div>

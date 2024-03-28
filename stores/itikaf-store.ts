@@ -31,7 +31,7 @@ export const useItikafStore = defineStore("itikaf", {
                 this.schedules = await Api.get('/itikaf-schedules') as ItikafSchedule[]
             }
         },
-        async join(data: JoinItikafForm, scheduleId): Promise<void> {
+        async join(data: JoinItikafForm, scheduleId: string): Promise<void> {
             const Api = useApiStore();
 
             data = Validate(isJoinItikaf, data);
@@ -41,13 +41,13 @@ export const useItikafStore = defineStore("itikaf", {
                 delete data.vehicle_no;
             }
 
-            Api.post('/itikaf-schedules/participate/' + scheduleId, data);
+            await Api.post('/itikaf-schedules/participate/' + scheduleId, data);
 
         },
-        async cancelJoin(unparticipate_reason: string, scheduleId): Promise<void> {
+        async cancelJoin(unparticipate_reason: string, scheduleId: string): Promise<void> {
             const Api = useApiStore();
 
-            Api.patch('/itikaf-schedules/unparticipate/' + scheduleId, { unparticipate_reason });
+            await Api.patch('/itikaf-schedules/unparticipate/' + scheduleId, { unparticipate_reason });
         }
     }
 });
