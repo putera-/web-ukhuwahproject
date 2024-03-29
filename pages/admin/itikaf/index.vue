@@ -49,7 +49,7 @@
     <AdminItikafForm v-else />
 
 
-    <AdminItikafScheduleForm :show="showShceduleForm" :data="dataUpdate" @close="showShceduleForm = false"
+    <LazyAdminItikafScheduleForm :show="showShceduleForm" :data="dataUpdate" @close="showShceduleForm = false"
         @saved="showShceduleForm = false; Itikaf.getSchedule();" />
 </template>
 

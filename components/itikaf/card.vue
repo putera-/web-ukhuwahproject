@@ -9,7 +9,7 @@
         <div v-else class="w-full h-40 md:h-52 lg:h-60 rounded-t-xl overflow-hidden relative">
             <div class="w-full h-full bg-gradient-to-t from-white to-[#F8D7B6] absolute"></div>
         </div>
-        <div class="card-body -mt-20 z-20">
+        <div class="card-body max-sm:p-5 -mt-20 z-20">
             <div class="flex max-md:flex-col md:justify-between items-center gap-2">
                 <div>
                     <div class="text-2xl font-medium">Itikaf Malam ke {{ schedule.day_index }}</div>
@@ -61,15 +61,19 @@
                     </button>
                 </div>
 
-                <div v-if="route.path == '/admin/itikaf'" class="flex gap-2">
-                    <!-- <NuxtLink :to="'/admin/itikaf/' + schedule.id" class="btn rounded-full btn-sm bg-[#EE9A49]">
+                <div class="flex gap-2">
+                    <NuxtLink v-if="route.path == '/admin/itikaf'" :to="'/admin/itikaf/' + schedule.id"
+                        class="btn rounded-full btn-sm bg-[#EE9A49]">
                         <LucideEye :size="16" />Detail
-                    </NuxtLink> -->
-                    <button @click="$emit('update', schedule)" class="btn rounded-full btn-sm bg-[#EE9A49]">
+                    </NuxtLink>
+                    <button v-if="route.path.includes('/admin/itikaf')" @click="$emit('update', schedule)"
+                        class="btn rounded-full btn-sm bg-[#EE9A49]">
                         <LucidePencil :size="16" />Ubah
                     </button>
                 </div>
             </div>
+
+            <slot />
         </div>
     </div>
 </template>

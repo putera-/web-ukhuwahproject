@@ -45,6 +45,11 @@ export const useItikafStore = defineStore("itikaf", {
                 this.schedules = await Api.get('/itikaf-schedules/' + this.year) as ItikafSchedule[]
             }
         },
+        async getScheduleById(id: string): Promise<ItikafSchedule> {
+            const Api = useApiStore();
+
+            return await Api.get('/itikaf-schedules/detail/' + id) as ItikafSchedule
+        },
         async join(data: JoinItikafForm, scheduleId: string): Promise<void> {
             const Api = useApiStore();
 
