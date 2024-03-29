@@ -57,9 +57,9 @@
 
 
             <div class="modal-action">
-                <label @click="$emit('close')" class="btn">Cancel</label>
+                <label @click="$emit('close')" class="btn">Tutup</label>
                 <label @click="joinItikaf" class="btn bg-[#EE9A49]">
-                    Ikut
+                    {{ terdaftar ? 'Ubah Data' : 'Ikut' }}
                     <IconsLoading v-show="isLoading" class="w-10" />
                 </label>
             </div>
@@ -80,6 +80,7 @@ const _show = ref(false);
 const isLoading = ref(false);
 const errors = ref<Record<string, any>>({});
 const fetchError = ref('');
+
 watchEffect(() => {
     _show.value = props.show;
 
@@ -96,6 +97,22 @@ const formData = ref<JoinItikafForm>({
     vehicle_type: '',
     vehicle_no: ''
 });
+
+const terdaftar = ref(false);
+onBeforeMount(async () => {
+    const mySchedule = await Itikaf.getMySchedule(props.scheduleId) as ItikafParticipant;
+
+    if (mySchedule) {
+        terdaftar.value = true;
+
+        formData.value = {
+            man: mySchedule.man,
+            woman: mySchedule.woman,
+            vehicle_type: mySchedule.vehicle ? mySchedule.vehicle.vehicle_type : '',
+            vehicle_no: mySchedule.vehicle ? mySchedule.vehicle.vehicle_no : ''
+        }
+    }
+})
 
 const Itikaf = useItikafStore();
 const joinItikaf = async () => {

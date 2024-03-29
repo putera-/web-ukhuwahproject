@@ -20,7 +20,8 @@
                         class="btn bg-[#EE9A49] rounded-full px-6">Ikut
                         Itikaf</button>
                     <div v-else class="flex max-md:flex-col gap-2 md:items-end max-md:items-center">
-                        <button class="btn btn-success rounded-full px-6">Anda Terdaftar</button>
+                        <button @click="$emit('mySchedule')" class="btn btn-success rounded-full px-6">Anda
+                            Terdaftar</button>
                         <button class="btn btn-xs w-min text-nowrap" @click="$emit('toCancelJoin')">Batal
                             Hadir</button>
                     </div>
@@ -74,7 +75,7 @@ defineProps<{
     schedule: ItikafSchedule
 }>();
 
-defineEmits(['toJoin', 'toCancelJoin'])
+defineEmits(['toJoin', 'toCancelJoin', 'mySchedule'])
 
 const route = useRoute();
 </script>

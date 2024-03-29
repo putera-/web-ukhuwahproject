@@ -11,7 +11,7 @@
 
 
             <div class="modal-action">
-                <label @click="$emit('close')" class="btn">Cancel</label>
+                <label @click="$emit('close')" class="btn">Tutup, Saya tetap I'tikaf</label>
                 <label @click="notJoinItikaf" class="btn bg-[#EE9A49]">
                     Batal Ikut
                     <IconsLoading v-show="isLoading" class="w-10" />

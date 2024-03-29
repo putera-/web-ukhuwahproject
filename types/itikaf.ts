@@ -45,7 +45,7 @@ interface ItikafSchedule {
     deleted: boolean
     createdAt: Date
     updatedAt: Date
-    // participants?: ItikafParticipant[]
+    participants?: ItikafParticipant[]
     imam_tarawih?: Asaatidz
     imam_tarawih_id?: String
     imam_qiyamul_lail?: Asaatidz
@@ -56,4 +56,32 @@ interface ItikafSchedule {
     total_man?: number
     total_woman?: number
     auth_participant?: boolean
+}
+
+export interface ItikafParticipant {
+    id: string
+    user?: User
+    userId: string
+    schedule?: ItikafSchedule
+    scheduleId: string
+    total_member: number
+    man: number
+    woman: number
+    vehicle?: Vehicle
+    vehicleId?: string
+    participate: boolean
+    unparticipate_reason?: string
+    createdAt?: Date
+    updatedAt?: Date
+}
+
+export interface Vehicle {
+    id: string
+    user?: User
+    userId: string
+    vehicle_type?: 'Motor' | 'Mobil'
+    vehicle_no?: string
+    createdAt?: Date
+    updatedAt?: Date
+    ItikafParticipant?: ItikafParticipant[]
 }

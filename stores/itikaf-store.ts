@@ -48,6 +48,11 @@ export const useItikafStore = defineStore("itikaf", {
             const Api = useApiStore();
 
             await Api.patch('/itikaf-schedules/unparticipate/' + scheduleId, { unparticipate_reason });
+        },
+        async getMySchedule(scheduleId: string): Promise<ItikafParticipant> {
+            const Api = useApiStore();
+
+            return Api.get('/itikaf-participants/me/' + scheduleId) as ItikafParticipant;
         }
     }
 });
