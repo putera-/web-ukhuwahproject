@@ -155,7 +155,9 @@ const Auth = useAuthStore();
 
 const Client = useClientStore();
 const Itikaf = useItikafStore();
+const Shalat = useShalatStore()
 if (!Client.client) Client.get();
 if (!Itikaf.itikaf) Itikaf.get();
+if (!Shalat.data) Shalat.get();
 
 </script>

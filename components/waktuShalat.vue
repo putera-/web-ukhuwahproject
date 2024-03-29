@@ -5,7 +5,7 @@
                 <div class="col-span-10 lg:col-span-4 flex max-md:flex-col lg:flex-col max-lg:items-center gap-4">
                     <div class="flex flex-col max-md:text-center">
                         <div class="text-lg md:text-xl lg:text-2xl">Andara, Jakarta Selatan</div>
-                        <div class="max-lg:text-sm">Khutbah Jumat, 29 Maret 2024</div>
+                        <div class="max-lg:text-sm">Khutbah {{ dayjs().format('dddd, D MMM YYYY') }}</div>
                     </div>
                     <div class="card bg-[#F8D7B6] max-md:w-full max-lg:grow">
                         <div class="card-body w-full p-2 md:p-4">
@@ -26,7 +26,12 @@
                     </div>
                 </div>
                 <div class="col-span-10 lg:col-span-6 md:px-4 max-md:text-sm">
-                    <div class="text-center text-gray-600 my-2 lg:my-6">Jagakarsa, Jakarta Selatan</div>
+                    <div class="my-2 lg:my-6">
+                        <div class="text-center text-gray-600 font-semibold">Jagakarsa, Jakarta Selatan</div>
+                        <div class="text-center text-gray-600 text-sm">
+                            {{ dayjs().format('dddd, D MMM YYYY') }}
+                        </div>
+                    </div>
                     <div class="w-full grid grid-cols-5 md:my-2">
                         <div class="text-center">FAJR</div>
                         <div class="text-center">DZHUHR</div>
@@ -35,14 +40,21 @@
                         <div class="text-center">ISYA</div>
                     </div>
                     <div class="w-full grid grid-cols-5 bg-[#FEF5ED] rounded-xl py-3">
-                        <div class="text-center">04:35</div>
-                        <div class="text-center">11:50</div>
-                        <div class="text-center">15:35</div>
-                        <div class="text-center">18:10</div>
-                        <div class="text-center">19:20</div>
+                        <div class="text-center">{{ dayjs(Shalat.fajr).format('HH:mm') }}</div>
+                        <div class="text-center">{{ dayjs(Shalat.dhuhr).format('HH:mm') }}</div>
+                        <div class="text-center">{{ dayjs(Shalat.asr).format('HH:mm') }}</div>
+                        <div class="text-center">{{ dayjs(Shalat.marghrib).format('HH:mm') }}</div>
+                        <div class="text-center">{{ dayjs(Shalat.isha).format('HH:mm') }}</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </template>
+
+<script setup lang="ts">
+import dayjs from 'dayjs';
+import 'dayjs/locale/id';
+dayjs.locale('id')
+const Shalat = useShalatStore();
+</script>
