@@ -16,12 +16,12 @@
                     <div>{{ dayjs(schedule.date).format('DD MMM YYYY') }}</div>
                 </div>
                 <template v-if="route.path == '/itikaf'">
-                    <button v-if="!schedule.auth_participant" @click="$emit('toJoin', schedule.id)"
+                    <button v-if="!schedule.auth_participant" @click="$emit('toJoin')"
                         class="btn bg-[#EE9A49] rounded-full px-6">Ikut
                         Itikaf</button>
                     <div v-else class="flex max-md:flex-col gap-2 md:items-end max-md:items-center">
                         <button class="btn btn-success rounded-full px-6">Anda Terdaftar</button>
-                        <button class="btn btn-xs w-min text-nowrap" @click="$emit('toCancelJoin', schedule.id)">Batal
+                        <button class="btn btn-xs w-min text-nowrap" @click="$emit('toCancelJoin')">Batal
                             Hadir</button>
                     </div>
                 </template>

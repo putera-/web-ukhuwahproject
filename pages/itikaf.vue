@@ -37,7 +37,8 @@
         <div class="text-xl font-semibold mt-10">JADWAL I'TIKAF</div>
         <div class="flex flex-col gap-6 mt-6">
             <template v-for="schedule in Itikaf.schedules" :key="schedule.id">
-                <ItikafCard :schedule="schedule" @toJoin="toJoin(schedule.id)" @toCancelJoin="toCancelJoin(schedule)" />
+                <ItikafCard :schedule="schedule" @toJoin="toJoin(schedule.id)"
+                    @toCancelJoin="toCancelJoin(schedule.id)" />
             </template>
         </div>
     </div>
