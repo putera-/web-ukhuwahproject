@@ -10,13 +10,18 @@
 <script setup lang="ts">
 
 interface Menu {
-    label: string
+    title: string
     icon: any
     to?: string
     children?: Menu[]
 }
 
 const menus: Menu[] = [
+    {
+        title: "Home Page",
+        to: "/",
+        icon: resolveComponent("IconsMosque")
+    },
     {
         title: "Dashbord",
         to: "/admin",

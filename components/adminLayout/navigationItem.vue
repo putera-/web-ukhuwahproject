@@ -2,7 +2,7 @@
     <!--Tidak punya children-->
     <li v-if="!menu.children">
         <NuxtLink :to="menu.to">
-            <component :is="menu.icon" :size="20" /> {{ menu.title }}
+            <component :is="menu.icon" :size="20" class="w-6" /> {{ menu.title }}
         </NuxtLink>
     </li>
 
