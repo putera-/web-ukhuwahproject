@@ -1,12 +1,12 @@
 <template>
     <div class="drawer font-poppins" v-if="Client.client">
-        <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
+        <input v-model="showdrawer" type="checkbox" class="drawer-toggle" />
         <div class="drawer-content flex flex-col relative bg-gradient-to-bl from-[#FEF5ED] to-[#F8D7B6]">
             <!-- Navbar -->
             <div class="w-full max-w-7xl h-0 relative mx-auto z-10">
                 <div class="absolute w-full navbar">
                     <div class="flex-none lg:hidden">
-                        <label for="my-drawer-3" aria-label="open sidebar" class="btn btn-square btn-ghost">
+                        <label @click="showdrawer = true" aria-label="open sidebar" class="btn btn-square btn-ghost">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 class="inline-block w-6 h-6 stroke-current">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -14,7 +14,7 @@
                             </svg>
                         </label>
                     </div>
-                    <div class="lg:absolute px-2 mx-2 gap-3 text-xl font-semibold" v-if="Client.client">
+                    <NuxtLink to="/" class="lg:absolute px-2 mx-2 gap-3 text-xl font-semibold" v-if="Client.client">
                         <!-- LOGO -->
                         <template v-if="Client.client.logo">
                             <img v-if="isURL(Client.client.logo)" :src="Client.client.logo"
@@ -28,7 +28,7 @@
                             <div class="uppercase">{{ Client.client.name }}</div>
                             <div class="text-xs font-normal text-slate-500">{{ Client.client.slogan }}</div>
                         </div>
-                    </div>
+                    </NuxtLink>
                     <div class="flex-1 hidden lg:flex lg:justify-center">
                         <!-- Navbar menu content here -->
                         <ul class="menu menu-horizontal text-lg font-medium gap-2">
@@ -44,8 +44,7 @@
                             <li v-if="Auth.user">
                                 <details>
                                     <summary>
-                                        <div tabindex="0" role="button"
-                                            class="btn w-8 h-8 min-h-8 btn-circle overflow-hidden">
+                                        <div class="btn w-8 h-8 min-h-8 btn-circle overflow-hidden">
                                             <img v-if="Auth.user.avatar" :src="apiUri + Auth.user.avatar_md"
                                                 class="min-w-full min-h-full">
                                             <LucideUser v-else :size="24" class="text-primary" />
@@ -73,11 +72,12 @@
             <DefaultFooter />
         </div>
         <div class="drawer-side z-50">
-            <label for="my-drawer-3" aria-label="close sidebar" class="drawer-overlay"></label>
+            <label @click="showdrawer = false" aria-label="close sidebar" class="drawer-overlay"></label>
             <!-- Sidebar content here -->
             <div class="p-4 w-80 min-h-full bg-base-200">
-                <div class="flex flex-col justify-center items-center gap-4 text-xl font-semibold">
 
+                <NuxtLink to="/" @click="showdrawer = false"
+                    class="flex flex-col justify-center items-center gap-4 text-xl font-semibold">
                     <!-- LOGO -->
                     <template v-if="Client.client.logo">
                         <img v-if="isURL(Client.client.logo)" :src="Client.client.logo"
@@ -90,26 +90,37 @@
                         <div class="leading-4 uppercase">{{ Client.client.name }}</div>
                         <div class="text-xs font-normal text-slate-500">{{ Client.client.slogan }}</div>
                     </div>
+                </NuxtLink>
 
-                </div>
-                <div v-if="Auth.user" class="text-center mt-10">
-                    <div class="text-sm font-semibold">{{ Auth.user.name }}</div>
-                    <div class="text-xs">{{ Auth.user.email }}</div>
+                <div v-if="Auth.user" class="flex items-center gap-2 mt-10 mx-4">
+                    <div class="btn w-8 h-8 min-h-8 btn-circle overflow-hidden">
+                        <img v-if="Auth.user.avatar" :src="apiUri + Auth.user.avatar_md" class="min-w-full min-h-full">
+                        <LucideUser v-else :size="24" class="text-primary" />
+                    </div>
+                    <div class="">
+                        <div class="text-sm font-semibold">{{ Auth.user.name }}</div>
+                        <div class="text-xs">{{ Auth.user.email }}</div>
+                    </div>
+                    <div class="grow flex justify-end">
+                        <NuxtLink to="/profile" @click="showdrawer = false" class="btn btn-circle btn-sm bg-[#EE9A49]">
+                            <LucidePencil :size="16" />
+                        </NuxtLink>
+                    </div>
                 </div>
                 <div class="divider mt-0"></div>
                 <ul class="menu">
                     <li>
-                        <NuxtLink to="/" class="flex items-center">
+                        <NuxtLink to="/" @click="showdrawer = false" class="flex items-center">
                             <IconsHome class="w-5" /> Beranda
                         </NuxtLink>
                     </li>
                     <li>
-                        <NuxtLink to="/itikaf" class="flex items-center">
+                        <NuxtLink to="/itikaf" @click="showdrawer = false" class="flex items-center">
                             <IconsPray class="w-5" /> Itikaf Ramadhan
                         </NuxtLink>
                     </li>
                     <li v-if="!Auth.user">
-                        <NuxtLink to="/auth/login" class="flex items-center">
+                        <NuxtLink to="/auth/login" @click="showdrawer = false" class="flex items-center">
                             <IconsEnter class="w-5" /> Login
                         </NuxtLink>
                     </li>
@@ -124,6 +135,8 @@
 
 <script setup lang="ts">
 import 'vue3-toastify/dist/index.css';
+
+const showdrawer = ref(false);
 
 const Auth = useAuthStore();
 
