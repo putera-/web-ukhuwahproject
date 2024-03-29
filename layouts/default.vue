@@ -41,27 +41,32 @@
                             <li v-if="!Auth.user">
                                 <NuxtLink to="/auth/login">Login</NuxtLink>
                             </li>
-                            <li v-if="Auth.user">
-                                <details>
-                                    <summary>
-                                        <div class="btn w-8 h-8 min-h-8 btn-circle overflow-hidden">
-                                            <img v-if="Auth.user.avatar" :src="apiUri + Auth.user.avatar_md"
-                                                class="min-w-full min-h-full">
-                                            <LucideUser v-else :size="24" class="text-primary" />
-                                        </div>
-                                        <div>{{ Auth.user.name }}</div>
-                                    </summary>
-                                    <ul
-                                        class="p-2 bg-gradient-to-bl from-[#FEF5ED] to-[#F8D7B6] rounded-lg z-[100] flex flex-col gap-2">
-                                        <li>
-                                            <NuxtLink to="/profile" class="font-normal text-sm">Profile</NuxtLink>
-                                        </li>
-                                        <li><button class="bg-[#EE9A49] btn btn-sm font-normal text-sm"
-                                                @click="Auth.logout">Logout</button>
-                                        </li>
-                                    </ul>
-                                </details>
-                            </li>
+                            <template v-if="Auth.user">
+                                <li>
+                                    <details>
+                                        <summary>
+                                            <div class="btn w-8 h-8 min-h-8 btn-circle overflow-hidden">
+                                                <img v-if="Auth.user.avatar" :src="apiUri + Auth.user.avatar_md"
+                                                    class="min-w-full min-h-full">
+                                                <LucideUser v-else :size="24" class="text-primary" />
+                                            </div>
+                                            <div>{{ Auth.user.name }}</div>
+                                        </summary>
+                                        <ul
+                                            class="p-2 bg-gradient-to-bl from-[#FEF5ED] to-[#F8D7B6] rounded-lg z-[100] flex flex-col gap-2">
+                                            <li>
+                                                <NuxtLink to="/profile" class="font-normal text-sm">Profile</NuxtLink>
+                                            </li>
+                                            <li><button class="bg-[#EE9A49] btn btn-sm font-normal text-sm"
+                                                    @click="Auth.logout">Logout</button>
+                                            </li>
+                                        </ul>
+                                    </details>
+                                </li>
+                                <li v-if="Auth.user.role != 'MEMBER'">
+                                    <NuxtLink to="/admin">Admin Portal</NuxtLink>
+                                </li>
+                            </template>
                         </ul>
                     </div>
                 </div>
@@ -124,9 +129,17 @@
                             <IconsEnter class="w-5" /> Login
                         </NuxtLink>
                     </li>
-                    <li v-if="Auth.user" class="mt-2">
-                        <button class="bg-[#EE9A49] btn btn-sm" @click="Auth.logout">Logout</button>
-                    </li>
+                    <template v-if="Auth.user">
+                        <li>
+                            <NuxtLink v-if="Auth.user.role != 'MEMBER'" to="/admin" @click="showdrawer = false"
+                                class="flex items-center">
+                                <IconsEnter class="w-5" /> Admin Portal
+                            </NuxtLink>
+                        </li>
+                        <li class="mt-2">
+                            <button class="bg-[#EE9A49] btn btn-sm" @click="Auth.logout">Logout</button>
+                        </li>
+                    </template>
                 </ul>
             </div>
         </div>
