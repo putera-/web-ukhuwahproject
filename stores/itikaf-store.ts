@@ -20,7 +20,9 @@ export const useItikafStore = defineStore("itikaf", {
     actions: {
         async get(): Promise<void> {
             const Api = useApiStore();
-            this.itikaf = await Api.get('/itikafs/1445') as Itikaf
+            const itikaf = await Api.get('/itikafs/1445') as Itikaf;
+
+            if (itikaf) this.itikaf = itikaf;
         },
         async getSchedule(): Promise<void> {
             const Api = useApiStore();

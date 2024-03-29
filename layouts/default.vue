@@ -35,7 +35,7 @@
                             <li>
                                 <NuxtLink to="/">Beranda</NuxtLink>
                             </li>
-                            <li>
+                            <li v-if="Itikaf.itikaf">
                                 <NuxtLink to="/itikaf">Itikaf Ramadhan</NuxtLink>
                             </li>
                             <li v-if="!Auth.user">
@@ -119,7 +119,7 @@
                             <IconsHome class="w-5" /> Beranda
                         </NuxtLink>
                     </li>
-                    <li>
+                    <li v-if="Itikaf.itikaf">
                         <NuxtLink to="/itikaf" @click="showdrawer = false" class="flex items-center">
                             <IconsPray class="w-5" /> Itikaf Ramadhan
                         </NuxtLink>
@@ -154,6 +154,8 @@ const showdrawer = ref(false);
 const Auth = useAuthStore();
 
 const Client = useClientStore();
+const Itikaf = useItikafStore();
 if (!Client.client) Client.get();
+if (!Itikaf.itikaf) Itikaf.get();
 
 </script>
