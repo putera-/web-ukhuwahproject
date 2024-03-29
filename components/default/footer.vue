@@ -12,7 +12,7 @@
                 <IconsMosque v-else class="w-40" />
 
                 <div class="flex flex-col gap-1 text-center">
-                    <div class="leading-4 uppercase text-2xl">{{ Client.client.name }}</div>
+                    <div class="uppercase text-2xl">{{ Client.client.name }}</div>
                     <div class="text-sm font-normal text-slate-500">{{ Client.client.slogan }}</div>
                 </div>
 

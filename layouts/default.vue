@@ -1,5 +1,5 @@
 <template>
-    <div class="drawer font-poppins">
+    <div class="drawer font-poppins" v-if="Client.client">
         <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
         <div class="drawer-content flex flex-col relative bg-gradient-to-bl from-[#FEF5ED] to-[#F8D7B6]">
             <!-- Navbar -->
@@ -24,8 +24,8 @@
                         </template>
                         <IconsMosque v-else class="w-10" />
 
-                        <div class="flex flex-col gap-1">
-                            <div class="leading-4 uppercase">{{ Client.client.name }}</div>
+                        <div class="flex flex-col">
+                            <div class="uppercase">{{ Client.client.name }}</div>
                             <div class="text-xs font-normal text-slate-500">{{ Client.client.slogan }}</div>
                         </div>
                     </div>
@@ -113,5 +113,8 @@
 
 <script setup lang="ts">
 const Auth = useAuthStore();
+
 const Client = useClientStore();
+if (!Client.client) Client.get();
+
 </script>
