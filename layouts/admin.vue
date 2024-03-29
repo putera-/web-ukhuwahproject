@@ -101,7 +101,7 @@
                             class="menu bg-neutral p-4 lg:rounded-l-3xl w-[250px] max-lg:min-h-screen lg:min-h-full text-white">
 
                             <NuxtLink to="/admin"
-                                class="lg:absolute px-2 mx-2 text-xl font-semibold flex flex-col items-center gap-3"
+                                class="md:hidden px-2 mx-2 text-xl font-semibold flex flex-col items-center gap-3"
                                 v-if="Client.client">
                                 <!-- LOGO -->
                                 <template v-if="Client.client.logo">
