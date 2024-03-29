@@ -6,22 +6,9 @@
                 Itikaf Ramadhan {{ Itikaf.itikaf.hijri_year }} / {{ Itikaf.itikaf.year }}
             </div>
 
-            <Carousel>
-                <Slide v-for="photo in Itikaf.itikaf.photos" :key="photo.id">
-                    <div class="carousel__item w-full">
-                        <div class="w-full aspect-video overflow-hidden">
-                            <img v-if="isURL(photo.path)" :src="photo.path" class="min-w-full min-h-full">
-                        </div>
-                    </div>
-                </Slide>
-
-                <template #addons>
-                    <Navigation />
-                    <Pagination />
-                </template>
-            </Carousel>
-
-            <!-- SLIDER -->
+            <div class="w-full aspect-video overflow-hidden">
+                <img v-if="isURL(Itikaf.itikaf.photo)" :src="Itikaf.itikaf.photo" class="min-w-full min-h-full">
+            </div>
 
             <!-- DESKRIPSI -->
             <div>{{ Itikaf.itikaf.description }}</div>
@@ -54,8 +41,6 @@
 </template>
 
 <script setup lang="ts">
-import { Carousel, Navigation, Pagination, Slide } from 'vue3-carousel';
-import 'vue3-carousel/dist/carousel.css';
 
 definePageMeta({
     middleware: ['onlyauth']

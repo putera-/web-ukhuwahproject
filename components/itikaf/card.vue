@@ -1,13 +1,12 @@
 <template>
     <div class="card shadow-lg bg-white rounded-2xl overflow-hidden">
-        <!-- schedule.photos -->
-        <div v-if="schedule.photos" class="w-full h-40 md:h-52 lg:h-60 rounded-t-xl overflow-hidden relative">
+        <!-- schedule.photo -->
+        <div v-if="schedule.photo" class="w-full h-40 md:h-52 lg:h-60 rounded-t-xl overflow-hidden relative">
             <div class="w-full h-full bg-gradient-to-t from-white via-white/0 to-white/0 absolute"></div>
-            <img v-if="isURL(schedule.photos[0].path)" :src="schedule.photos[0].path" class="w-full z-10">
+            <img v-if="isURL(schedule.photo)" :src="schedule.photo" class="w-full z-10">
         </div>
         <div v-else class="w-full h-40 md:h-52 lg:h-60 rounded-t-xl overflow-hidden relative">
             <div class="w-full h-full bg-gradient-to-t from-white to-[#F8D7B6] absolute"></div>
-            <!-- <img v-if="isURL(schedule.photos[0].path)" :src="schedule.photos[0].path" class="w-full z-10"> -->
         </div>
         <div class="card-body -mt-20 z-20">
             <div class="flex max-md:flex-col md:justify-between items-center gap-2">
@@ -61,9 +60,10 @@
                     </button>
                 </div>
 
-                <button v-if="route.path == '/admin/itikaf'" class="btn rounded-full btn-sm bg-[#EE9A49]">
+                <NuxtLink :to="'/admin/itikaf/' + schedule.id" v-if="route.path == '/admin/itikaf'"
+                    class="btn rounded-full btn-sm bg-[#EE9A49]">
                     <LucideEye :size="16" />Detail
-                </button>
+                </NuxtLink>
             </div>
         </div>
     </div>

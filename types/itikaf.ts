@@ -3,7 +3,7 @@ interface Itikaf {
     year: string
     hijri_year: string
     description: string
-    photos?: Photo[]
+    photo: string
     contact_person_name?: string
     contact_person_phone?: string
     // createdBy?: User
@@ -41,7 +41,7 @@ interface ItikafSchedule {
     date: string
     day_index: number
     description: string
-    photos?: Photo[]
+    photo: string
     deleted: boolean
     createdAt: Date
     updatedAt: Date
