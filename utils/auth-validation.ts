@@ -31,3 +31,8 @@ export const changePassword = Joi.object({
             }
         })
 });
+
+export const changeProfile = Joi.object({
+    name: isString.required(),
+    phone: isPhone.required()
+})

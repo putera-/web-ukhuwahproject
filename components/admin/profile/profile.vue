@@ -3,7 +3,7 @@
         <div>
             <div class="w-full max-w-xs">
                 <div class="w-48 lg:w-52 xl:w-60 aspect-square rounded-2xl overflow-hidden mx-auto">
-                    <img v-if="form.avatar" :src="form.avatar" class="min-w-full min-h-full">
+                    <img v-if="avatar_preview" :src="avatar_preview" class="min-w-full min-h-full">
                     <div v-else class="bg-neutral/50 w-full h-full">
                     </div>
                 </div>
@@ -13,12 +13,22 @@
 
             <label class="form-control w-full max-w-xs">
                 <div class="label">
-                    <span class="label-text">Name</span>
+                    <span class="label-text">Nama</span>
                 </div>
-                <input v-model="form.name" type="text" placeholder="Type here"
+                <input v-model="form.name" type="text" placeholder="Nama"
                     class="input input-lg border-0 input-bordered w-full max-w-xs rounded-full bg-[#E8E5F8]" />
                 <div class="label">
                     <span class="label-text-alt text-error" v-if="errors.name">{{ errors.name }}</span>
+                </div>
+            </label>
+            <label class="form-control w-full max-w-xs">
+                <div class="label">
+                    <span class="label-text">No Telpon</span>
+                </div>
+                <input v-model="form.phone" type="text" placeholder="No Telpon" v-maska data-maska="+62 ###-####-#####"
+                    class="input input-lg border-0 input-bordered w-full max-w-xs rounded-full bg-[#E8E5F8]" />
+                <div class="label">
+                    <span class="label-text-alt text-error" v-if="errors.phone">{{ errors.phone }}</span>
                 </div>
             </label>
         </div>
@@ -42,11 +52,13 @@ import { toast } from 'vue3-toastify';
 
 // const { public: { apiUri } } = useRuntimeConfig();
 const Auth = useAuthStore();
-const form = ref({
-    name: Auth.user.name,
-    avatar: Auth.user.avatar ? apiUri + Auth.user.avatar_md : undefined
-})
 
+const form = ref({
+    name: Auth.user!.name,
+    phone: Auth.user!.phone,
+});
+
+const avatar_preview = ref(Auth.user!.avatar ? apiUri + Auth.user!.avatar_md : undefined)
 
 const fileInput = ref<HTMLInputElement | null>(null);
 let avatar: File | null;
@@ -61,11 +73,11 @@ const handleAvatar = (e: Event): void => {
         avatar = files![0];
 
         // reset image preview
-        form.value.avatar = '';
+        avatar_preview.value = '';
 
         const reader = new FileReader();
         reader.onload = () => {
-            form.value.avatar = reader.result as string;
+            avatar_preview.value = reader.result as string;
         };
         reader.readAsDataURL(avatar);
     }
@@ -81,8 +93,9 @@ const doUpdate = async () => {
     errors.value = {};
 
     try {
-        const name = Validate(isString.label('name'), form.value.name);
+        const { name, phone } = Validate(changeProfile, form.value);
         formData.append('name', name)
+        formData.append('phone', phone)
 
         if (avatar) {
             // format dob because FormData only accept string
