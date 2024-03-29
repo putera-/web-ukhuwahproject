@@ -60,6 +60,14 @@ const handleUpdate = async () => {
     try {
         await Auth.changePassword(formData.value);
         confirmUpdate.value = false;
+
+        // RESET
+        formData.value = {
+            old_password: '',
+            password: '',
+            confirm_password: ''
+        };
+
         toast.success('Success', {
             autoClose: 500
         });

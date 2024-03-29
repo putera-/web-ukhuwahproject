@@ -123,6 +123,8 @@
 </template>
 
 <script setup lang="ts">
+import 'vue3-toastify/dist/index.css';
+
 const Auth = useAuthStore();
 
 const Client = useClientStore();
