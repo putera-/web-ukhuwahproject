@@ -19,10 +19,26 @@
             <div class="h-full flex items-center lg:divide-x divide-gray/20">
 
                 <!-- sisi kiri -->
-                <a href="" class="max-lg:hidden flex-none flex gap-4 items-center pr-4">
+                <!-- <a href="" class="max-lg:hidden flex-none flex gap-4 items-center pr-4">
                     <img src="/uplogo.png" class="h-10">
                     <div class="font-semibold text-lg">Ukhuwah Project</div>
-                </a>
+                </a> -->
+
+                <NuxtLink to="/admin" class="lg:absolute px-2 mx-2 text-xl font-semibold flex gap-4 items-center"
+                    v-if="Client.client">
+                    <!-- LOGO -->
+                    <template v-if="Client.client.logo">
+                        <img v-if="isURL(Client.client.logo)" :src="Client.client.logo"
+                            :alt="Client.client.name + 'Logo'" class="w-10">
+                        <img v-else :src="apiUri + Client.client.logo" :alt="Client.client.name + 'Logo'" class="w-10">
+                    </template>
+                    <IconsMosque v-else class="w-10" />
+
+                    <div class="flex flex-col">
+                        <div class="uppercase">{{ Client.client.name }}</div>
+                        <div class="text-xs font-normal text-slate-500">{{ Client.client.slogan }}</div>
+                    </div>
+                </NuxtLink>
 
                 <!-- sisi kanan -->
                 <div class="grow flex justify-end items-center lg:pl-4">
@@ -74,15 +90,37 @@
                 <!-- MAIN CONTENT -->
                 <div class="z-0 lg:z-[1] drawer-content bg-neutral max-lg:rounded-2xl rounded-r-2xl lg:rounded-r-3xl">
                     <div
-                        class="w-full min-h-[75vh] lg:min-h-[83vh] rounded-2xl lg:rounded-3xl p-3 lg:p-8 bg-gradient-to-l from-[#FEF5ED] to-[#F8D7B6]">
+                        class="w-full min-h-[75vh] lg:min-h-[83vh] rounded-2xl lg:rounded-3xl p-3 md:p-8 bg-gradient-to-l from-[#FEF5ED] to-[#F8D7B6]">
                         <slot />
                     </div>
                 </div>
                 <div class="drawer-side h-full lg:!inline-table lg:bg-neutral rounded-l-0 lg:rounded-l-3xl">
                     <label for="menu-toggle" aria-label="close sidebar" class="drawer-overlay"></label>
                     <div class="lg:w-full min-h-full lg:z-[1]">
-                        <!-- NAVIGATION -->
-                        <AdminLayoutNavigation />
+                        <div
+                            class="menu bg-neutral p-4 lg:rounded-l-3xl w-[250px] max-lg:min-h-screen lg:min-h-full text-white">
+
+                            <NuxtLink to="/admin"
+                                class="lg:absolute px-2 mx-2 text-xl font-semibold flex flex-col items-center gap-3"
+                                v-if="Client.client">
+                                <!-- LOGO -->
+                                <template v-if="Client.client.logo">
+                                    <img v-if="isURL(Client.client.logo)" :src="Client.client.logo"
+                                        :alt="Client.client.name + 'Logo'" class="w-28">
+                                    <img v-else :src="apiUri + Client.client.logo" :alt="Client.client.name + 'Logo'"
+                                        class="w-28">
+                                </template>
+                                <IconsMosque v-else class="w-28" />
+
+                                <div class="flex flex-col text-center">
+                                    <div class="uppercase">{{ Client.client.name }}</div>
+                                    <div class="text-xs font-normal text-slate-500">{{ Client.client.slogan }}</div>
+                                </div>
+                            </NuxtLink>
+
+                            <!-- NAVIGATION -->
+                            <AdminLayoutNavigation />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -92,6 +130,9 @@
 
 <script setup>
 import 'vue3-toastify/dist/index.css';
+
+const Client = useClientStore();
+if (!Client.client) Client.get();
 
 
 const Auth = useAuthStore();

@@ -104,7 +104,6 @@ const doUpdate = async () => {
         });
     } catch (error: any) {
         if (error instanceof JoiError) {
-            console.log(error.data);
             errors.value = error.data
         } else {
             responseError.value = error.message;

@@ -1,5 +1,5 @@
 <template>
-    <ul class="side-menu menu bg-neutral lg:rounded-l-3xl p-4 w-[250px] max-lg:min-h-screen lg:min-h-full text-white">
+    <ul class="side-menu">
         <li class="my-2 font-semibold">M A I N _ M E N U</li>
         <template v-for="(menu, i) in menus" :key="i">
             <AdminLayoutNavigationItem :menu="menu" />
@@ -32,11 +32,11 @@ const menus: Menu[] = [
         to: "/admin/itikaf",
         icon: resolveComponent("LucideBriefcase")
     },
-    // {
-    //     title: "Education",
-    //     to: "/admin/education",
-    //     icon: resolveComponent("LucideGraduationCap"),
-    // },
+    {
+        title: "Asaatidz",
+        to: "/admin/asaatidz",
+        icon: resolveComponent("LucideGraduationCap"),
+    },
     // {
     //     title: "Experience",
     //     to: "/admin/experience",
