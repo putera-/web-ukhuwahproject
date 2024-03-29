@@ -103,7 +103,6 @@ const doUpdate = async () => {
             autoClose: 3000
         });
     } catch (error: any) {
-        console.log(error);
         if (error instanceof JoiError) {
             console.log(error.data);
             errors.value = error.data

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="Itikaf.itikaf">
         <!-- ITIKAF -->
         <div v-if="Itikaf.itikaf">
             <div class="flex justify-between items-center gap-2">
@@ -12,16 +12,17 @@
                 </button>
             </div>
             <!-- schedule.photos -->
-            <div v-if="Itikaf.itikaf.photos" class="w-full h-40 md:h-52 lg:h-60 rounded-t-xl overflow-hidden relative">
+            <div v-if="Itikaf.itikaf.photo" class="w-full h-40 md:h-52 lg:h-60 rounded-t-xl overflow-hidden relative">
                 <div class="w-full h-full bg-gradient-to-t from-white via-white/0 to-white/0 absolute"></div>
-                <img v-if="isURL(Itikaf.itikaf.photos[0].path)" :src="Itikaf.itikaf.photos[0].path" class="w-full z-10">
+                <img v-if="isURL(Itikaf.itikaf.photo)" :src="Itikaf.itikaf.photo" class="w-full z-10">
+                <img v-else :src="apiUri + Itikaf.itikaf.photo" class="w-full z-10">
             </div>
             <div v-else class="w-full h-40 md:h-52 lg:h-60 rounded-t-xl overflow-hidden relative">
                 <div class="w-full h-full bg-gradient-to-t from-white to-[#F8D7B6] absolute"></div>
             </div>
 
 
-            <div class="mt-2">{{ Itikaf.itikaf.description }}</div>
+            <div class="mt-2 whitespace-pre-wrap">{{ Itikaf.itikaf.description }}</div>
         </div>
         <div>
             <div class="mt-2 text-xl font-semibold">Jadwal I'tikaf</div>
@@ -34,11 +35,12 @@
             </div>
         </div>
     </div>
+
+    <!-- CREATE ITIKAF -->
+    <AdminItikafForm v-else />
 </template>
 
 <script setup lang="ts">
-import dayjs from 'dayjs';
-import { useRoute } from 'vue-router';
 
 definePageMeta({
     layout: 'admin',

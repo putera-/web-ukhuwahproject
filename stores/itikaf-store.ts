@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 interface ItikafState {
     itikaf?: Itikaf
     schedules: ItikafSchedule[]
+    year: string
 }
 
 interface JoinItikafForm {
@@ -15,22 +16,28 @@ interface JoinItikafForm {
 export const useItikafStore = defineStore("itikaf", {
     state: (): ItikafState => ({
         itikaf: undefined,
-        schedules: []
+        schedules: [],
+        year: new Intl.DateTimeFormat('ar-TN-u-ca-islamic', { year: 'numeric' }).format(Date.now()).split(' ')[0]
     }),
     actions: {
         async get(): Promise<void> {
             const Api = useApiStore();
-            const itikaf = await Api.get('/itikafs/1445') as Itikaf;
+            const itikaf = await Api.get('/itikafs/' + this.year) as Itikaf;
 
             if (itikaf) this.itikaf = itikaf;
+        },
+        async create(data: FormData) {
+            const Api = useApiStore();
+
+            this.itikaf = await Api.post('/itikafs/' + this.year, data);
         },
         async getSchedule(): Promise<void> {
             const Api = useApiStore();
             const Auth = useAuthStore();
             if (Auth.user) {
-                this.schedules = await Api.get('/itikaf-schedules/me') as ItikafSchedule[]
+                this.schedules = await Api.get('/itikaf-schedules/me/' + this.year) as ItikafSchedule[]
             } else {
-                this.schedules = await Api.get('/itikaf-schedules') as ItikafSchedule[]
+                this.schedules = await Api.get('/itikaf-schedules/' + this.year) as ItikafSchedule[]
             }
         },
         async join(data: JoinItikafForm, scheduleId: string): Promise<void> {
