@@ -67,6 +67,14 @@ export const useItikafStore = defineStore("itikaf", {
             const Api = useApiStore();
 
             return Api.get('/itikaf-participants/me/' + scheduleId) as ItikafParticipant;
+        },
+        async createSchedule(data: FormData) {
+            const Api = useApiStore();
+            if (!this.itikaf) throw new Error('Buat Data Itikaf terlebih dahulu')
+            data.append('itikafId', this.itikaf.id);
+
+            return Api.post('/itikaf-schedules', data) as ItikafSchedule;
         }
+
     }
 });

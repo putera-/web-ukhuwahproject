@@ -61,11 +61,11 @@
         <form method="dialog" class="modal-backdrop">
             <label @click="$emit('close')">close</label>
         </form>
+        <Confirmation action-text="Update" :show="confirmUpdate" @close="confirmUpdate = false" @yes="doUpdate">
+            Apakah anda yakin?
+        </Confirmation>
     </div>
 
-    <Confirmation action-text="Update" :show="confirmUpdate" @close="confirmUpdate = false" @yes="doUpdate">
-        Apakah anda yakin?
-    </Confirmation>
 </template>
 
 <script setup lang="ts">

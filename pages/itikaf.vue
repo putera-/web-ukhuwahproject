@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full min-h-screen max-w-7xl mx-auto pt-20 px-4 md:px-6">
+    <div class="w-full min-h-screen max-w-7xl mx-auto pt-20 px-4 md:px-6 my-6">
 
         <div v-if="Itikaf.itikaf">
             <div class="text-center text-4xl font-medium mb-4">
@@ -8,6 +8,7 @@
 
             <div class="w-full aspect-video overflow-hidden">
                 <img v-if="isURL(Itikaf.itikaf.photo)" :src="Itikaf.itikaf.photo" class="min-w-full min-h-full">
+                <img v-else :src="apiUri + Itikaf.itikaf.photo" class="min-w-full min-h-full">
             </div>
 
             <!-- DESKRIPSI -->

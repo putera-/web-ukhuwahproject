@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="mt-2 text-xl font-semibold">Buat Jadwal I'tikaf {{ Itikaf.year }}</div>
+        <div class="mt-2 text-xl font-semibold">I'tikaf {{ Itikaf.year }}</div>
         <div class="w-full">
             <div class="h-48 lg:h-52 xl:h-60 max-w-full aspect-video rounded-2xl overflow-hidden">
                 <template v-if="form.photo">

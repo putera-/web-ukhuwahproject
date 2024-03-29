@@ -1,7 +1,7 @@
 <template>
     <div v-if="Itikaf.itikaf">
         <!-- ITIKAF -->
-        <div v-if="Itikaf.itikaf">
+        <div>
             <div class="flex justify-between items-center gap-2">
                 <div class="text-3xl font-semibold my-3">
                     I'tikaf Ramadhan {{ Itikaf.itikaf.year }} / {{ Itikaf.itikaf.hijri_year }} H
@@ -31,7 +31,7 @@
         <div>
             <div class="flex justify-between items-center">
                 <div class="mt-2 text-xl font-semibold">Jadwal I'tikaf</div>
-                <button class="btn  bg-[#EE9A49] btn-sm rounded-full">
+                <button @click="showShceduleForm = true" class="btn bg-[#EE9A49] rounded-full">
                     <LucidePlus :size="12" /> Tambah Jadwal
                 </button>
             </div>
@@ -47,6 +47,10 @@
 
     <!-- CREATE ITIKAF -->
     <AdminItikafForm v-else />
+
+
+    <AdminItikafScheduleForm :show="showShceduleForm" @close="showShceduleForm = false"
+        @saved="showShceduleForm = false; Itikaf.getSchedule();" />
 </template>
 
 <script setup lang="ts">
@@ -64,4 +68,6 @@ onBeforeMount(async () => {
         Itikaf.getSchedule()
     ]);
 });
+
+const showShceduleForm = ref(false);
 </script>

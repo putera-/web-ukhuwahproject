@@ -12,4 +12,10 @@ export const isItikaf = Joi.object({
     contact_person_name: isString.allow(''),
     contact_person_phone: isPhone.allow(''),
     description: isString
-})
+});
+
+export const isScheduleItikaf = Joi.object({
+    date: Joi.date().required().label('Tanggal'),
+    day_index: Joi.number().min(1).required().label('Urutan Hari'),
+    description: isString.required().label('Deskripsi')
+});
