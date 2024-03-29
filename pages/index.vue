@@ -43,6 +43,10 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+    middleware: ['onlyauth']
+});
+
 const Client = useClientStore();
 const Itikaf = useItikafStore();
 await Itikaf.get()

@@ -1,7 +1,7 @@
 <template>
     <div class="border-b border-b-neutral/10 pb-2 mb-4 flex justify-between items-center">
         <div class="font-bold text-3xl">Profile</div>
-        <div class="text-lg font-mediu">{{
+        <div class="text-lg font-medium">{{
             Auth.user.email }}</div>
     </div>
 

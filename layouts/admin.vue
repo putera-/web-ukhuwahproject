@@ -41,8 +41,6 @@
                             <img v-if="Auth.user.avatar" :src="apiUri + Auth.user.avatar_md"
                                 class="min-w-full min-h-full">
                             <LucideUser v-else :size="24" class="text-primary" />
-                            <!-- <div class="flex justify-center items-center">
-                            </div> -->
                         </div>
                         <div class="dropdown-content z-[2] menu bg-base-100 shadow rounded w-52">
                             <div class="p-2 border-b">
@@ -97,7 +95,7 @@ import 'vue3-toastify/dist/index.css';
 
 
 const Auth = useAuthStore();
-const { public: { apiUri } } = useRuntimeConfig();
+// const { public: { apiUri } } = useRuntimeConfig();
 
 </script>
 

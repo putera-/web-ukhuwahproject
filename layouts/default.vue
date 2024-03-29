@@ -44,10 +44,21 @@
                             <li v-if="Auth.user">
                                 <details>
                                     <summary>
-                                        {{ Auth.user.name }}
+                                        <div tabindex="0" role="button"
+                                            class="btn w-8 h-8 min-h-8 btn-circle overflow-hidden">
+                                            <img v-if="Auth.user.avatar" :src="apiUri + Auth.user.avatar_md"
+                                                class="min-w-full min-h-full">
+                                            <LucideUser v-else :size="24" class="text-primary" />
+                                        </div>
+                                        <div>{{ Auth.user.name }}</div>
                                     </summary>
-                                    <ul class="p-2 bg-gradient-to-bl from-[#FEF5ED] to-[#F8D7B6] rounded-lg z-[100]">
-                                        <li><button class="bg-[#EE9A49] btn btn-sm" @click="Auth.logout">Logout</button>
+                                    <ul
+                                        class="p-2 bg-gradient-to-bl from-[#FEF5ED] to-[#F8D7B6] rounded-lg z-[100] flex flex-col gap-2">
+                                        <li>
+                                            <NuxtLink to="/profile" class="font-normal text-sm">Profile</NuxtLink>
+                                        </li>
+                                        <li><button class="bg-[#EE9A49] btn btn-sm font-normal text-sm"
+                                                @click="Auth.logout">Logout</button>
                                         </li>
                                     </ul>
                                 </details>
