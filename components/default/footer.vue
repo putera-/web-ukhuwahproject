@@ -1,6 +1,7 @@
 <template>
     <footer class="bg-gray-800 text-white">
         <div class="w-full max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 p-5 md:p-10">
+            <!-- SLOT 1 -->
             <div v-if="Client.client" class="flex flex-col gap-2 items-center">
 
                 <!-- LOGO -->
@@ -19,11 +20,33 @@
                 <div class="font-thin text-center">{{ Client.client.address }}</div>
 
             </div>
-            <div class="col-span-2 max-md:text-center">
+
+            <!-- SLOT 2 -->
+            <div class="max-md:text-center flex flex-col justify-center">
                 <div class="text-lg my-4">Salurkan Donasi Terbaik Anda</div>
                 <div class="font-semibold">Yayasan Ukhuwah Project</div>
                 <div>Bank Syariah Indonesia (BSI)</div>
                 <div>8888-888-888</div>
+            </div>
+            <div class="max-md:text-center flex justify-center text-sm font-light">
+                <div class="flex flex-col gap-3 justify-center">
+                    <NuxtLink :to="Client.client.youtube" target="_blank" v-if="Client.client.youtube"
+                        class="flex items-center gap-2">
+                        <LucideYoutube :size="24" /> {{ Client.client.youtube }}
+                    </NuxtLink>
+                    <NuxtLink :to="Client.client.instagram" target="_blank" v-if="Client.client.instagram"
+                        class="flex items-center gap-2">
+                        <LucideInstagram :size="24" /> {{ Client.client.instagram }}
+                    </NuxtLink>
+                    <NuxtLink :to="Client.client.facebook" target="_blank" v-if="Client.client.facebook"
+                        class="flex items-center gap-2">
+                        <LucideFacebook :size="24" /> {{ Client.client.facebook }}
+                    </NuxtLink>
+                    <NuxtLink :to="Client.client.twitter" target="_blank" v-if="Client.client.twitter"
+                        class="flex items-center gap-2">
+                        <LucideTwitter :size="24" /> {{ Client.client.twitter }}
+                    </NuxtLink>
+                </div>
             </div>
         </div>
     </footer>

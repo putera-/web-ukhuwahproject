@@ -45,14 +45,7 @@
 <script setup lang="ts">
 const Client = useClientStore();
 const Itikaf = useItikafStore();
-onBeforeMount(async () => {
-    const promises = [];
-    if (!Client.client) promises.push(Client.get());
-    if (!Itikaf.itikaf) promises.push(Itikaf.get());
-
-    await Promise.all(promises)
-});
-
+await Itikaf.get()
 </script>
 
 <style scoped>
