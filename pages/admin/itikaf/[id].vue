@@ -38,7 +38,7 @@
                             <td class="text-center">{{ user.woman }}</td>
                             <td class="text-center">{{ user.man + user.woman }}</td>
                             <td>
-                                <div class="flex gap-2">
+                                <div v-if="!user.coupon_taken" class="flex gap-2">
                                     <div class="dropdown dropdown-end">
                                         <div tabindex="0" role="button" class="btn btn-ghost rounded-btn">
                                             <LucideEllipsisVertical :size="16" />
@@ -49,7 +49,9 @@
                                             <!-- <li><a>Item 2</a></li> -->
                                         </ul>
                                     </div>
-                                    <button class="btn bg-[#EE9A49] rounded-full">Ambil Kupon</button>
+                                    <button @click="confirmCoupon = true; couponParticipant = user"
+                                        class="btn bg-[#EE9A49] rounded-full">Ambil
+                                        Kupon</button>
                                 </div>
                             </td>
                         </tr>
@@ -68,9 +70,9 @@
                                     <div>{{ user.user.phone }}</div>
                                 </a>
                             </div>
-                            <!-- <button class="max-sm:hidden btn btn-sm bg-[#EE9A49] rounded-full">Ambil Kupon</button> -->
-                            <div class="max-sm:hidden flex items-center justify-center mt-3">
-                                <button class=" btn btn-sm bg-[#EE9A49] rounded-full">Ambil Kupon</button>
+                            <div v-if="!user.coupon_taken" class="max-sm:hidden flex items-center justify-center mt-3">
+                                <button @click="confirmCoupon = true; couponParticipant = user"
+                                    class=" btn btn-sm bg-[#EE9A49] rounded-full">Ambil Kupon</button>
                                 <div class="dropdown dropdown-end">
                                     <div tabindex="0" role="button" class="btn btn-sm btn-ghost rounded-btn">
                                         <LucideEllipsisVertical :size="16" />
@@ -96,8 +98,9 @@
                                 <IconsAkhwat class="w-4" />{{ user.man + user.woman }}
                             </div>
                         </div>
-                        <div class="sm:hidden flex items-center justify-center mt-3">
-                            <button class=" btn btn-sm bg-[#EE9A49] rounded-full">Ambil Kupon</button>
+                        <div v-if="!user.coupon_taken" class="sm:hidden flex items-center justify-center mt-3">
+                            <button @click="confirmCoupon = true; couponParticipant = user"
+                                class=" btn btn-sm bg-[#EE9A49] rounded-full">Ambil Kupon</button>
                             <div class="dropdown dropdown-end">
                                 <div tabindex="0" role="button" class="btn btn-sm btn-ghost rounded-btn">
                                     <LucideEllipsisVertical :size="16" />
@@ -118,6 +121,16 @@
 
     <LazyAdminItikafScheduleForm :show="showShceduleForm" :data="dataUpdate" @close="showShceduleForm = false"
         @saved="showShceduleForm = false; getData();" />
+
+    <Confirmation action-text="Ya, Serahkan Kupon" :show="confirmCoupon" @close="confirmCoupon = false"
+        @yes="setCouponTaken">
+        <div v-if="couponParticipant" class="text-xl">Kupon untuk <span class="font-semibold">{{
+        couponParticipant.user.name
+                }}</span>
+        </div>
+
+        <div class="mt-4">Apakah anda yakin?</div>
+    </Confirmation>
 </template>
 
 <script setup lang="ts">
@@ -146,5 +159,15 @@ const dataUpdate = ref<ItikafSchedule | null>(null)
 const update = (schedule: ItikafSchedule) => {
     dataUpdate.value = schedule;
     showShceduleForm.value = true;
-}
+};
+
+const confirmCoupon = ref<boolean>(false);
+const couponParticipant = ref<ItikafParticipant | null>(null);
+const setCouponTaken = async () => {
+    if (couponParticipant.value) {
+        await Itikaf.setCouponTaken(couponParticipant.value.id);
+        confirmCoupon.value = false;
+        getData();
+    }
+};
 </script>

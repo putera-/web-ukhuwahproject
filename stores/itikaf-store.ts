@@ -84,6 +84,11 @@ export const useItikafStore = defineStore("itikaf", {
             const Api = useApiStore();
 
             await Api.patch('/itikaf-schedules/' + id, data);
+        },
+        async setCouponTaken(id: string) {
+            const Api = useApiStore();
+
+            await Api.patch('/itikaf-participants/coupon_taken/' + id, {});
         }
     }
 });
