@@ -23,9 +23,18 @@
 
 
             <div class="mt-2 whitespace-pre-wrap">{{ Itikaf.itikaf.description }}</div>
+            <div class="my-3">
+                <div v-if="Itikaf.itikaf.masjid" class="font-semibold">Lokasi: {{ Itikaf.itikaf.masjid }}</div>
+                <div v-if="Itikaf.itikaf.address">Alamat: {{ Itikaf.itikaf.address }}</div>
+            </div>
         </div>
         <div>
-            <div class="mt-2 text-xl font-semibold">Jadwal I'tikaf</div>
+            <div class="flex justify-between items-center">
+                <div class="mt-2 text-xl font-semibold">Jadwal I'tikaf</div>
+                <button class="btn  bg-[#EE9A49] btn-sm rounded-full">
+                    <LucidePlus :size="12" /> Tambah Jadwal
+                </button>
+            </div>
             <div class="flex flex-col gap-6 mt-6">
                 <template v-for="schedule in Itikaf.schedules" :key="schedule.id">
 

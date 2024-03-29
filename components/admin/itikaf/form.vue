@@ -32,6 +32,28 @@
         </div>
         <label class="form-control w-full max-w-xs">
             <div class="label">
+                <span class="label-text">Nama Masjid</span>
+            </div>
+            <input v-model="form.masjid" type="text" placeholder="Nama Masjid"
+                class="input input-lg rounded-full bg-[#E8E5F8] input-bordered w-full max-w-xs" />
+            <div class="label">
+                <span class="label-text-alt text-error" v-if="errors.masjid">{{ errors.masjid
+                    }}</span>
+            </div>
+        </label>
+        <label class="form-control w-full max-w-xs">
+            <div class="label">
+                <span class="label-text">Lokasi Masjid</span>
+            </div>
+            <input v-model="form.address" type="text" placeholder="Lokasi Masjid"
+                class="input input-lg rounded-full bg-[#E8E5F8] input-bordered w-full max-w-xs" />
+            <div class="label">
+                <span class="label-text-alt text-error" v-if="errors.address">{{ errors.address
+                    }}</span>
+            </div>
+        </label>
+        <label class="form-control w-full max-w-xs">
+            <div class="label">
                 <span class="label-text">Kontak Person</span>
             </div>
             <input v-model="form.contact_person_name" type="text" placeholder="Kontak Person"
@@ -66,7 +88,10 @@
         </label>
 
         <div class="flex gap-2 items-center">
-            <button @click="confirmUpdate = true" class="btn btn-neutral float-right rounded-full">Simpan</button>
+            <NuxtLink to="/admin/itikaf" class="btn btn-neutral rounded-full"
+                v-if="route.path == '/admin/itikaf/update'">Batal
+            </NuxtLink>
+            <button @click="confirmUpdate = true" class="btn bg-[#EE9A49] float-right rounded-full">Simpan</button>
             <div class="text-error font-sm" v-if="responseError">{{ responseError }}</div>
         </div>
 
@@ -79,12 +104,15 @@
 
 <script setup lang="ts">
 import { toast } from 'vue3-toastify';
+const route = useRoute();
 const Itikaf = useItikafStore();
 
-const emits = defineEmits(['saved']);
+const emits = defineEmits(['saved', 'cancel']);
 
 const form = ref({
     photo: undefined,
+    masjid: '',
+    address: '',
     contact_person_name: '',
     contact_person_phone: '',
     description: ''
@@ -144,6 +172,8 @@ const doUpdate = async () => {
         const data = Validate(isItikaf, form.value);
 
         // add to FormData
+        if (data.masjid) formData.append('masjid', data.masjid);
+        if (data.address) formData.append('address', data.address);
         if (data.contact_person_name) formData.append('contact_person_name', data.contact_person_name);
         if (data.contact_person_phone) formData.append('contact_person_phone', data.contact_person_phone);
         formData.append('description', data.description);

@@ -7,6 +7,8 @@ export const isJoinItikaf = Joi.object({
 });
 
 export const isItikaf = Joi.object({
+    masjid: isString.allow(''),
+    address: isString.allow(''),
     contact_person_name: isString.allow(''),
     contact_person_phone: isPhone.allow(''),
     description: isString

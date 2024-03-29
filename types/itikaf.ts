@@ -4,6 +4,8 @@ interface Itikaf {
     hijri_year: string
     description: string
     photo: string
+    masjid?: string
+    address?: string
     contact_person_name?: string
     contact_person_phone?: string
     // createdBy?: User
