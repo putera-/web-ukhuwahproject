@@ -3,7 +3,10 @@
         <div class="mt-2 text-xl font-semibold">Buat Jadwal I'tikaf {{ Itikaf.year }}</div>
         <div class="w-full">
             <div class="h-48 lg:h-52 xl:h-60 max-w-full aspect-video rounded-2xl overflow-hidden">
-                <img v-if="form.photo" :src="form.photo" class="min-w-full min-h-full">
+                <template v-if="form.photo">
+                    <img v-if="isURL(form.photo)" :src="form.photo" class="min-w-full min-h-full">
+                    <img v-else :src="apiUri + form.photo" class="min-w-full min-h-full">
+                </template>
                 <div v-else class="bg-neutral/50 w-full h-full">
                 </div>
             </div>
@@ -51,7 +54,7 @@
         }}</span>
             </div>
         </label>
-        <label class="form-control w-full max-w-xs">
+        <label class="form-control w-full max-w-lg">
             <div class="label">
                 <span class="label-text">Deskripsi</span>
             </div>
@@ -78,6 +81,7 @@
 import { toast } from 'vue3-toastify';
 const Itikaf = useItikafStore();
 
+const emits = defineEmits(['saved']);
 
 const form = ref({
     photo: undefined,
@@ -85,7 +89,18 @@ const form = ref({
     contact_person_phone: '',
     description: ''
 });
+onBeforeMount(async () => {
+    await Itikaf.get();
 
+    if (Itikaf.itikaf) {
+        form.value = {
+            photo: Itikaf.itikaf.photo,
+            contact_person_name: Itikaf.itikaf.contact_person_name,
+            contact_person_phone: Itikaf.itikaf.contact_person_phone,
+            description: Itikaf.itikaf.description
+        }
+    }
+})
 
 const confirmUpdate = ref<Boolean>(false);
 const errors = ref<Record<string, string>>({});
@@ -133,8 +148,13 @@ const doUpdate = async () => {
         if (data.contact_person_phone) formData.append('contact_person_phone', data.contact_person_phone);
         formData.append('description', data.description);
 
-        await Itikaf.create(formData);
+        if (Itikaf.itikaf) {
+            await Itikaf.update(formData);
+        } else {
+            await Itikaf.create(formData);
+        }
 
+        emits('saved')
         confirmUpdate.value = false;
 
         // reset file input avatar

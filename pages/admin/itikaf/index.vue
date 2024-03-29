@@ -7,9 +7,9 @@
                     I'tikaf Ramadhan {{ Itikaf.itikaf.year }} / {{ Itikaf.itikaf.hijri_year }} H
                 </div>
 
-                <button class="btn btn-circle bg-[#EE9A49] btn-sm">
+                <NuxtLink to="/admin/itikaf/update" class="btn btn-circle bg-[#EE9A49] btn-sm">
                     <LucidePencil :size="16" />
-                </button>
+                </NuxtLink>
             </div>
             <!-- schedule.photos -->
             <div v-if="Itikaf.itikaf.photo" class="w-full h-40 md:h-52 lg:h-60 rounded-t-xl overflow-hidden relative">
@@ -41,7 +41,6 @@
 </template>
 
 <script setup lang="ts">
-
 definePageMeta({
     layout: 'admin',
     middleware: [

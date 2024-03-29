@@ -31,6 +31,11 @@ export const useItikafStore = defineStore("itikaf", {
 
             this.itikaf = await Api.post('/itikafs/' + this.year, data);
         },
+        async update(data: FormData) {
+            const Api = useApiStore();
+
+            this.itikaf = await Api.patch('/itikafs/' + this.year, data);
+        },
         async getSchedule(): Promise<void> {
             const Api = useApiStore();
             const Auth = useAuthStore();
