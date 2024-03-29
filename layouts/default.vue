@@ -14,10 +14,20 @@
                             </svg>
                         </label>
                     </div>
-                    <div class="lg:absolute px-2 mx-2 gap-3 text-xl font-semibold">
-                        <!-- <IconsMosque class="w-10" /> -->
-                        <img src="/uplogo.png" alt="Ukhuwah Project Logo" class="w-10">
-                        <div class="leading-4">UKHUWAH<br />PROJECT</div>
+                    <div class="lg:absolute px-2 mx-2 gap-3 text-xl font-semibold" v-if="Client.client">
+                        <!-- LOGO -->
+                        <template v-if="Client.client.logo">
+                            <img v-if="isURL(Client.client.logo)" :src="Client.client.logo"
+                                :alt="Client.client.name + 'Logo'" class="w-10">
+                            <img v-else :src="apiUri + Client.client.logo" :alt="Client.client.name + 'Logo'"
+                                class="w-10">
+                        </template>
+                        <IconsMosque v-else class="w-10" />
+
+                        <div class="flex flex-col gap-1">
+                            <div class="leading-4 uppercase">{{ Client.client.name }}</div>
+                            <div class="text-xs font-normal text-slate-500">{{ Client.client.slogan }}</div>
+                        </div>
                     </div>
                     <div class="flex-1 hidden lg:flex lg:justify-center">
                         <!-- Navbar menu content here -->
@@ -55,9 +65,21 @@
             <label for="my-drawer-3" aria-label="close sidebar" class="drawer-overlay"></label>
             <!-- Sidebar content here -->
             <div class="p-4 w-80 min-h-full bg-base-200">
-                <div class="flex justify-center items-center gap-4 text-xl font-semibold">
-                    <IconsMosque class="w-24" />
-                    <div class="leading-4">MASJID<br />AL-ADHIM</div>
+                <div class="flex flex-col justify-center items-center gap-4 text-xl font-semibold">
+
+                    <!-- LOGO -->
+                    <template v-if="Client.client.logo">
+                        <img v-if="isURL(Client.client.logo)" :src="Client.client.logo"
+                            :alt="Client.client.name + 'Logo'" class="w-24">
+                        <img v-else :src="apiUri + Client.client.logo" :alt="Client.client.name + 'Logo'" class="w-24">
+                    </template>
+                    <IconsMosque v-else class="w-24" />
+
+                    <div class="flex flex-col gap-1 text-center">
+                        <div class="leading-4 uppercase">{{ Client.client.name }}</div>
+                        <div class="text-xs font-normal text-slate-500">{{ Client.client.slogan }}</div>
+                    </div>
+
                 </div>
                 <div v-if="Auth.user" class="text-center mt-10">
                     <div class="text-sm font-semibold">{{ Auth.user.name }}</div>
@@ -91,6 +113,5 @@
 
 <script setup lang="ts">
 const Auth = useAuthStore();
+const Client = useClientStore();
 </script>
-
-<style scoped></style>

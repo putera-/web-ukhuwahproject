@@ -40,7 +40,7 @@
 <script setup lang="ts">
 import { toast } from 'vue3-toastify';
 
-const { public: { apiUri } } = useRuntimeConfig();
+// const { public: { apiUri } } = useRuntimeConfig();
 const Auth = useAuthStore();
 const form = ref({
     name: Auth.user.name,
