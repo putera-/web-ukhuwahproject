@@ -71,79 +71,96 @@
             </label>
 
             <div class="flex flex-col gap-2">
-                <button @click="showAstzSelector = true; forSelect = 'imam_tarawih'"
-                    class="btn bg-[#E8E5F8] rounded-full max-w-xs justify-start">
-                    <span v-if="!form.imam_tarawih" class="text-slate-500">
-                        Imam Tarawih
-                    </span>
-                    <div v-else class="flex items-center gap-3">
-                        <template v-if="form.imam_tarawih.avatar_md">
-                            <img v-if="isURL(form.imam_tarawih.avatar_md)" :src="form.imam_tarawih.avatar_md" alt=""
-                                class="rounded-full w-8 h-8">
-                            <img v-else :src="apiUri + form.imam_tarawih.avatar_md" alt="" class="rounded-full w-8 h-8">
-                        </template>
-                        <div v-else
-                            class="rounded-full w-8 md:w-8 h-8 md:h-8 bg-gradient-to-br from-white to-[#EE9A49]">
-                        </div>
+                <div class="flex items-center gap-2">
+                    <button @click="showAstzSelector = true; forSelect = 'imam_tarawih'"
+                        class="btn bg-[#E8E5F8] rounded-full w-60 justify-start">
+                        <span v-if="!form.imam_tarawih" class="text-slate-500">
+                            Imam Tarawih
+                        </span>
+                        <div v-else class="flex items-center gap-3">
+                            <template v-if="form.imam_tarawih.avatar_md">
+                                <img v-if="isURL(form.imam_tarawih.avatar_md)" :src="form.imam_tarawih.avatar_md" alt=""
+                                    class="rounded-full w-8 h-8">
+                                <img v-else :src="apiUri + form.imam_tarawih.avatar_md" alt=""
+                                    class="rounded-full w-8 h-8">
+                            </template>
+                            <div v-else
+                                class="rounded-full w-8 md:w-8 h-8 md:h-8 bg-gradient-to-br from-white to-[#EE9A49]">
+                            </div>
 
-                        <div class="text-left">
-                            <div class="font-normal text-slate-500 mb-1">Imam Tarawih</div>
-                            <div class="font-medium line-clamp-1">
-                                {{ form.imam_tarawih.name }}
+                            <div class="text-left">
+                                <div class="font-normal text-slate-500 mb-1">Imam Tarawih</div>
+                                <div class="font-medium line-clamp-1">
+                                    {{ form.imam_tarawih.name }}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </button>
+                    </button>
+                    <button v-if="form.imam_tarawih" class="btn btn-circle" @click="form.imam_tarawih = undefined">
+                        <LucideX />
+                    </button>
+                </div>
 
-                <button @click="showAstzSelector = true; forSelect = 'imam_qiyamul_lail'"
-                    class="btn bg-[#E8E5F8] rounded-full max-w-xs justify-start">
-                    <span v-if="!form.imam_qiyamul_lail" class="text-slate-500">
-                        Imam Qiyamul Lail
-                    </span>
-                    <div v-else class="flex items-center gap-3">
-                        <template v-if="form.imam_qiyamul_lail.avatar_md">
-                            <img v-if="isURL(form.imam_qiyamul_lail.avatar_md)" :src="form.imam_qiyamul_lail.avatar_md"
-                                alt="" class="rounded-full w-8 h-8">
-                            <img v-else :src="apiUri + form.imam_qiyamul_lail.avatar_md" alt=""
-                                class="rounded-full w-8 h-8">
-                        </template>
-                        <div v-else
-                            class="rounded-full w-8 md:w-8 h-8 md:h-8 bg-gradient-to-br from-white to-[#EE9A49]">
-                        </div>
+                <div class="flex items-center gap-2">
+                    <button @click="showAstzSelector = true; forSelect = 'imam_qiyamul_lail'"
+                        class="btn bg-[#E8E5F8] rounded-full w-60 justify-start">
+                        <span v-if="!form.imam_qiyamul_lail" class="text-slate-500">
+                            Imam Qiyamul Lail
+                        </span>
+                        <div v-else class="flex items-center gap-3">
+                            <template v-if="form.imam_qiyamul_lail.avatar_md">
+                                <img v-if="isURL(form.imam_qiyamul_lail.avatar_md)"
+                                    :src="form.imam_qiyamul_lail.avatar_md" alt="" class="rounded-full w-8 h-8">
+                                <img v-else :src="apiUri + form.imam_qiyamul_lail.avatar_md" alt=""
+                                    class="rounded-full w-8 h-8">
+                            </template>
+                            <div v-else
+                                class="rounded-full w-8 md:w-8 h-8 md:h-8 bg-gradient-to-br from-white to-[#EE9A49]">
+                            </div>
 
-                        <div class="text-left">
-                            <div class="font-normal text-slate-500 mb-1">Imam Tarawih</div>
-                            <div class="font-medium line-clamp-1">
-                                {{ form.imam_qiyamul_lail.name }}
+                            <div class="text-left">
+                                <div class="font-normal text-slate-500 mb-1">Imam Tarawih</div>
+                                <div class="font-medium line-clamp-1">
+                                    {{ form.imam_qiyamul_lail.name }}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </button>
+                    </button>
+                    <button v-if="form.imam_qiyamul_lail" class="btn btn-circle"
+                        @click="form.imam_qiyamul_lail = undefined">
+                        <LucideX />
+                    </button>
+                </div>
 
-                <button @click="showAstzSelector = true; forSelect = 'ustadz_kajian'"
-                    class="btn bg-[#E8E5F8] rounded-full max-w-xs justify-start">
-                    <span v-if="!form.ustadz_kajian" class="text-slate-500">
-                        Kajian Tematik
-                    </span>
-                    <div v-else class="flex items-center gap-3">
-                        <template v-if="form.ustadz_kajian.avatar_md">
-                            <img v-if="isURL(form.ustadz_kajian.avatar_md)" :src="form.ustadz_kajian.avatar_md" alt=""
-                                class="rounded-full w-8 h-8">
-                            <img v-else :src="apiUri + form.ustadz_kajian.avatar_md" alt=""
-                                class="rounded-full w-8 h-8">
-                        </template>
-                        <div v-else
-                            class="rounded-full w-8 md:w-8 h-8 md:h-8 bg-gradient-to-br from-white to-[#EE9A49]">
-                        </div>
+                <div class="flex items-center gap-2">
+                    <button @click="showAstzSelector = true; forSelect = 'ustadz_kajian'"
+                        class="btn bg-[#E8E5F8] rounded-full w-60 justify-start">
+                        <span v-if="!form.ustadz_kajian" class="text-slate-500">
+                            Kajian Tematik
+                        </span>
+                        <div v-else class="flex items-center gap-3">
+                            <template v-if="form.ustadz_kajian.avatar_md">
+                                <img v-if="isURL(form.ustadz_kajian.avatar_md)" :src="form.ustadz_kajian.avatar_md"
+                                    alt="" class="rounded-full w-8 h-8">
+                                <img v-else :src="apiUri + form.ustadz_kajian.avatar_md" alt=""
+                                    class="rounded-full w-8 h-8">
+                            </template>
+                            <div v-else
+                                class="rounded-full w-8 md:w-8 h-8 md:h-8 bg-gradient-to-br from-white to-[#EE9A49]">
+                            </div>
 
-                        <div class="text-left">
-                            <div class="font-normal text-slate-500 mb-1">Imam Tarawih</div>
-                            <div class="font-medium line-clamp-1">
-                                {{ form.ustadz_kajian.name }}
+                            <div class="text-left">
+                                <div class="font-normal text-slate-500 mb-1">Imam Tarawih</div>
+                                <div class="font-medium line-clamp-1">
+                                    {{ form.ustadz_kajian.name }}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </button>
+                    </button>
+                    <button v-if="form.ustadz_kajian" class="btn btn-circle" @click="form.ustadz_kajian = undefined">
+                        <LucideX />
+                    </button>
+                </div>
             </div>
 
 
@@ -177,7 +194,7 @@ import dayjs from 'dayjs';
 
 const props = defineProps<{
     show: Boolean
-    // data: Asaatidz | null
+    data: ItikafSchedule | null
 }>();
 
 const emits = defineEmits(['close', 'saved']);
@@ -194,23 +211,25 @@ const form = ref({
     description: '',
     imam_tarawih: undefined,
     imam_qiyamul_lail: undefined,
-    ustadz_kajian: undefined,
+    ustadz_kajian: undefined
 });
 
 watchEffect(() => {
     show_modal.value = props.show;
 
-    // if (props.data) {
-    //     form.value.avatar = apiUri + props.data.avatar;
-    //     form.value.name = props.data.name;
-    //     form.value.profile = props.data.profile;
-    // }
+    if (props.data) {
+        form.value.photo = apiUri + props.data.photo;
+        form.value.date = props.data.date;
+        form.value.day_index = props.data.day_index;
+        form.value.description = props.data.description;
+        form.value.imam_tarawih = props.data.imam_tarawih;
+        form.value.imam_qiyamul_lail = props.data.imam_qiyamul_lail;
+        form.value.ustadz_kajian = props.data.ustadz_kajian;
+    }
 });
 
 
 const showAstzSelector = ref(false);
-
-
 
 const fileInput = ref<HTMLInputElement | null>(null);
 let photo: File | null;
@@ -276,11 +295,11 @@ const doUpdate = async () => {
         formData.append('day_index', data.day_index);
         formData.append('description', data.description);
 
-        // if (props.data) {
-        //     await Astz.update(props.data.id, formData);
-        // } else {
-        await Itikaf.createSchedule(formData);
-        // }
+        if (props.data) {
+            await Itikaf.updateSchedule(props.data.id, formData);
+        } else {
+            await Itikaf.createSchedule(formData);
+        }
 
         confirmUpdate.value = false;
         emits('saved');

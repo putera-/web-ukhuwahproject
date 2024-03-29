@@ -38,7 +38,7 @@
             <div class="flex flex-col gap-6 mt-6">
                 <template v-for="schedule in Itikaf.schedules" :key="schedule.id">
 
-                    <ItikafCard :schedule="schedule" />
+                    <ItikafCard :schedule="schedule" @update="update" />
 
                 </template>
             </div>
@@ -49,7 +49,7 @@
     <AdminItikafForm v-else />
 
 
-    <AdminItikafScheduleForm :show="showShceduleForm" @close="showShceduleForm = false"
+    <AdminItikafScheduleForm :show="showShceduleForm" :data="dataUpdate" @close="showShceduleForm = false"
         @saved="showShceduleForm = false; Itikaf.getSchedule();" />
 </template>
 
@@ -70,4 +70,9 @@ onBeforeMount(async () => {
 });
 
 const showShceduleForm = ref(false);
+const dataUpdate = ref<ItikafSchedule | null>(null)
+const update = (schedule: ItikafSchedule) => {
+    dataUpdate.value = schedule;
+    showShceduleForm.value = true;
+}
 </script>

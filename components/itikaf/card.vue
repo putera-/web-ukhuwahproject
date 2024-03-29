@@ -61,10 +61,14 @@
                     </button>
                 </div>
 
-                <NuxtLink :to="'/admin/itikaf/' + schedule.id" v-if="route.path == '/admin/itikaf'"
-                    class="btn rounded-full btn-sm bg-[#EE9A49]">
-                    <LucideEye :size="16" />Detail
-                </NuxtLink>
+                <div v-if="route.path == '/admin/itikaf'" class="flex gap-2">
+                    <!-- <NuxtLink :to="'/admin/itikaf/' + schedule.id" class="btn rounded-full btn-sm bg-[#EE9A49]">
+                        <LucideEye :size="16" />Detail
+                    </NuxtLink> -->
+                    <button @click="$emit('update', schedule)" class="btn rounded-full btn-sm bg-[#EE9A49]">
+                        <LucidePencil :size="16" />Ubah
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -76,7 +80,7 @@ defineProps<{
     schedule: ItikafSchedule
 }>();
 
-defineEmits(['toJoin', 'toCancelJoin', 'mySchedule'])
+defineEmits(['toJoin', 'toCancelJoin', 'mySchedule', 'update'])
 
 const route = useRoute();
 </script>

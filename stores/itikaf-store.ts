@@ -73,8 +73,12 @@ export const useItikafStore = defineStore("itikaf", {
             if (!this.itikaf) throw new Error('Buat Data Itikaf terlebih dahulu')
             data.append('itikafId', this.itikaf.id);
 
-            return Api.post('/itikaf-schedules', data) as ItikafSchedule;
-        }
+            await Api.post('/itikaf-schedules', data);
+        },
+        async updateSchedule(id: string, data: FormData) {
+            const Api = useApiStore();
 
+            await Api.patch('/itikaf-schedules/' + id, data);
+        }
     }
 });

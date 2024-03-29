@@ -1,7 +1,7 @@
 <template>
     <div class="card bg-[#F8D7B6] max-md:w-full max-lg:grow">
         <div class="card-body w-full p-2">
-            <div class="flex items-center max-md:justify-center gap-3">
+            <div class="flex items-center gap-3">
                 <template v-if="pemateri.avatar_md">
                     <img v-if="isURL(pemateri.avatar_md)" :src="pemateri.avatar_md" alt=""
                         class="rounded-full w-12 h-12">
