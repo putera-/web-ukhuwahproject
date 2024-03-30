@@ -31,7 +31,7 @@ defineProps({
 });
 </script>
 
-<style>
+<style scoped>
 .router-link-active.router-link-exact-active {
     background-color: rgba(255, 255, 255, 0.5);
 }
