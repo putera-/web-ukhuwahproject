@@ -26,7 +26,7 @@ definePageMeta({
         'admin'
     ]
 });
-const loading = ref(false);
+const loading = ref(true);
 
 const Auth = useAuthStore();
 onBeforeMount(async (): Promise<void> => {

@@ -11,6 +11,9 @@ interface Client {
     instagram?: string
     facebook?: string
     twitter?: string
+    bank_name?: string
+    bank_holder_name?: string
+    bank_account_no?: string
     createdAt: Date
     updatedAt: Date
 }
@@ -30,8 +33,6 @@ export const useClientStore = defineStore('client', {
         },
         async update(data: Record<string, string> | FormData): Promise<void> {
             const Api = useApiStore();
-
-            // TODO validate taro sini
 
             try {
                 this.client = await Api.patch('/client', data) as Client;
