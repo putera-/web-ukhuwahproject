@@ -8,7 +8,7 @@
                     <!-- <ImagesSun class="h-8" /> -->
                 </a>
 
-                <label for="menu-toggle" class="btn btn-ghost">
+                <label @click="show_drawer = true" class="btn btn-ghost">
                     <LucideAlignRight :size="24" />
                 </label>
             </div>
@@ -86,7 +86,7 @@
         <!-- CONTENT -->
         <div class="w-full px-3 lg:px-8">
             <div class="wrapper drawer lg:drawer-open rounded-2xl lg:rounded-3xl">
-                <input id="menu-toggle" type="checkbox" class="drawer-toggle" />
+                <input v-model="show_drawer" type="checkbox" class="drawer-toggle" />
                 <!-- MAIN CONTENT -->
                 <div class="z-0 lg:z-[1] drawer-content bg-neutral max-lg:rounded-2xl rounded-r-2xl lg:rounded-r-3xl">
                     <div
@@ -95,7 +95,7 @@
                     </div>
                 </div>
                 <div class="drawer-side h-full lg:!inline-table lg:bg-neutral rounded-l-0 lg:rounded-l-3xl">
-                    <label for="menu-toggle" aria-label="close sidebar" class="drawer-overlay"></label>
+                    <label @click="show_drawer = false" aria-label="close sidebar" class="drawer-overlay"></label>
                     <div class="lg:w-full min-h-full lg:z-[1]">
                         <div
                             class="menu bg-neutral p-4 lg:rounded-l-3xl w-[250px] max-lg:min-h-screen lg:min-h-full text-white">
@@ -119,7 +119,7 @@
                             </NuxtLink>
 
                             <!-- NAVIGATION -->
-                            <AdminLayoutNavigation />
+                            <AdminLayoutNavigation @clicked="show_drawer = false" />
                         </div>
                     </div>
                 </div>
@@ -134,6 +134,7 @@ import 'vue3-toastify/dist/index.css';
 const Client = useClientStore();
 if (!Client.client) Client.get();
 
+const show_drawer = ref(false);
 
 const Auth = useAuthStore();
 // const { public: { apiUri } } = useRuntimeConfig();

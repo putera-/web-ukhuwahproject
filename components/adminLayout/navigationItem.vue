@@ -1,7 +1,7 @@
 <template>
     <!--Tidak punya children-->
     <li v-if="!menu.children">
-        <NuxtLink :to="menu.to">
+        <NuxtLink :to="menu.to" @click="$emit('clicked')">
             <component :is="menu.icon" :size="20" class="w-6" /> {{ menu.title }}
         </NuxtLink>
     </li>
