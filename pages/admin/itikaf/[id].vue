@@ -93,7 +93,7 @@
                             <div class="btn btn-sm font-normal rounded-xl">
                                 <IconsAkhwat class="w-4" />{{ user.woman }}
                             </div>
-                            <div class="btn btn-sm font-normal rounded-xl flex flex-nowrap">
+                            <div class="max-sm:col-span-2 btn btn-sm rounded-xl flex flex-nowrap font-semibold text-lg">
                                 <IconsIkhwan class="w-4" />+
                                 <IconsAkhwat class="w-4" />{{ user.man + user.woman }}
                             </div>

@@ -1,7 +1,7 @@
 <template>
     <div class="drawer font-poppins" v-if="Client.client">
         <input v-model="showdrawer" type="checkbox" class="drawer-toggle" />
-        <div class="drawer-content flex flex-col relative bg-gradient-to-bl from-[#FEF5ED] to-[#F8D7B6]">
+        <div class="drawer-content flex flex-col relative bg-gradient-to-r from-[#FEF5ED] to-[#F8D7B6]">
             <!-- Navbar -->
             <div class="w-full max-w-7xl h-0 relative mx-auto z-10">
                 <div class="absolute w-full navbar">

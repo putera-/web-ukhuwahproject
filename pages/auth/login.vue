@@ -12,7 +12,7 @@
                     <div class="text-center text-sm md:text-md">Bersama Dijalan Dakwah</div>
                 </div>
 
-                <img src="/uplogo.png" class="md:hidden w-40">
+                <img src="/uplogo.png" class="md:hidden w-32 md:w-40">
 
                 <div class="text-2xl lg:text-4xl">Login</div>
                 <div class="grow w-full flex flex-col justify-center gap-8 md:gap-20">
@@ -29,7 +29,7 @@
                         <!-- password -->
                         <div>
                             <label
-                                class="input input-lg border-0 flex items-center gap-2 rounded-full w-full bg-[#E8E5F8]">
+                                class="input input-lg border-0 flex items-center gap-2 rounded-full w-full bg-[#E8E5F8] overflow-hidden">
                                 <input v-model="loginForm.password" :type="showPassword ? 'text' : 'password'"
                                     class="grow bg-[#E8E5F8]" placeholder="Password" autocomplete="current-password" />
                                 <div @click="showPassword = !showPassword" class="cursor-pointer">
@@ -66,7 +66,7 @@
                     </div>
 
                     <div class="divider">
-                        <NuxtLink to="/auth/register">Register</NuxtLink>
+                        <NuxtLink to="/auth/register" class="btn btn-sm rounded-full px-6">Register</NuxtLink>
                     </div>
                 </div>
             </div>
@@ -84,7 +84,7 @@ definePageMeta({
 
 const showPassword = ref(false);
 const isLoading = ref(false);
-const errors = ref({});
+const errors = ref<Record<string, any>>({});
 const fetchError = ref('');
 
 const loginForm = ref({

@@ -12,7 +12,7 @@
                     <div class="text-center text-sm md:text-md">Bersama Dijalan Dakwah</div>
                 </div>
 
-                <img src="/uplogo.png" class="md:hidden w-40">
+                <img src="/uplogo.png" class="md:hidden w-32 md:w-40">
 
                 <div class="text-2xl lg:text-4xl">Register</div>
                 <div class="grow w-full flex flex-col justify-center gap-8 md:gap-20">
@@ -83,7 +83,7 @@
                     </div>
 
                     <div class="divider">
-                        <NuxtLink to="/auth/login">Login</NuxtLink>
+                        <NuxtLink to="/auth/login" class="btn btn-sm rounded-full px-6">Login</NuxtLink>
                     </div>
                 </div>
             </div>

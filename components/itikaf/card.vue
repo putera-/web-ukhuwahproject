@@ -50,7 +50,7 @@
 
             </div>
 
-            <div class="flex justify-between items-center">
+            <div class="flex max-md:flex-col gap-4 justify-between items-center">
                 <!-- PESERTA -->
                 <div class="flex max-md:flex-col gap-3">
                     <button class="btn btn-sm font-normal">
