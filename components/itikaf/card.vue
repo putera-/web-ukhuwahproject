@@ -1,15 +1,15 @@
 <template>
     <div class="card shadow-lg bg-white rounded-2xl overflow-hidden">
         <!-- schedule.photo -->
-        <div v-if="schedule.photo" class="w-full h-40 md:h-52 lg:h-60 rounded-t-xl overflow-hidden relative">
-            <div class="w-full h-full bg-gradient-to-t from-white via-white/0 to-white/0 absolute"></div>
-            <img v-if="isURL(schedule.photo)" :src="schedule.photo" class="w-full z-10">
-            <img v-else :src="apiUri + schedule.photo" class="w-full z-10">
+        <div v-if="schedule.photo" class="lg:h-[70vh] rounded-t-xl overflow-hidden relative">
+            <div class="w-full h-full  bg-gradient-to-t from-white via-white/0 to-white/0 absolute"></div>
+            <img v-if="isURL(schedule.photo)" :src="schedule.photo" class="h-full mx-auto z-10">
+            <img v-else :src="apiUri + schedule.photo" class="h-full mx-auto z-10">
         </div>
         <div v-else class="w-full h-40 md:h-52 lg:h-60 rounded-t-xl overflow-hidden relative">
             <div class="w-full h-full bg-gradient-to-t from-white to-[#F8D7B6] absolute"></div>
         </div>
-        <div class="card-body max-sm:p-5 -mt-20 z-20">
+        <div class="card-body max-sm:p-5 -mt-10 z-20">
             <div class="flex max-md:flex-col md:justify-between items-center gap-2">
                 <div>
                     <div class="text-xl lg:text-2xl font-medium max-md:text-center">Itikaf Malam ke {{

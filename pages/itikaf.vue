@@ -6,9 +6,9 @@
                 Itikaf Ramadhan {{ Itikaf.itikaf.hijri_year }} / {{ Itikaf.itikaf.year }}
             </div>
 
-            <div class="w-full aspect-video overflow-hidden rounded-2xl">
-                <img v-if="isURL(Itikaf.itikaf.photo)" :src="Itikaf.itikaf.photo" class="min-w-full min-h-full">
-                <img v-else :src="apiUri + Itikaf.itikaf.photo" class="min-w-full min-h-full">
+            <div class="w-full lg:h-[70vh] overflow-hidden rounded-2xl">
+                <img v-if="isURL(Itikaf.itikaf.photo)" :src="Itikaf.itikaf.photo" class="h-full mx-auto rounded-2xl">
+                <img v-else :src="apiUri + Itikaf.itikaf.photo" class="h-full mx-auto rounded-2xl">
             </div>
 
             <!-- DESKRIPSI -->

@@ -25,8 +25,8 @@
                 I'tikaf Ramadhan {{ Itikaf.itikaf.year }} / {{ Itikaf.itikaf.hijri_year }} H
             </div>
             <!-- schedule.photos -->
-            <div v-if="Itikaf.itikaf.photo" class="w-full h-40 md:h-52 lg:h-60 rounded-t-xl overflow-hidden relative">
-                <div class="w-full h-full bg-gradient-to-t from-white via-white/0 to-white/0 absolute"></div>
+            <div v-if="Itikaf.itikaf.photo" class="w-full rounded-2xl overflow-hidden relative">
+                <!-- <div class="w-full h-full bg-gradient-to-t from-white via-white/0 to-white/0 absolute"></div> -->
                 <img v-if="isURL(Itikaf.itikaf.photo)" :src="Itikaf.itikaf.photo" class="w-full z-10">
                 <img v-else :src="apiUri + Itikaf.itikaf.photo" class="w-full z-10">
             </div>
