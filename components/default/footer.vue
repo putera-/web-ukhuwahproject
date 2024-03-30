@@ -22,12 +22,14 @@
             </div>
 
             <!-- SLOT 2 -->
-            <div class="max-md:text-center flex flex-col justify-center">
+            <div v-if="Client.client.bank_name" class="max-md:text-center flex flex-col justify-center">
                 <div class="text-lg my-4">Salurkan Donasi Terbaik Anda</div>
                 <div class="font-medium text-nowrap">{{ Client.client.bank_holder_name }}</div>
                 <div class="text-sm text-nowrap">{{ Client.client.bank_name }}</div>
                 <div class="text-sm text-nowrap">{{ Client.client.bank_account_no }}</div>
             </div>
+
+            <!-- SLOT 3 -->
             <div class="max-md:text-center flex justify-center text-sm font-light">
                 <div class="flex flex-col gap-3 justify-center">
                     <NuxtLink :to="Client.client.youtube" target="_blank" v-if="Client.client.youtube"
