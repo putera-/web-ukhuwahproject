@@ -5,7 +5,7 @@
                 <div class="col-span-10 lg:col-span-4 flex max-md:flex-col lg:flex-col max-lg:items-center gap-4">
                     <div class="flex flex-col max-md:text-center">
                         <div class="text-lg md:text-xl lg:text-2xl">Andara, Jakarta Selatan</div>
-                        <div class="max-lg:text-sm">Khutbah {{ dayjs().format('dddd, D MMM YYYY') }}</div>
+                        <div class="max-lg:text-sm">{{ dayjs().format('dddd, D MMM YYYY') }}</div>
                     </div>
                     <div class="card bg-[#F8D7B6] max-md:w-full max-lg:grow">
                         <div class="card-body w-full p-2 md:p-4">
@@ -19,7 +19,7 @@
                                     <div class=" font-medium text-sm md:text-medium">Ustadz Rizki Nasution,
                                         Lc MA
                                     </div>
-                                    <div class="text-xs md:text-sm text-gray-600">Pendakwah</div>
+                                    <div class="text-xs md:text-sm text-gray-600">Pembina</div>
                                 </div>
                             </div>
                         </div>

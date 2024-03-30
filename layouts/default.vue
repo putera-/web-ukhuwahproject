@@ -14,7 +14,8 @@
                             </svg>
                         </label>
                     </div>
-                    <NuxtLink to="/" class="xl:absolute px-2 mx-2 gap-3 text-xl font-semibold" v-if="Client.client">
+                    <NuxtLink to="/" class="xl:absolute px-2 mx-2 gap-3 text-xl font-semibold !bg-white/0"
+                        v-if="Client.client">
                         <!-- LOGO -->
                         <template v-if="Client.client.logo">
                             <img v-if="isURL(Client.client.logo)" :src="Client.client.logo"
@@ -31,24 +32,25 @@
                     </NuxtLink>
                     <div class="flex-1 hidden lg:flex lg:justify-center">
                         <!-- Navbar menu content here -->
-                        <ul class="menu menu-horizontal text-md lg:text-lg font-medium gap-2">
+                        <ul class="menu menu-horizontal text-md lg:text-lg font-medium gap-2 flex items-center">
                             <li>
-                                <NuxtLink to="/">Beranda</NuxtLink>
+                                <NuxtLink to="/" class="rounded-full max-xl:text-base">Beranda</NuxtLink>
                             </li>
                             <li v-if="Itikaf.itikaf">
-                                <NuxtLink to="/itikaf">Itikaf Ramadhan</NuxtLink>
+                                <NuxtLink to="/itikaf" class="rounded-full max-xl:text-base">Itikaf Ramadhan</NuxtLink>
                             </li>
                             <li v-if="!Auth.user">
-                                <NuxtLink to="/auth/login">Login</NuxtLink>
+                                <NuxtLink to="/auth/login" class="rounded-full max-xl:text-base">Login</NuxtLink>
                             </li>
                             <template v-if="Auth.user">
                                 <li>
                                     <details>
-                                        <summary>
-                                            <div class="btn w-8 h-8 min-h-8 btn-circle overflow-hidden">
+                                        <summary class="rounded-full max-xl:text-base">
+                                            <div
+                                                class="btn w-8 h-8 min-h-8 xl:w-8 xl:h-8 xl:min-h-8 btn-circle overflow-hidden">
                                                 <img v-if="Auth.user.avatar" :src="apiUri + Auth.user.avatar_md"
                                                     class="min-w-full min-h-full">
-                                                <LucideUser v-else :size="24" class="text-primary" />
+                                                <LucideUser v-else :size="20" class="text-primary" />
                                             </div>
                                             <div>{{ Auth.user.name }}</div>
                                         </summary>
@@ -65,7 +67,7 @@
                                     </details>
                                 </li>
                                 <li v-if="Auth.user.role != 'MEMBER'">
-                                    <NuxtLink to="/admin">Admin Portal</NuxtLink>
+                                    <NuxtLink to="/admin" class="rounded-full max-xl:text-base">Admin Portal</NuxtLink>
                                 </li>
                             </template>
                         </ul>
@@ -83,7 +85,7 @@
             <div class="p-4 w-80 min-h-full bg-base-200">
 
                 <NuxtLink to="/" @click="showdrawer = false"
-                    class="flex flex-col justify-center items-center gap-4 text-xl font-semibold">
+                    class="flex flex-col justify-center items-center gap-4 text-xl font-semibold !bg-white/0">
                     <!-- LOGO -->
                     <template v-if="Client.client.logo">
                         <img v-if="isURL(Client.client.logo)" :src="Client.client.logo"

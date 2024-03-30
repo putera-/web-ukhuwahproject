@@ -83,7 +83,7 @@
 
         <!-- CONTENT -->
         <div class="w-full px-3 lg:px-8">
-            <div class="wrapper drawer lg:drawer-open rounded-2xl lg:rounded-3xl">
+            <div class="wrapper drawer lg:drawer-open rounded-2xl lg:rounded-3xl pb-20">
                 <input v-model="show_drawer" type="checkbox" class="drawer-toggle" />
                 <!-- MAIN CONTENT -->
                 <div class="z-0 lg:z-[1] drawer-content bg-neutral max-lg:rounded-2xl rounded-r-2xl lg:rounded-r-3xl">
