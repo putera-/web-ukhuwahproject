@@ -17,14 +17,14 @@
                     <span class="label-text">Tahun</span>
                 </div>
                 <input :value="new Date().getFullYear()" disabled type="text"
-                    class="input input-lg rounded-full bg-[#E8E5F8] input-bordered w-full" />
+                    class="input md:input-lg rounded-full bg-[#E8E5F8] input-bordered w-full" />
             </label>
             <label class="form-control w-full">
                 <div class="label">
                     <span class="label-text">Tahun Hijriah</span>
                 </div>
                 <input :value="Itikaf.year" disabled type="text"
-                    class="input input-lg rounded-full bg-[#E8E5F8] input-bordered w-full" />
+                    class="input md:input-lg rounded-full bg-[#E8E5F8] input-bordered w-full" />
             </label>
         </div>
         <label class="form-control w-full max-w-xs">
@@ -32,7 +32,7 @@
                 <span class="label-text">Nama Masjid</span>
             </div>
             <input v-model="form.masjid" type="text" placeholder="Nama Masjid"
-                class="input input-lg rounded-full bg-[#E8E5F8] input-bordered w-full max-w-xs" />
+                class="input md:input-lg rounded-full bg-[#E8E5F8] input-bordered w-full max-w-xs" />
             <div class="label">
                 <span class="label-text-alt text-error" v-if="errors.masjid">{{ errors.masjid
                     }}</span>
@@ -43,7 +43,7 @@
                 <span class="label-text">Lokasi Masjid</span>
             </div>
             <input v-model="form.address" type="text" placeholder="Lokasi Masjid"
-                class="input input-lg rounded-full bg-[#E8E5F8] input-bordered w-full max-w-xs" />
+                class="input md:input-lg rounded-full bg-[#E8E5F8] input-bordered w-full max-w-xs" />
             <div class="label">
                 <span class="label-text-alt text-error" v-if="errors.address">{{ errors.address
                     }}</span>
@@ -54,7 +54,7 @@
                 <span class="label-text">Kontak Person</span>
             </div>
             <input v-model="form.contact_person_name" type="text" placeholder="Kontak Person"
-                class="input input-lg rounded-full bg-[#E8E5F8] input-bordered w-full max-w-xs" />
+                class="input md:input-lg rounded-full bg-[#E8E5F8] input-bordered w-full max-w-xs" />
             <div class="label">
                 <span class="label-text-alt text-error" v-if="errors.contact_person_name">{{ errors.contact_person_name
                     }}</span>
@@ -66,7 +66,7 @@
             </div>
             <input v-model="form.contact_person_phone" type="text" v-maska data-maska="+62 ###-####-#####"
                 placeholder="No Telepon"
-                class="input input-lg rounded-full bg-[#E8E5F8] input-bordered w-full max-w-xs" />
+                class="input md:input-lg rounded-full bg-[#E8E5F8] input-bordered w-full max-w-xs" />
             <div class="label">
                 <span class="label-text-alt text-error" v-if="errors.contact_person_phone">{{
             errors.contact_person_phone
