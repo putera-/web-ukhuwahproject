@@ -20,7 +20,7 @@
                     <div class="w-full flex flex-col gap-4">
                         <!-- email -->
                         <div>
-                            <label class="input input-lg border-0 rounded-full bg-[#E8E5F8] flex items-center gap-2">
+                            <label class="input md:input-lg border-0 rounded-full bg-[#E8E5F8] flex items-center gap-2">
                                 <input v-model="loginForm.email" type="text" class="grow" placeholder="Email"
                                     autocomplete="email" />
                             </label>
@@ -29,7 +29,7 @@
                         <!-- password -->
                         <div>
                             <label
-                                class="input input-lg border-0 flex items-center gap-2 rounded-full w-full bg-[#E8E5F8] overflow-hidden">
+                                class="input md:input-lg border-0 flex items-center gap-2 rounded-full w-full bg-[#E8E5F8] overflow-hidden">
                                 <input v-model="loginForm.password" :type="showPassword ? 'text' : 'password'"
                                     class="grow bg-[#E8E5F8]" placeholder="Password" autocomplete="current-password" />
                                 <div @click="showPassword = !showPassword" class="cursor-pointer">

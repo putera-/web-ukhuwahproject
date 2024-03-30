@@ -20,7 +20,7 @@
                     <div class="w-full flex flex-col gap-4">
                         <!-- name -->
                         <div>
-                            <label class="input input-lg border-0 rounded-full bg-[#E8E5F8] flex items-center gap-2">
+                            <label class="input md:input-lg border-0 rounded-full bg-[#E8E5F8] flex items-center gap-2">
                                 <input v-model="formData.name" type="text" class="grow" placeholder="Nama" />
                             </label>
                             <div class="text-xs text-error my-1" v-if="errors.name">{{ errors.name }}</div>
@@ -28,7 +28,7 @@
                         <!-- email -->
                         <div>
 
-                            <label class="input input-lg border-0 rounded-full bg-[#E8E5F8] flex items-center gap-2">
+                            <label class="input md:input-lg border-0 rounded-full bg-[#E8E5F8] flex items-center gap-2">
                                 <input v-model="formData.email" type="text" class="grow" placeholder="Email"
                                     autocomplete="email" />
                             </label>
@@ -37,14 +37,14 @@
                         <!-- phone -->
                         <div>
                             <input v-model="formData.phone"
-                                class="input input-lg input-bordered border-0 rounded-full w-full bg-[#E8E5F8]" v-maska
-                                data-maska="+62 ###-####-#####" placeholder="Nomor Telepon" />
+                                class="input md:input-lg input-bordered border-0 rounded-full w-full bg-[#E8E5F8]"
+                                v-maska data-maska="+62 ###-####-#####" placeholder="Nomor Telepon" />
                             <div class="text-xs text-error my-1" v-if="errors.phone">{{ errors.phone }}</div>
                         </div>
                         <!-- password -->
                         <div>
                             <label
-                                class="input input-lg border-0 flex items-center gap-2 rounded-full w-full bg-[#E8E5F8]">
+                                class="input md:input-lg border-0 flex items-center gap-2 rounded-full w-full bg-[#E8E5F8]">
                                 <input v-model="formData.password" :type="showPassword ? 'text' : 'password'"
                                     class="grow bg-[#E8E5F8]" placeholder="Password" autocomplete="new-password" />
                                 <div @click="showPassword = !showPassword" class="cursor-pointer">
@@ -57,7 +57,7 @@
                         <!-- confirm password -->
                         <div>
                             <label
-                                class="input input-lg border-0 flex items-center gap-2 rounded-full w-full bg-[#E8E5F8]">
+                                class="input md:input-lg border-0 flex items-center gap-2 rounded-full w-full bg-[#E8E5F8]">
                                 <input v-model="formData.confirm_password"
                                     :type="showConfirmPassword ? 'text' : 'password'" class="grow bg-[#E8E5F8]"
                                     placeholder="Ulangi Password" autocomplete="new-password" />
