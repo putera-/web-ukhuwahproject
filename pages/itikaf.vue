@@ -13,9 +13,13 @@
 
             <!-- DESKRIPSI -->
             <div>{{ Itikaf.itikaf.description }}</div>
+            <div class="my-3">
+                <div v-if="Itikaf.itikaf.masjid" class="font-semibold">Lokasi: {{ Itikaf.itikaf.masjid }}</div>
+                <div v-if="Itikaf.itikaf.address">Alamat: {{ Itikaf.itikaf.address }}</div>
+            </div>
             <!-- KONTAK PERSON -->
             <div v-if="Itikaf.itikaf.contact_person_name">
-                <div>Informasi:</div>
+                <div class="font-semibold">Informasi:</div>
                 <div>{{ Itikaf.itikaf.contact_person_name }}: {{ Itikaf.itikaf.contact_person_phone }}</div>
             </div>
         </div>

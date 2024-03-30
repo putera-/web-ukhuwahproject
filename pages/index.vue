@@ -36,8 +36,11 @@
                 <div class="w-full h-full bg-gradient-to-t from-white to-[#F8D7B6] absolute"></div>
             </div>
 
-
             <div class="mt-2">{{ Itikaf.itikaf.description }}</div>
+            <div class="my-3">
+                <div v-if="Itikaf.itikaf.masjid" class="font-semibold">Lokasi: {{ Itikaf.itikaf.masjid }}</div>
+                <div v-if="Itikaf.itikaf.address">Alamat: {{ Itikaf.itikaf.address }}</div>
+            </div>
             <NuxtLink to="/itikaf" class="btn bg-[#EE9A49] mt-2">Lihat Jadwal I'tikaf</NuxtLink>
         </div>
     </div>
