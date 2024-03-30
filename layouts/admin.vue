@@ -2,29 +2,27 @@
     <div v-if="Auth.user" data-theme="nord"
         class="w-screen h-screen max-w-screen min-h-scren overflow-x-hidden font-poppins">
         <!-- MOBILE HEADER -->
-        <div class="lg:hidden h-[70px] relative border-b border-gray/20 px-3">
-            <div class="h-full flex justify-between items-center">
-                <a href="" class="flex-none flex gap-4 items-center">
-                    <!-- <ImagesSun class="h-8" /> -->
-                </a>
+        <!-- <div class="lg:hidden h-[70px] relative border-b border-gray/20 px-3"> -->
+        <!-- <div class="h-full flex justify-between items-center"> -->
+        <!-- <a href="" class="flex-none flex gap-4 items-center">
+                    <ImagesSun class="h-8" />
+                </a> -->
 
-                <label @click="show_drawer = true" class="btn btn-ghost">
-                    <LucideAlignRight :size="24" />
+        <!-- <label @click="show_drawer = true" class="btn btn-ghost">
+                    <LucideAlignLeft :size="24" />
                 </label>
             </div>
-        </div>
+        </div> -->
 
         <!-- MAIN HEADER -->
         <div class="h-[70px] relative border-b border-gray/20 px-3 lg:px-8 md:py-0 mb-12 shadow-md">
             <div class="h-full flex items-center lg:divide-x divide-gray/20">
 
-                <!-- sisi kiri -->
-                <!-- <a href="" class="max-lg:hidden flex-none flex gap-4 items-center pr-4">
-                    <img src="/uplogo.png" class="h-10">
-                    <div class="font-semibold text-lg">Ukhuwah Project</div>
-                </a> -->
+                <label @click="show_drawer = true" class="btn btn-ghost">
+                    <LucideAlignLeft :size="24" />
+                </label>
 
-                <NuxtLink to="/admin" class="lg:absolute px-2 mx-2 text-xl font-semibold flex gap-4 items-center"
+                <NuxtLink to="/admin" class="lg:absolute pr-2 mr-2 text-xl font-semibold flex gap-4 items-center"
                     v-if="Client.client">
                     <!-- LOGO -->
                     <template v-if="Client.client.logo">

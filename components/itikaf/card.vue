@@ -53,10 +53,10 @@
             <div class="flex max-md:flex-col gap-4 justify-between items-center">
                 <!-- PESERTA -->
                 <div class="flex max-md:flex-col gap-3">
-                    <button class="btn btn-sm font-normal">
+                    <button class="btn btn-sm font-normal rounded-xl">
                         <IconsIkhwan class="w-4" /> Peserta Ikhwan: {{ schedule.total_man }}
                     </button>
-                    <button class="btn btn-sm font-normal">
+                    <button class="btn btn-sm font-normal rounded-xl">
                         <IconsAkhwat class="w-4" /> Peserta Akhwat: {{ schedule.total_woman }}
                     </button>
                 </div>

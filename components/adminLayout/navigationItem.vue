@@ -1,7 +1,7 @@
 <template>
     <!--Tidak punya children-->
     <li v-if="!menu.children">
-        <NuxtLink :to="menu.to" @click="$emit('clicked')">
+        <NuxtLink :to="menu.to" @click="$emit('clicked')" class="bg-white/5 py-3 my-1 rounded-xl">
             <component :is="menu.icon" :size="20" class="w-6" /> {{ menu.title }}
         </NuxtLink>
     </li>
@@ -30,3 +30,9 @@ defineProps({
     menu: Object
 });
 </script>
+
+<style>
+.router-link-active.router-link-exact-active {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+</style>

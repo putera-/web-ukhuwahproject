@@ -23,7 +23,10 @@
                                         <img v-if="isURL(user.user.avatar_md)" :src="user.user.avatar_md" class="w-10">
                                         <img v-else :src="apiUri + user.user.avatar_md" class="w-10">
                                     </template>
-                                    <IconsMosque v-else class="w-10" />
+                                    <div v-else
+                                        class="w-10 h-10 rounded-full bg-gray-300 flex justify-center items-center text-xl">
+                                        {{ user.user.name[0] }}
+                                    </div>
                                 </div>
                             </td>
                             <td>
@@ -62,13 +65,25 @@
                 <div v-for="user in data.participants" class="card shadow-lg rounded-2xl">
                     <div class="card-body max-sm:p-5">
                         <div class="flex max-sm:flex-col justify-between">
-                            <div>
-                                <div>{{ user.user.name }}</div>
-                                <a :href="`https://wa.me/${user.user.phone.replaceAll('-', '').replace(' ', '').replace('+', '')}`"
-                                    target="_blank" class="flex gap-2 items-center">
-                                    <IconsWhatsapp class="w-3" />
-                                    <div>{{ user.user.phone }}</div>
-                                </a>
+                            <div class="flex gap-4 items-center">
+                                <div class="w-8 h-8 rounded-full overflow-hidden">
+                                    <template v-if="user.user.avatar">
+                                        <img v-if="isURL(user.user.avatar_md)" :src="user.user.avatar_md" class="w-8">
+                                        <img v-else :src="apiUri + user.user.avatar_md" class="w-8">
+                                    </template>
+                                    <div v-else
+                                        class="w-8 h-8 rounded-full bg-gray-300 flex justify-center items-center text-lg">
+                                        {{ user.user.name[0] }}
+                                    </div>
+                                </div>
+                                <div>
+                                    <div>{{ user.user.name }}</div>
+                                    <a :href="`https://wa.me/${user.user.phone.replaceAll('-', '').replace(' ', '').replace('+', '')}`"
+                                        target="_blank" class="flex gap-2 items-center">
+                                        <IconsWhatsapp class="w-3" />
+                                        <div>{{ user.user.phone }}</div>
+                                    </a>
+                                </div>
                             </div>
                             <div v-if="!user.coupon_taken" class="max-sm:hidden flex items-center justify-center mt-3">
                                 <button @click="confirmCoupon = true; couponParticipant = user"
@@ -93,9 +108,10 @@
                             <div class="btn btn-sm font-normal rounded-xl">
                                 <IconsAkhwat class="w-4" />{{ user.woman }}
                             </div>
-                            <div class="max-sm:col-span-2 btn btn-sm rounded-xl flex flex-nowrap font-semibold text-lg">
+                            <div class="max-sm:col-span-2 btn btn-sm rounded-xl flex flex-nowrap">
                                 <IconsIkhwan class="w-4" />+
-                                <IconsAkhwat class="w-4" />{{ user.man + user.woman }}
+                                <IconsAkhwat class="w-4" /><span class="font-semibold text-lg">{{ user.man + user.woman
+                                    }}</span>
                             </div>
                         </div>
                         <div v-if="!user.coupon_taken" class="sm:hidden flex items-center justify-center mt-3">
