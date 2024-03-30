@@ -25,7 +25,8 @@
             <div class="label">
                 <span class="label-text">Nomor Rekening</span>
             </div>
-            <input v-model="form.bank_account_no" type="text" placeholder="Nomor Rekening"
+            <input v-model="form.bank_account_no" type="text" placeholder="Nomor Rekening" v-maska
+                data-maska="####-####-####-####"
                 class="input md:input-lg border-0 input-bordered w-full max-w-xs rounded-full bg-[#E8E5F8]" />
             <div class="label">
                 <span class="label-text-alt text-error" v-if="errors.bank_account_no">{{ errors.bank_account_no

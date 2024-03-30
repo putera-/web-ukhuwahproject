@@ -1,5 +1,5 @@
 export const _meta = {
-    title: 'UkKHUWAH PROJECT - Bersama Dijalan Dakwah',
+    title: 'UKHUWAH PROJECT - Bersama Dijalan Dakwah',
     description: 'I\'tikaf 10 Hari Terakhir Ramadhan 1445 Di Masjid Al-Adhim. Ramadhan ini kita I\'tikaf bersama keluarga dan teman teman. Membaca Al-Quran, Qiyamul Lail. Konsultasi Syariah, Berdzikir dan Berdoa. Ditemani secangkir kopi agar Ibadah Makin Hepi',
     image: process.env.NUXT_PUBLIC_API_URI + '/dummy/itikafposter.jpeg',
     image_type: 'image/jpeg',

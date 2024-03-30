@@ -1,8 +1,8 @@
 <template>
     <footer class="bg-gray-800 text-white">
-        <div class="w-full max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 p-5 md:p-10">
+        <div v-if="Client.client" class="w-full max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 p-5 md:p-10">
             <!-- SLOT 1 -->
-            <div v-if="Client.client" class="flex flex-col gap-2 items-center">
+            <div class="flex flex-col gap-2 items-center">
 
                 <!-- LOGO -->
                 <template v-if="Client.client.logo">
@@ -24,9 +24,9 @@
             <!-- SLOT 2 -->
             <div class="max-md:text-center flex flex-col justify-center">
                 <div class="text-lg my-4">Salurkan Donasi Terbaik Anda</div>
-                <div class="font-semibold">Yayasan Ukhuwah Project</div>
-                <div>Bank Syariah Indonesia (BSI)</div>
-                <div>8888-888-888</div>
+                <div class="font-medium text-nowrap">{{ Client.client.bank_holder_name }}</div>
+                <div class="text-sm text-nowrap">{{ Client.client.bank_name }}</div>
+                <div class="text-sm text-nowrap">{{ Client.client.bank_account_no }}</div>
             </div>
             <div class="max-md:text-center flex justify-center text-sm font-light">
                 <div class="flex flex-col gap-3 justify-center">
