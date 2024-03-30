@@ -3,10 +3,7 @@
         <div class="mt-2 text-xl font-semibold">I'tikaf {{ Itikaf.year }}</div>
         <div class="w-full">
             <div class="h-48 lg:h-52 xl:h-60 max-w-full aspect-video rounded-2xl overflow-hidden">
-                <template v-if="form.photo">
-                    <img v-if="isURL(form.photo)" :src="form.photo" class="min-w-full min-h-full">
-                    <img v-else :src="apiUri + form.photo" class="min-w-full min-h-full">
-                </template>
+                <img v-if="photo_preview" :src="photo_preview" class="min-w-full min-h-full">
                 <div v-else class="bg-neutral/50 w-full h-full">
                 </div>
             </div>
@@ -109,8 +106,9 @@ const Itikaf = useItikafStore();
 
 const emits = defineEmits(['saved', 'cancel']);
 
+const photo_preview = ref(Itikaf.itikaf ? apiUri + Itikaf.itikaf.photo : undefined)
+
 const form = ref({
-    photo: undefined,
     masjid: '',
     address: '',
     contact_person_name: '',
@@ -122,7 +120,8 @@ onBeforeMount(async () => {
 
     if (Itikaf.itikaf) {
         form.value = {
-            photo: Itikaf.itikaf.photo,
+            masjid: Itikaf.itikaf.masjid,
+            address: Itikaf.itikaf.address,
             contact_person_name: Itikaf.itikaf.contact_person_name,
             contact_person_phone: Itikaf.itikaf.contact_person_phone,
             description: Itikaf.itikaf.description
@@ -147,11 +146,11 @@ const handlePhoto = (e: Event): void => {
         photo = files![0];
 
         // reset image preview
-        form.value.photo = '';
+        photo_preview.value = '';
 
         const reader = new FileReader();
         reader.onload = () => {
-            form.value.photo = reader.result as string;
+            photo_preview.value = reader.result as string;
         };
         reader.readAsDataURL(photo);
     }
@@ -166,8 +165,6 @@ const doUpdate = async () => {
         if (photo) {
             formData.append('photo', photo);
         }
-        delete form.value.photo;
-
         // validate
         const data = Validate(isItikaf, form.value);
 
