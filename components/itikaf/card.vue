@@ -1,10 +1,12 @@
 <template>
     <div class="card shadow-lg bg-white rounded-2xl overflow-hidden">
         <!-- schedule.photo -->
-        <div v-if="schedule.photo" class="lg:h-[70vh] rounded-t-xl overflow-hidden relative">
+        <div v-if="schedule.photo"
+            class="h-[30vh] md:h-[50vh] lg:h-[70vh] rounded-t-xl overflow-hidden relative bg-cover bg-center"
+            :style="`background-image: url(${isURL(schedule.photo) ? schedule.photo : apiUri + schedule.photo});`">
             <div class="w-full h-full  bg-gradient-to-t from-white via-white/0 to-white/0 absolute"></div>
-            <img v-if="isURL(schedule.photo)" :src="schedule.photo" class="h-full mx-auto z-10">
-            <img v-else :src="apiUri + schedule.photo" class="h-full mx-auto z-10">
+            <!-- <img v-if="isURL(schedule.photo)" :src="schedule.photo" class="h-full mx-auto z-10">
+            <img v-else :src="apiUri + schedule.photo" class="h-full mx-auto z-10"> -->
         </div>
         <div v-else class="w-full h-40 md:h-52 lg:h-60 rounded-t-xl overflow-hidden relative">
             <div class="w-full h-full bg-gradient-to-t from-white to-[#F8D7B6] absolute"></div>

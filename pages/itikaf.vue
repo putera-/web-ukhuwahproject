@@ -6,13 +6,14 @@
                 Itikaf Ramadhan {{ Itikaf.itikaf.hijri_year }} / {{ Itikaf.itikaf.year }}
             </div>
 
-            <div class="w-full lg:h-[70vh] overflow-hidden rounded-2xl">
-                <img v-if="isURL(Itikaf.itikaf.photo)" :src="Itikaf.itikaf.photo" class="h-full mx-auto rounded-2xl">
-                <img v-else :src="apiUri + Itikaf.itikaf.photo" class="h-full mx-auto rounded-2xl">
+            <div class="w-full h-[30vh] md:h-[50vh] lg:h-[70vh] overflow-hidden rounded-2xl bg-cover bg-center shadow-xl"
+                :style="`background-image: url(${isURL(Itikaf.itikaf.photo) ? Itikaf.itikaf.photo : apiUri + Itikaf.itikaf.photo});`">
+                <!-- <img v-if="isURL(Itikaf.itikaf.photo)" :src="Itikaf.itikaf.photo" class="h-full mx-auto rounded-2xl">
+                <img v-else :src="apiUri + Itikaf.itikaf.photo" class="h-full mx-auto rounded-2xl"> -->
             </div>
 
             <!-- DESKRIPSI -->
-            <div>{{ Itikaf.itikaf.description }}</div>
+            <div class="mt-3">{{ Itikaf.itikaf.description }}</div>
             <div class="my-3">
                 <div v-if="Itikaf.itikaf.masjid" class="font-semibold">Lokasi: {{ Itikaf.itikaf.masjid }}</div>
                 <div v-if="Itikaf.itikaf.address">Alamat: {{ Itikaf.itikaf.address }}</div>
