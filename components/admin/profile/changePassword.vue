@@ -2,10 +2,10 @@
     <div class="flex flex-col gap-4">
         <label class="form-control w-full max-w-xs">
             <div class="label">
-                <span class="label-text">Old Confirm</span>
+                <span class="label-text">Passowrd Lama</span>
             </div>
             <input v-model="formData.old_password" type="password" placeholder="Password"
-                class="input input-lg rounded-full bg-[#E8E5F8] input-bordered w-full max-w-xs" />
+                class="input md:input-lg rounded-full bg-[#E8E5F8] input-bordered w-full max-w-xs" />
             <div class="text-error text-right text-sm pr-2" v-if="errors.old_password">{{ errors.old_password }}</div>
         </label>
         <label class="form-control w-full max-w-xs">
@@ -13,15 +13,15 @@
                 <span class="label-text">Password</span>
             </div>
             <input v-model="formData.password" type="password" placeholder="Password"
-                class="input input-lg rounded-full bg-[#E8E5F8] input-bordered w-full max-w-xs" />
+                class="input md:input-lg rounded-full bg-[#E8E5F8] input-bordered w-full max-w-xs" />
             <div class="text-error text-right text-sm pr-2" v-if="errors.password">{{ errors.password }}</div>
         </label>
         <label class="form-control w-full max-w-xs">
             <div class="label">
-                <span class="label-text">Password Confirm</span>
+                <span class="label-text">Konfirmasi Password</span>
             </div>
             <input v-model="formData.confirm_password" type="password" placeholder="Confirm Password"
-                class="input input-lg rounded-full bg-[#E8E5F8] input-bordered w-full max-w-xs" />
+                class="input md:input-lg rounded-full bg-[#E8E5F8] input-bordered w-full max-w-xs" />
             <div class="text-error text-right text-sm pr-2" v-if="errors.confirm_password">{{
                 errors.confirm_password }}
             </div>
@@ -29,7 +29,7 @@
     </div>
 
     <div class="flex gap-2 items-center">
-        <label class="btn btn-neutral rounded-full my-5" @click="confirmUpdate = true">Update</label>
+        <label class="btn btn-neutral rounded-full my-5" @click="confirmUpdate = true">Ubah</label>
         <div class="text-error font-sm" v-if="responseError">{{ responseError }}</div>
     </div>
 

@@ -30,7 +30,7 @@
                     <span class="label-text">Nama Asaatidz</span>
                 </div>
                 <input v-model="form.name" type="text" placeholder="Nama"
-                    class="input input-lg rounded-full bg-[#E8E5F8] input-bordered w-full max-w-xs" />
+                    class="input md:input-lg rounded-full bg-[#E8E5F8] input-bordered w-full max-w-xs" />
                 <div class="label">
                     <span class="label-text-alt text-error" v-if="errors.name">
                         {{ errors.name }}</span>

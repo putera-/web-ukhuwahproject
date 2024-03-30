@@ -16,7 +16,7 @@
                     <span class="label-text">Nama</span>
                 </div>
                 <input v-model="form.name" type="text" placeholder="Nama"
-                    class="input input-lg border-0 input-bordered w-full max-w-xs rounded-full bg-[#E8E5F8]" />
+                    class="input md:input-lg border-0 input-bordered w-full max-w-xs rounded-full bg-[#E8E5F8]" />
                 <div class="label">
                     <span class="label-text-alt text-error" v-if="errors.name">{{ errors.name }}</span>
                 </div>
@@ -26,7 +26,7 @@
                     <span class="label-text">No Telpon</span>
                 </div>
                 <input v-model="form.phone" type="text" placeholder="No Telpon" v-maska data-maska="+62 ###-####-#####"
-                    class="input input-lg border-0 input-bordered w-full max-w-xs rounded-full bg-[#E8E5F8]" />
+                    class="input md:input-lg border-0 input-bordered w-full max-w-xs rounded-full bg-[#E8E5F8]" />
                 <div class="label">
                     <span class="label-text-alt text-error" v-if="errors.phone">{{ errors.phone }}</span>
                 </div>
@@ -36,7 +36,7 @@
     <div class="border-b border-b-neutral/10 my-4"></div>
 
     <div class="flex gap-2 items-center">
-        <button @click="confirmUpdate = true" class="btn btn-neutral float-right rounded-full">Update</button>
+        <button @click="confirmUpdate = true" class="btn btn-neutral float-right rounded-full">Ubah</button>
         <div class="text-error font-sm" v-if="responseError">{{ responseError }}</div>
     </div>
 
