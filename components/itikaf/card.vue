@@ -15,7 +15,7 @@
                     <div class="text-2xl font-medium">Itikaf Malam ke {{ schedule.day_index }}</div>
                     <div>{{ dayjs(schedule.date).format('DD MMM YYYY') }}</div>
                 </div>
-                <template v-if="route.path == '/itikaf'">
+                <template v-if="route.path == '/itikaf' || route.path == '/itikaf/'">
                     <button v-if="!schedule.auth_participant" @click="$emit('toJoin')"
                         class="btn bg-[#EE9A49] rounded-full px-6">Ikut
                         Itikaf</button>
@@ -87,4 +87,5 @@ defineProps<{
 defineEmits(['toJoin', 'toCancelJoin', 'mySchedule', 'update'])
 
 const route = useRoute();
+console.log(route.path)
 </script>
