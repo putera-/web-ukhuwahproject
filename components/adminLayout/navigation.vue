@@ -28,6 +28,11 @@ const menus: Menu[] = [
         to: "/admin",
         icon: resolveComponent("LucideLayoutDashboard")
     },
+    {
+        title: "Organisasi",
+        to: "/admin/org",
+        icon: resolveComponent("LucideBuilding")
+    },
     // {
     //     title: "Profile",
     //     to: "/admin/profile",

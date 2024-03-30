@@ -35,7 +35,7 @@
                     <IconsMosque v-else class="w-10" />
 
                     <div class="flex flex-col">
-                        <div class="uppercase">{{ Client.client.name }}</div>
+                        <div class="uppercase max-sm:text-base">{{ Client.client.name }}</div>
                         <div class="text-xs font-normal text-slate-500">{{ Client.client.slogan }}</div>
                     </div>
                 </NuxtLink>
