@@ -115,29 +115,32 @@
                 <div class="divider mt-0"></div>
                 <ul class="menu">
                     <li>
-                        <NuxtLink to="/" @click="showdrawer = false" class="flex items-center">
+                        <NuxtLink to="/" @click="showdrawer = false"
+                            class="flex items-center bg-white/5 py-3 my-1 rounded-xl">
                             <IconsHome class="w-5" /> Beranda
                         </NuxtLink>
                     </li>
                     <li v-if="Itikaf.itikaf">
-                        <NuxtLink to="/itikaf" @click="showdrawer = false" class="flex items-center">
+                        <NuxtLink to="/itikaf" @click="showdrawer = false"
+                            class="flex items-center bg-white/5 py-3 my-1 rounded-xl">
                             <IconsPray class="w-5" /> Itikaf Ramadhan
                         </NuxtLink>
                     </li>
                     <li v-if="!Auth.user">
-                        <NuxtLink to="/auth/login" @click="showdrawer = false" class="flex items-center">
+                        <NuxtLink to="/auth/login" @click="showdrawer = false"
+                            class="flex items-center bg-white/5 py-3 my-1 rounded-xl">
                             <IconsEnter class="w-5" /> Login
                         </NuxtLink>
                     </li>
                     <template v-if="Auth.user">
                         <li>
                             <NuxtLink v-if="Auth.user.role != 'MEMBER'" to="/admin" @click="showdrawer = false"
-                                class="flex items-center">
+                                class="flex items-center py-3 my-1">
                                 <IconsEnter class="w-5" /> Admin Portal
                             </NuxtLink>
                         </li>
                         <li class="mt-2">
-                            <button class="bg-[#EE9A49] btn btn-sm" @click="Auth.logout">Logout</button>
+                            <button class="bg-[#EE9A49] btn btn-sm py-3 my-1" @click="Auth.logout">Logout</button>
                         </li>
                     </template>
                 </ul>
@@ -161,3 +164,9 @@ if (!Itikaf.itikaf) Itikaf.get();
 if (!Shalat.data) Shalat.get();
 
 </script>
+
+<style scoped>
+.router-link-active.router-link-exact-active {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+</style>

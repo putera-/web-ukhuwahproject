@@ -6,13 +6,13 @@
     </div>
 
     <div role="tablist" class="tabs tabs-bordered">
-        <input type="radio" name="my_tabs_2" role="tab" class="tab [--tab-bg:#f8fafc]" aria-label="Profile" checked />
+        <input type="radio" name="my_tabs_2" role="tab" class="tab [--tab-bg:#f8fafc]" aria-label="Profil" checked />
         <div role="tabpanel" class="tab-content p-6">
             <AdminProfile v-if="!loading" />
         </div>
 
         <input type="radio" name="my_tabs_2" role="tab" class="tab [--tab-bg:#f8fafc] text-nowrap"
-            aria-label="Change Password" />
+            aria-label="Ganti Pasword" />
         <div role="tabpanel" class="tab-content p-6">
             <AdminProfileChangePassword v-if="!loading" />
         </div>
