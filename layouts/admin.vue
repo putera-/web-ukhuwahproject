@@ -18,7 +18,7 @@
         <div class="h-[70px] relative border-b border-gray/20 px-3 lg:px-8 md:py-0 mb-12 shadow-md">
             <div class="h-full flex items-center lg:divide-x divide-gray/20">
 
-                <label @click="show_drawer = true" class="btn btn-ghost">
+                <label @click="show_drawer = true" class="lg:hidden btn btn-ghost">
                     <LucideAlignLeft :size="24" />
                 </label>
 
