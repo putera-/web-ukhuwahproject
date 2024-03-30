@@ -1,3 +1,5 @@
+import { _meta, meta } from "./meta"
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
@@ -14,5 +16,20 @@ export default defineNuxtConfig({
     },
   },
   modules: ['@pinia/nuxt', 'nuxt-lucide-icons'],
-  ssr: false
+  ssr: false,
+  app: {
+    head: {
+      title: _meta.title,
+      meta: meta,
+      charset: 'utf-8',
+      viewport: 'width=device-width, initial-scale=1',
+      link: [
+        {
+          rel: 'icon',
+          type: 'image/x-icon',
+          href: '/favicon.ico'
+        }
+      ]
+    }
+  }
 })
