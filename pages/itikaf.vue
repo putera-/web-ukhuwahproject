@@ -20,7 +20,12 @@
             <!-- KONTAK PERSON -->
             <div v-if="Itikaf.itikaf.contact_person_name">
                 <div class="font-semibold">Informasi:</div>
-                <div>{{ Itikaf.itikaf.contact_person_name }}: {{ Itikaf.itikaf.contact_person_phone }}</div>
+                <div>{{ Itikaf.itikaf.contact_person_name }}</div>
+                <a :href="`https://wa.me/${Itikaf.itikaf.contact_person_phone.replaceAll('-', '').replace(' ', '').replace('+', '')}`"
+                    target="_blank" class="flex gap-2 items-center btn bm-sm w-min text-nowrap flex-nowrap font-normal">
+                    <IconsWhatsapp class="w-3" />
+                    <div>{{ Itikaf.itikaf.contact_person_phone }}</div>
+                </a>
             </div>
         </div>
 
