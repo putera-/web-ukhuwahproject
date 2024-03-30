@@ -14,7 +14,7 @@
                             </svg>
                         </label>
                     </div>
-                    <NuxtLink to="/" class="lg:absolute px-2 mx-2 gap-3 text-xl font-semibold" v-if="Client.client">
+                    <NuxtLink to="/" class="xl:absolute px-2 mx-2 gap-3 text-xl font-semibold" v-if="Client.client">
                         <!-- LOGO -->
                         <template v-if="Client.client.logo">
                             <img v-if="isURL(Client.client.logo)" :src="Client.client.logo"
@@ -31,7 +31,7 @@
                     </NuxtLink>
                     <div class="flex-1 hidden lg:flex lg:justify-center">
                         <!-- Navbar menu content here -->
-                        <ul class="menu menu-horizontal text-lg font-medium gap-2">
+                        <ul class="menu menu-horizontal text-md lg:text-lg font-medium gap-2">
                             <li>
                                 <NuxtLink to="/">Beranda</NuxtLink>
                             </li>

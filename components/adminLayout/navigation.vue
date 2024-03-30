@@ -1,4 +1,5 @@
 <template>
+    <!-- FIXME tampilan terlalu sempit -->
     <ul class="side-menu">
         <li class="my-2 font-semibold">M A I N _ M E N U</li>
         <template v-for="(menu, i) in menus" :key="i">
