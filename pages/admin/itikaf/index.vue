@@ -1,16 +1,16 @@
 <template>
     <div v-if="Itikaf.itikaf">
         <!-- ITIKAF -->
-        <div>
-            <div class="flex justify-between items-center gap-2">
-                <div class="text-3xl font-semibold my-3">
-                    I'tikaf Ramadhan {{ Itikaf.itikaf.year }} / {{ Itikaf.itikaf.hijri_year }} H
-                </div>
-
-                <NuxtLink to="/admin/itikaf/update" class="btn btn-circle bg-[#EE9A49] btn-sm">
-                    <LucidePencil :size="16" />
-                </NuxtLink>
+        <div class="flex justify-between items-center gap-2">
+            <div class="text-3xl font-semibold my-3">
+                I'tikaf Ramadhan {{ Itikaf.itikaf.year }} / {{ Itikaf.itikaf.hijri_year }} H
             </div>
+
+            <NuxtLink to="/admin/itikaf/update" class="btn btn-circle bg-[#EE9A49] btn-sm">
+                <LucidePencil :size="16" />
+            </NuxtLink>
+        </div>
+        <div class="bg-white rounded-xl">
             <!-- schedule.photos -->
             <div v-if="Itikaf.itikaf.photo" class="w-full h-40 md:h-52 lg:h-60 rounded-t-xl overflow-hidden relative">
                 <div class="w-full h-full bg-gradient-to-t from-white via-white/0 to-white/0 absolute"></div>
@@ -22,10 +22,12 @@
             </div>
 
 
-            <div class="mt-2 whitespace-pre-wrap">{{ Itikaf.itikaf.description }}</div>
-            <div class="my-3">
-                <div v-if="Itikaf.itikaf.masjid" class="font-semibold">Lokasi: {{ Itikaf.itikaf.masjid }}</div>
-                <div v-if="Itikaf.itikaf.address">Alamat: {{ Itikaf.itikaf.address }}</div>
+            <div class="p-4 md:p-8">
+                <div class="mt-2 whitespace-pre-wrap">{{ Itikaf.itikaf.description }}</div>
+                <div class="my-3">
+                    <div v-if="Itikaf.itikaf.masjid" class="font-semibold">Lokasi: {{ Itikaf.itikaf.masjid }}</div>
+                    <div v-if="Itikaf.itikaf.address">Alamat: {{ Itikaf.itikaf.address }}</div>
+                </div>
             </div>
         </div>
         <div>
