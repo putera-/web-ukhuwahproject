@@ -140,7 +140,7 @@ const Auth = useAuthStore();
 
 </script>
 
-<style scoped>
+<style>
 body>div>div[data-theme] {
     background-image: url('/bg-main.svg');
     background-attachment: fixed;
