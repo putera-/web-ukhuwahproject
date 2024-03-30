@@ -62,7 +62,7 @@
                 </div>
 
                 <div class="flex gap-2">
-                    <NuxtLink v-if="route.path == '/admin/itikaf'" :to="'/admin/itikaf/' + schedule.id"
+                    <NuxtLink v-if="route.path.includes('/admin/itikaf')" :to="'/admin/itikaf/' + schedule.id"
                         class="btn rounded-full btn-sm bg-[#EE9A49]">
                         <LucideEye :size="16" />Detail
                     </NuxtLink>
@@ -87,5 +87,4 @@ defineProps<{
 defineEmits(['toJoin', 'toCancelJoin', 'mySchedule', 'update'])
 
 const route = useRoute();
-console.log(route.path)
 </script>

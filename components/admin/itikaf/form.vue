@@ -86,7 +86,7 @@
 
         <div class="flex gap-2 items-center">
             <NuxtLink to="/admin/itikaf" class="btn btn-neutral rounded-full"
-                v-if="route.path == '/admin/itikaf/update'">Batal
+                v-if="route.path.includes('/admin/itikaf/update')">Batal
             </NuxtLink>
             <button @click="confirmUpdate = true" class="btn bg-[#EE9A49] float-right rounded-full">Simpan</button>
             <div class="text-error font-sm" v-if="responseError">{{ responseError }}</div>
