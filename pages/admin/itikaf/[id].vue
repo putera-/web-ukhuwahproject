@@ -30,12 +30,15 @@
                                 </div>
                             </td>
                             <td>
-                                <div>{{ user.user.name }}</div>
+                                <div class="font-medium text-base text-nowrap">{{ user.user.name }}</div>
                                 <a :href="`https://wa.me/${user.user.phone.replaceAll('-', '').replace(' ', '').replace('+', '')}`"
                                     target="_blank" class="flex gap-2 items-center">
                                     <IconsWhatsapp class="w-3" />
-                                    <div>{{ user.user.phone }}</div>
+                                    <div class="text-nowrap">{{ user.user.phone }}</div>
                                 </a>
+                                <div v-if="user.vehicle" class="text-xs text-nowrap">
+                                    {{ user.vehicle.vehicle_type }} : {{ user.vehicle.vehicle_no }}
+                                </div>
                             </td>
                             <td class="text-center">{{ user.man }}</td>
                             <td class="text-center">{{ user.woman }}</td>
@@ -77,12 +80,15 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <div>{{ user.user.name }}</div>
+                                    <div class="font-medium text-base text-nowrap">{{ user.user.name }}</div>
                                     <a :href="`https://wa.me/${user.user.phone.replaceAll('-', '').replace(' ', '').replace('+', '')}`"
                                         target="_blank" class="flex gap-2 items-center">
                                         <IconsWhatsapp class="w-3" />
-                                        <div>{{ user.user.phone }}</div>
+                                        <div class="text-nowrap">{{ user.user.phone }}</div>
                                     </a>
+                                    <div v-if="user.vehicle" class="text-xs text-nowrap">
+                                        {{ user.vehicle.vehicle_type }} : {{ user.vehicle.vehicle_no }}
+                                    </div>
                                 </div>
                             </div>
                             <div v-if="!user.coupon_taken" class="max-sm:hidden flex items-center justify-center mt-3">
