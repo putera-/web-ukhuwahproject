@@ -3,7 +3,7 @@
         <div id="main" class="w-screen h-screen">
             <div class="max-w-7xl h-full mx-auto relative">
                 <div
-                    class="absolute w-full h-[60vh] flex justify-center items-center text-center text-4xl md:text-6xl lg:text-8xl xl:text-9xl z-[1]">
+                    class="absolute w-full h-[60vh] flex justify-center items-center text-center text-3xl sm:text-4xl md:text-6xl lg:text-8xl xl:text-9xl z-[1]">
                     <div class="mb-40 lg:mb-32 xl:mb-20">RAMADHAN 1445 H</div>
                 </div>
 
@@ -21,7 +21,7 @@
 
         <!-- ITIKAF -->
         <div v-if="Itikaf.itikaf">
-            <div class="text-3xl font-semibold my-3">
+            <div class="text-xl md:text-2xl font-semibold my-3">
                 I'tikaf Ramadhan {{ Itikaf.itikaf.year }} / {{ Itikaf.itikaf.hijri_year }} H
             </div>
             <!-- schedule.photos -->

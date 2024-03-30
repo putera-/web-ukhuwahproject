@@ -57,7 +57,8 @@
                                             <li>
                                                 <NuxtLink to="/profile" class="font-normal text-sm">Profile</NuxtLink>
                                             </li>
-                                            <li><button class="bg-[#EE9A49] btn btn-sm font-normal text-sm"
+                                            <li>
+                                                <button class="bg-[#EE9A49] btn btn-sm font-normal text-sm"
                                                     @click="Auth.logout">Logout</button>
                                             </li>
                                         </ul>
@@ -140,7 +141,7 @@
                             </NuxtLink>
                         </li>
                         <li class="mt-2">
-                            <button class="bg-[#EE9A49] btn btn-sm py-3 my-1" @click="Auth.logout">Logout</button>
+                            <button class="bg-[#EE9A49] btn btn-sm my-1" @click="Auth.logout">Logout</button>
                         </li>
                     </template>
                 </ul>
@@ -167,6 +168,6 @@ if (!Shalat.data) Shalat.get();
 
 <style scoped>
 .router-link-active.router-link-exact-active {
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: #fff;
 }
 </style>

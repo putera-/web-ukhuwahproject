@@ -2,11 +2,11 @@
     <div class="w-full min-h-screen max-w-7xl mx-auto pt-20 px-4 md:px-6 my-6">
 
         <div v-if="Itikaf.itikaf">
-            <div class="text-center text-4xl font-medium mb-4">
+            <div class="text-center text-2xl md:text-3xl lg:text-4xl font-medium mb-4">
                 Itikaf Ramadhan {{ Itikaf.itikaf.hijri_year }} / {{ Itikaf.itikaf.year }}
             </div>
 
-            <div class="w-full aspect-video overflow-hidden">
+            <div class="w-full aspect-video overflow-hidden rounded-2xl">
                 <img v-if="isURL(Itikaf.itikaf.photo)" :src="Itikaf.itikaf.photo" class="min-w-full min-h-full">
                 <img v-else :src="apiUri + Itikaf.itikaf.photo" class="min-w-full min-h-full">
             </div>
