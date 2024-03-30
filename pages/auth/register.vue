@@ -101,7 +101,7 @@ const showPassword = ref(false)
 const showConfirmPassword = ref(false)
 
 const isLoading = ref(false);
-const errors = ref({});
+const errors = ref<Record<string, any>>({});
 const fetchError = ref('')
 
 const formData = ref({

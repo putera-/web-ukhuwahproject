@@ -6,6 +6,7 @@ interface Client {
     address?: string
     phone?: string
     logo?: string
+    logo_sm?: string
     youtube?: string
     instagram?: string
     facebook?: string
@@ -30,10 +31,10 @@ export const useClientStore = defineStore('client', {
         async update(data: Record<string, string> | FormData): Promise<void> {
             const Api = useApiStore();
 
-            // TODO validate
+            // TODO validate taro sini
 
             try {
-                this.client = await Api.put('/client', data) as Client;
+                this.client = await Api.patch('/client', data) as Client;
             } catch (error: any) {
                 throw error;
             }
