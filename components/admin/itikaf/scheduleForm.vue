@@ -85,7 +85,8 @@
                                     class="rounded-full w-8 h-8">
                             </template>
                             <div v-else
-                                class="rounded-full w-8 md:w-8 h-8 md:h-8 bg-gradient-to-br from-white to-[#EE9A49]">
+                                class="rounded-full w-8 md:w-8 h-8 md:h-8 bg-gradient-to-br from-white to-[#EE9A49] flex justify-center items-end overflow-hidden">
+                                <IconsIkhwan class="w-12" />
                             </div>
 
                             <div class="text-left">
@@ -115,11 +116,12 @@
                                     class="rounded-full w-8 h-8">
                             </template>
                             <div v-else
-                                class="rounded-full w-8 md:w-8 h-8 md:h-8 bg-gradient-to-br from-white to-[#EE9A49]">
+                                class="rounded-full w-8 md:w-8 h-8 md:h-8 bg-gradient-to-br from-white to-[#EE9A49] flex justify-center items-end overflow-hidden">
+                                <IconsIkhwan class="w-12" />
                             </div>
 
                             <div class="text-left">
-                                <div class="font-normal text-slate-500 mb-1">Imam Tarawih</div>
+                                <div class="font-normal text-slate-500 mb-1">Imam Qiyamul Lail</div>
                                 <div class="font-medium line-clamp-1">
                                     {{ form.imam_qiyamul_lail.name }}
                                 </div>
@@ -146,7 +148,8 @@
                                     class="rounded-full w-8 h-8">
                             </template>
                             <div v-else
-                                class="rounded-full w-8 md:w-8 h-8 md:h-8 bg-gradient-to-br from-white to-[#EE9A49]">
+                                class="rounded-full w-8 md:w-8 h-8 md:h-8 bg-gradient-to-br from-white to-[#EE9A49] flex justify-center items-end overflow-hidden">
+                                <IconsIkhwan class="w-12" />
                             </div>
 
                             <div class="text-left">
@@ -204,7 +207,7 @@ const Itikaf = useItikafStore();
 const isLoading = ref(false);
 const show_modal = ref(true);
 
-const form = ref({
+const form = ref<string, any>({
     photo: undefined,
     date: undefined,
     day_index: undefined,
