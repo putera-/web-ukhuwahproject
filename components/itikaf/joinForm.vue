@@ -55,10 +55,10 @@
                 </div>
             </label>
 
-
+            <!-- CEK TANGGAL -->
             <div class="modal-action">
                 <label @click="$emit('close')" class="btn">Tutup</label>
-                <label @click="joinItikaf" class="btn bg-[#EE9A49]">
+                <label v-if="!isPrevDay" @click="joinItikaf" class="btn bg-[#EE9A49]">
                     {{ terdaftar ? 'Ubah Data' : 'Ikut' }}
                     <IconsLoading v-show="isLoading" class="w-10" />
                 </label>
@@ -70,6 +70,7 @@
 </template>
 
 <script setup lang="ts">
+import dayjs from 'dayjs';
 const props = defineProps<{
     show: boolean
     scheduleId: string
@@ -99,7 +100,13 @@ const formData = ref<JoinItikafForm>({
 });
 
 const terdaftar = ref(false);
-onBeforeMount(async () => {
+const isPrevDay = ref(false);
+onBeforeMount(async (): Promise<void> => {
+    const scheduleData: ItikafSchedule = Itikaf.schedules.find(s => s.id == props.scheduleId);
+
+    const today = dayjs().format('YYYY-MM-DD');
+    isPrevDay.value = new Date(today) > new Date(scheduleData.date);
+
     const mySchedule = await Itikaf.getMySchedule(props.scheduleId) as ItikafParticipant;
 
     if (mySchedule) {
@@ -112,7 +119,7 @@ onBeforeMount(async () => {
             vehicle_no: mySchedule.vehicle ? mySchedule.vehicle.vehicle_no : ''
         }
     }
-})
+});
 
 const Itikaf = useItikafStore();
 const joinItikaf = async () => {

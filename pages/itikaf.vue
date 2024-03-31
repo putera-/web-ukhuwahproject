@@ -110,6 +110,7 @@ const toLoginPage = () => {
 }
 
 const toCancelJoin = (scheduleId: string) => {
+    // CEK TANGGAL
     selected_scheduleId.value = scheduleId;
     showCancelJoinForm.value = true;
 }

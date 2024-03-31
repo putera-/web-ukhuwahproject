@@ -20,13 +20,25 @@
                     <div class="max-md:text-center">{{ dayjs(schedule.date).format('DD MMM YYYY') }}</div>
                 </div>
                 <template v-if="route.path == '/itikaf' || route.path == '/itikaf/'">
-                    <button v-if="!schedule.auth_participant" @click="$emit('toJoin')"
-                        class="btn bg-[#EE9A49] rounded-full px-6">Ikut
-                        Itikaf</button>
-                    <div v-else class="flex max-md:flex-col gap-2 md:items-end max-md:items-center">
+
+                    <!-- BELUM DAFTAR -->
+                    <button v-if="!schedule.auth_participant && isTheDay" @click="$emit('toJoin')"
+                        class="btn bg-[#EE9A49] rounded-full px-6">
+                        Ikut Itikaf
+                    </button>
+
+                    <!-- Belum tanggalnya -->
+                    <button v-if="isNextDay" class="btn rounded-full px-6 text-nowrap">
+                        Pendaftaran segera dibuka
+                    </button>
+
+                    <!-- SUDAH DAFTAR -->
+                    <div v-if="schedule.auth_participant"
+                        class="flex max-md:flex-col gap-2 md:items-end max-md:items-center">
                         <button @click="$emit('mySchedule')" class="btn btn-success rounded-full px-6">Anda
                             Terdaftar</button>
-                        <button class="btn btn-xs w-min text-nowrap" @click="$emit('toCancelJoin')">Batal
+                        <button v-if="!isPrevDay" class="btn btn-xs w-min text-nowrap"
+                            @click="$emit('toCancelJoin')">Batal
                             Hadir</button>
                     </div>
                 </template>
@@ -84,11 +96,16 @@
 
 <script setup lang="ts">
 import dayjs from 'dayjs';
-defineProps<{
+const props = defineProps<{
     schedule: ItikafSchedule
 }>();
 
 defineEmits(['toJoin', 'toCancelJoin', 'mySchedule', 'update'])
 
 const route = useRoute();
+
+const today = dayjs().format('YYYY-MM-DD');
+const isTheDay = today == props.schedule.date;
+const isNextDay = new Date(today) < new Date(props.schedule.date);
+const isPrevDay = new Date(today) > new Date(props.schedule.date);
 </script>
