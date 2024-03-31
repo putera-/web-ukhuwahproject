@@ -16,7 +16,7 @@
             <!-- AVATAR -->
             <div class="w-full max-w-xs">
                 <div class="w-48 lg:w-52 xl:w-60 aspect-square rounded-2xl overflow-hidden mx-auto">
-                    <img v-if="form.avatar" :src="form.avatar" class="min-w-full min-h-full">
+                    <img v-if="photo_preview" :src="photo_preview" class="min-w-full min-h-full">
                     <div v-else class="bg-neutral/50 w-full h-full">
                     </div>
                 </div>
@@ -81,26 +81,32 @@ const emits = defineEmits(['close', 'saved']);
 const Astz = useAsaatidzStore();
 
 const isLoading = ref(false);
-const show_modal = ref(true);
+const show_modal = ref<Boolean>(true);
 
+const photo_preview = ref<string | null>(null)
 const form = ref({
     name: '',
     profile: '',
-    avatar: undefined
 });
 
 watchEffect(() => {
     show_modal.value = props.show;
 
     if (props.data) {
-        form.value.avatar = apiUri + props.data.avatar;
+        if (props.data.avatar_md) {
+            photo_preview.value = isURL(props.data.avatar_md) ? props.data.avatar_md : (apiUri + props.data.avatar_md);
+        } else {
+            photo_preview.value = null;
+        }
+
         form.value.name = props.data.name;
         form.value.profile = props.data.profile;
+    } else {
+        form.value.name = '';
+        form.value.profile = '';
+        photo_preview.value = null;
     }
 });
-
-
-
 
 const fileInput = ref<HTMLInputElement | null>(null);
 let avatar: File | null;
@@ -115,11 +121,11 @@ const handleAvatar = (e: Event): void => {
         avatar = files![0];
 
         // reset image preview
-        form.value.avatar = '';
+        photo_preview.value = '';
 
         const reader = new FileReader();
         reader.onload = () => {
-            form.value.avatar = reader.result as string;
+            photo_preview.value = reader.result as string;
         };
         reader.readAsDataURL(avatar);
     }
@@ -139,7 +145,6 @@ const doUpdate = async () => {
         if (avatar) {
             formData.append('avatar', avatar);
         }
-        delete form.value.avatar;
 
         // validate
         const data = Validate(isAsaatidz, form.value);

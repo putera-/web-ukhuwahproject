@@ -4,7 +4,7 @@
             Asaatidz
         </div>
 
-        <button @click="showForm = true" class="btn rounded-full bg-[#EE9A49]">
+        <button @click="dataEdit = null; showForm = true;" class="btn rounded-full bg-[#EE9A49]">
             <LucidePencil :size="16" /> Tambah Asaatidz
         </button>
     </div>
