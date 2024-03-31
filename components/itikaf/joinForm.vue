@@ -10,7 +10,8 @@
                     <span class="label-text font-semibold">Ikhwan</span>
                 </div>
                 <label class="input border-0 flex items-center gap-2 w-full bg-[#E8E5F8]">
-                    <input v-model="formData.man" type="number" class="grow bg-[#E8E5F8]" placeholder="Jumlah Ikhwan" />
+                    <input v-model="formData.man" :disabled="isPrevDay" type="number" class="grow bg-[#E8E5F8]"
+                        placeholder="Jumlah Ikhwan" />
                 </label>
                 <div class="label">
                     <span class="label-text text-error" v-if="errors.man">{{ errors.man }}</span>
@@ -22,7 +23,7 @@
                     <span class="label-text font-semibold">Akhwat</span>
                 </div>
                 <label class="input border-0 flex items-center gap-2 w-full bg-[#E8E5F8]">
-                    <input v-model="formData.woman" type="number" class="grow bg-[#E8E5F8]"
+                    <input v-model="formData.woman" :disabled="isPrevDay" type="number" class="grow bg-[#E8E5F8]"
                         placeholder="Jumlah Ikhwan" />
                 </label>
                 <div class="label">
@@ -35,7 +36,8 @@
                     <span class="label-text font-semibold">Kendaraan</span>
                     <span class="text-xs">Untuk pengaturan parkir</span>
                 </div>
-                <select v-model="formData.vehicle_type" class="select w-full max-w-xs bg-[#E8E5F8]">
+                <select v-model="formData.vehicle_type" :disabled="isPrevDay"
+                    class="select w-full max-w-xs bg-[#E8E5F8]">
                     <option selected value="">Tidak Bawa Kendaraan</option>
                     <option value="Mobil">Mobil</option>
                     <option value="Motor">Motor</option>
@@ -47,7 +49,7 @@
                     <span class="text-xs">Untuk pengaturan parkir</span>
                 </div>
                 <label class="input border-0 flex items-center gap-2 w-full bg-[#E8E5F8]">
-                    <input v-model="formData.vehicle_no" type="text" class="grow bg-[#E8E5F8]"
+                    <input v-model="formData.vehicle_no" :disabled="isPrevDay" type="text" class="grow bg-[#E8E5F8]"
                         placeholder="No Kendaraan" />
                 </label>
                 <div class="label">
