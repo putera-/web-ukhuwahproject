@@ -21,7 +21,8 @@
                                 <img v-else :src="apiUri + astz.avatar_md" alt="" class="rounded-full w-16 h-16">
                             </template>
                             <div v-else
-                                class="rounded-full w-16 md:w-16 h-16 md:h-16 bg-gradient-to-br from-white to-[#EE9A49]">
+                                class="rounded-full w-16 md:w-16 h-16 md:h-16 bg-gradient-to-br from-white to-[#EE9A49] flex justify-center items-end overflow-hidden">
+                                <IconsIkhwan class="w-12" />
                             </div>
 
                             <div>

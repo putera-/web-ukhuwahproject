@@ -7,7 +7,9 @@
                         class="rounded-full w-12 h-12">
                     <img v-else :src="apiUri + pemateri.avatar_md" alt="" class="rounded-full w-12 h-12">
                 </template>
-                <div v-else class="rounded-full w-12 md:w-16 h-12 md:h-16 bg-gradient-to-br from-white to-[#EE9A49]">
+                <div v-else
+                    class="rounded-full w-12 md:w-16 h-12 md:h-16 bg-gradient-to-br from-white to-[#EE9A49] flex justify-center items-end overflow-hidden">
+                    <IconsIkhwan class="w-12" />
                 </div>
 
                 <div>
