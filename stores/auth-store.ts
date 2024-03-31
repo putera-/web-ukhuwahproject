@@ -23,68 +23,60 @@ export const useAuthStore = defineStore("auth", {
     }),
     actions: {
         async login(data: LoginForm) {
-            try {
-                const Api = useApiStore();
+            const Api = useApiStore();
 
-                // throw jika error
-                data = Validate(isLogin, data);
+            // throw jika error
+            data = Validate(isLogin, data);
 
-                // isi state user
-                const response = await Api.post("/auth/login", data) as any;
-                this.user = response.user;
+            // isi state user
+            const response = await Api.post("/auth/login", data) as any;
+            this.user = response.user;
 
-                Api.access_token = response.access_token;
-                Api.exp = response.exp;
+            Api.access_token = response.access_token;
+            Api.exp = response.exp;
 
-                window.localStorage.setItem("access_token", response.access_token);
-                window.localStorage.setItem("exp", response.exp.toString());
+            window.localStorage.setItem("access_token", response.access_token);
+            window.localStorage.setItem("exp", response.exp.toString());
 
-                const redirect_path = window.localStorage.getItem('redirect_path');
+            const redirect_path = window.localStorage.getItem('redirect_path');
 
-                if (redirect_path) {
-                    window.localStorage.removeItem('redirect_path')
-                    navigateTo(redirect_path);
+            if (redirect_path) {
+                window.localStorage.removeItem('redirect_path')
+                navigateTo(redirect_path);
+            } else {
+                const adminRoles = ['SUPERUSER', 'ADMIN', 'STAFF'];
+                // redirect ke home admin
+                if (adminRoles.includes(this.user!.role)) {
+                    navigateTo("/admin");
                 } else {
-                    const adminRoles = ['SUPERUSER', 'ADMIN', 'STAFF'];
-                    // redirect ke home admin
-                    if (adminRoles.includes(this.user!.role)) {
-                        navigateTo("/admin");
-                    } else {
-                        navigateTo("/");
-                    }
+                    navigateTo("/");
                 }
-            } catch (error) {
-                throw error;
             }
         },
         async register(data: RegisterForm): Promise<void> {
-            try {
-                const Api = useApiStore();
+            const Api = useApiStore();
 
-                // throw jika error
-                data = Validate(isRegister, data);
+            // throw jika error
+            data = Validate(isRegister, data);
 
-                // isi state user
-                const response = await Api.post("/auth/register", data) as any;
-                this.user = response.user;
+            // isi state user
+            const response = await Api.post("/auth/register", data) as any;
+            this.user = response.user;
 
-                Api.access_token = response.access_token;
-                Api.exp = response.exp;
+            Api.access_token = response.access_token;
+            Api.exp = response.exp;
 
-                window.localStorage.setItem("access_token", response.access_token);
-                window.localStorage.setItem("exp", response.exp.toString());
+            window.localStorage.setItem("access_token", response.access_token);
+            window.localStorage.setItem("exp", response.exp.toString());
 
-                const redirect_path = window.localStorage.getItem('redirect_path');
+            const redirect_path = window.localStorage.getItem('redirect_path');
 
-                if (redirect_path) {
-                    window.localStorage.removeItem('redirect_path')
-                    navigateTo(redirect_path);
-                } else {
-                    // redirect ke home admin
-                    navigateTo("/");
-                }
-            } catch (error) {
-                throw error;
+            if (redirect_path) {
+                window.localStorage.removeItem('redirect_path')
+                navigateTo(redirect_path);
+            } else {
+                // redirect ke home admin
+                navigateTo("/");
             }
         },
         async getUser() {

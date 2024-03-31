@@ -155,6 +155,7 @@ export const useApiStore = defineStore('api', {
         //     }
         // },
         handleError(error: any) {
+            const route = useRoute();
             // RAPIHKAN
             // 401 UNAUTHORIZED / BELUM LOGIN
             if (error.status == 401) {
@@ -164,6 +165,13 @@ export const useApiStore = defineStore('api', {
                 // token.value = '';
 
                 // lempar ke halaman home
+                if (route.path.includes('auth/login')) {
+                    // throw error;
+                    throw createError({
+                        statusCode: 400, // <- default code 500
+                        statusMessage: error.data.message || error.data.error // <- default message
+                    });
+                }
                 return navigateTo('/');
             }
 
