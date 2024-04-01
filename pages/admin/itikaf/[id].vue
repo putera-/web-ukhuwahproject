@@ -68,8 +68,8 @@
                     </tbody>
                 </table>
             </div>
-            <div class="lg:hidden mb-20">
-                <div v-for="user in dataPeserta" class="card shadow-lg rounded-2xl">
+            <div class="lg:hidden mb-20 flex flex-col gap-3 md:gap-5">
+                <div v-for="user in dataPeserta" class="card shadow-lg bg-slate-200 rounded-2xl">
                     <div class="card-body max-sm:p-5">
                         <div class="flex max-sm:flex-col justify-between">
                             <div class="flex gap-4 items-center">
@@ -88,7 +88,7 @@
                                     <a :href="`https://wa.me/${user.user.phone.replaceAll('-', '').replace(' ', '').replace('+', '')}`"
                                         target="_blank" class="flex gap-2 items-center">
                                         <IconsWhatsapp class="w-3" />
-                                        <div class="text-nowrap">{{ user.user.phone }}</div>
+                                        <div class="text-nowrap text-sm">{{ user.user.phone }}</div>
                                     </a>
                                     <div v-if="user.vehicle" class="text-xs text-nowrap">
                                         {{ user.vehicle.vehicle_type }} : {{ user.vehicle.vehicle_no }}
@@ -97,7 +97,8 @@
                             </div>
                             <div v-if="!user.coupon_taken" class="max-sm:hidden flex items-center justify-center mt-3">
                                 <button @click="confirmCoupon = true; couponParticipant = user"
-                                    class=" btn btn-sm bg-[#EE9A49] rounded-full">Ambil Kupon</button>
+                                    class=" btn btn-sm bg-[#EE9A49] rounded-full">Ambil
+                                    Kupon</button>
                                 <div class="dropdown dropdown-end">
                                     <div tabindex="0" role="button" class="btn btn-sm btn-ghost rounded-btn">
                                         <LucideEllipsisVertical :size="16" />
@@ -111,22 +112,23 @@
                             </div>
                         </div>
                         <div class="text-center">Anggota</div>
-                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                            <div class="btn btn-sm font-normal rounded-xl">
+                        <div class="flex items-center gap-2 sm:gap-3 w-full">
+                            <div class="grow btn btn-sm bg-white font-normal rounded-xl">
                                 <IconsIkhwan class="w-4" />{{ user.man }}
                             </div>
-                            <div class="btn btn-sm font-normal rounded-xl">
+                            <div class="grow btn btn-sm bg-white  font-normal rounded-xl">
                                 <IconsAkhwat class="w-4" />{{ user.woman }}
                             </div>
-                            <div class="max-sm:col-span-2 btn btn-sm rounded-xl flex flex-nowrap">
-                                <IconsIkhwan class="w-4" />+
-                                <IconsAkhwat class="w-4" /><span class="font-semibold text-lg">{{ user.man + user.woman
-                                    }}</span>
+                            <div>=</div>
+                            <div
+                                class="flex-none btn btn-sm bg-white rounded-xl flex flex-nowrap font-semibold text-lg">
+                                {{ user.man + user.woman }}
                             </div>
                         </div>
                         <div v-if="!user.coupon_taken" class="sm:hidden flex items-center justify-center mt-3">
                             <button @click="confirmCoupon = true; couponParticipant = user"
-                                class=" btn btn-sm bg-[#EE9A49] rounded-full">Ambil Kupon</button>
+                                class=" btn btn-sm bg-[#EE9A49] rounded-full">Ambil
+                                Kupon</button>
                             <div class="dropdown dropdown-end">
                                 <div tabindex="0" role="button" class="btn btn-sm btn-ghost rounded-btn">
                                     <LucideEllipsisVertical :size="16" />
