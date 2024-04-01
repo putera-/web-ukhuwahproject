@@ -208,7 +208,7 @@ const Itikaf = useItikafStore();
 const isLoading = ref(false);
 const show_modal = ref(true);
 
-const photo_preview = ref(props.data ? (isURL(props.data.photo) ? props.data.photo : apiUri + props.data.photo) : undefined)
+const photo_preview = ref(undefined)
 
 const form = ref<Record<string, any>>({
     date: undefined,
@@ -223,6 +223,7 @@ watchEffect(() => {
     show_modal.value = props.show;
 
     if (props.data) {
+        photo_preview.value = isURL(props.data.photo) ? props.data.photo : apiUri + props.data.photo;
         form.value.date = props.data.date;
         form.value.day_index = props.data.day_index;
         form.value.description = props.data.description;
