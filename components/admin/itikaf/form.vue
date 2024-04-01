@@ -106,9 +106,9 @@ const Itikaf = useItikafStore();
 
 const emits = defineEmits(['saved', 'cancel']);
 
-const photo_preview = ref(Itikaf.itikaf ? apiUri + Itikaf.itikaf.photo : undefined)
+const photo_preview = ref(Itikaf.itikaf ? (isURL(Itikaf.itikaf.photo) ? Itikaf.itikaf.photo : apiUri + Itikaf.itikaf.photo) : undefined)
 
-const form = ref({
+const form = ref<Record<string, any>>({
     masjid: '',
     address: '',
     contact_person_name: '',

@@ -49,7 +49,7 @@
             <div class=" grid grid-cols-1 md:grid-cols-2 gap-4">
                 <!-- KAJIAN -->
                 <template v-if="schedule.ustadz_kajian">
-                    <ItikafPemateriCard :pemateri="schedule.ustadz_kajian" posisi="Kajian: Tematik" />
+                    <ItikafPemateriCard :pemateri="schedule.ustadz_kajian" posisi="Konsultasi Syariah" />
                 </template>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -78,8 +78,8 @@
                 </div>
 
                 <div class="flex gap-2">
-                    <NuxtLink v-if="route.path.includes('/admin/itikaf')" :to="'/admin/itikaf/' + schedule.id"
-                        class="btn rounded-full btn-sm bg-[#EE9A49]">
+                    <NuxtLink v-if="route.path == '/admin/itikaf' || route.path == '/admin/itikaf/'"
+                        :to="'/admin/itikaf/' + schedule.id" class="btn rounded-full btn-sm bg-[#EE9A49]">
                         <LucideEye :size="16" />Detail
                     </NuxtLink>
                     <button v-if="route.path.includes('/admin/itikaf')" @click="$emit('update', schedule)"

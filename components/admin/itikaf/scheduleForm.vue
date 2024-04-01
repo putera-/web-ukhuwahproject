@@ -15,10 +15,11 @@
 
             <div class="w-full">
                 <div class="h-48 lg:h-52 xl:h-60 max-w-full aspect-video rounded-2xl overflow-hidden">
-                    <template v-if="form.photo">
+                    <!-- <template v-if="form.photo">
                         <img v-if="isURL(form.photo)" :src="form.photo" class="min-w-full min-h-full">
                         <img v-else :src="form.photo" class="min-w-full min-h-full">
-                    </template>
+                    </template> -->
+                    <img v-if="photo_preview" :src="photo_preview" class="min-w-full min-h-full">
                     <div v-else class="bg-neutral/50 w-full h-full">
                     </div>
                 </div>
@@ -138,7 +139,7 @@
                     <button @click="showAstzSelector = true; forSelect = 'ustadz_kajian'"
                         class="btn bg-[#E8E5F8] rounded-full w-60 justify-start">
                         <span v-if="!form.ustadz_kajian" class="text-slate-500">
-                            Kajian Tematik
+                            Konsultasi Syariah
                         </span>
                         <div v-else class="flex items-center gap-3">
                             <template v-if="form.ustadz_kajian.avatar_md">
@@ -153,7 +154,7 @@
                             </div>
 
                             <div class="text-left">
-                                <div class="font-normal text-slate-500 mb-1">Imam Tarawih</div>
+                                <div class="font-normal text-slate-500 mb-1">Konsultasi Syariah</div>
                                 <div class="font-medium line-clamp-1">
                                     {{ form.ustadz_kajian.name }}
                                 </div>
@@ -196,7 +197,7 @@ import 'v-calendar/dist/style.css'
 import dayjs from 'dayjs';
 
 const props = defineProps<{
-    show: Boolean
+    show: boolean
     data: ItikafSchedule | null
 }>();
 
@@ -207,8 +208,9 @@ const Itikaf = useItikafStore();
 const isLoading = ref(false);
 const show_modal = ref(true);
 
-const form = ref<string, any>({
-    photo: undefined,
+const photo_preview = ref(props.data ? (isURL(props.data.photo) ? props.data.photo : apiUri + props.data.photo) : undefined)
+
+const form = ref<Record<string, any>>({
     date: undefined,
     day_index: undefined,
     description: '',
@@ -221,7 +223,6 @@ watchEffect(() => {
     show_modal.value = props.show;
 
     if (props.data) {
-        form.value.photo = apiUri + props.data.photo;
         form.value.date = props.data.date;
         form.value.day_index = props.data.day_index;
         form.value.description = props.data.description;
@@ -247,11 +248,11 @@ const handlePhoto = (e: Event): void => {
         photo = files![0];
 
         // reset image preview
-        form.value.photo = '';
+        photo_preview.value = '';
 
         const reader = new FileReader();
         reader.onload = () => {
-            form.value.photo = reader.result as string;
+            photo_preview.value = reader.result as string;
         };
         reader.readAsDataURL(photo);
     }
@@ -310,7 +311,7 @@ const doUpdate = async () => {
         // reset file input avatar
         if (fileInput.value) {
             fileInput.value.value = '';
-            avatar = null;
+            photo = null;
         }
 
         toast.success("Success", {
