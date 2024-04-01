@@ -30,7 +30,7 @@
                 </div>
             </div>
         </div>
-        <div>
+        <div class="mt-4">
             <div class="flex justify-between items-center">
                 <div class="mt-2 text-xl font-semibold">Jadwal I'tikaf</div>
                 <button @click="showShceduleForm = true" class="btn bg-[#EE9A49] max-md:btn-sm rounded-full">

@@ -1,7 +1,11 @@
 <template>
     <div v-if="data">
         <ItikafCard :schedule="data" @update="update">
-            <div class="mt-10 font-medium text-2xl">List Peserta</div>
+            <div class="flex max-sm:flex-col justify-between gap-4 items-center mt-10">
+                <div class="font-medium text-2xl text-nowrap">List Peserta</div>
+                <input v-model="search" type="text" placeholder="Cari"
+                    class="input input-bordered rounded-full w-full max-w-xs" />
+            </div>
             <div class="overflow-x-auto min-h-60 max-lg:hidden">
                 <table class="table">
                     <!-- head -->
@@ -16,7 +20,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="user in data.participants" class="hover">
+                        <tr v-for="user in dataPeserta" class="hover">
                             <td>
                                 <div class="w-10 h-10 rounded-full overflow-hidden">
                                     <template v-if="user.user.avatar">
@@ -65,7 +69,7 @@
                 </table>
             </div>
             <div class="lg:hidden mb-20">
-                <div v-for="user in data.participants" class="card shadow-lg rounded-2xl">
+                <div v-for="user in dataPeserta" class="card shadow-lg rounded-2xl">
                     <div class="card-body max-sm:p-5">
                         <div class="flex max-sm:flex-col justify-between">
                             <div class="flex gap-4 items-center">
@@ -192,4 +196,18 @@ const setCouponTaken = async () => {
         getData();
     }
 };
+
+const search = ref('');
+
+const dataPeserta = computed((): ItikafParticipant[] => {
+    const filter = search.value.toLowerCase().trim();
+
+    if (filter == '') {
+        return data.value.participants;
+    } else {
+        return data.value.participants.filter((user: ItikafParticipant) => {
+            return user.user.name.toLowerCase().includes(filter);
+        })
+    }
+});
 </script>
