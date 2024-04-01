@@ -18,6 +18,6 @@ services:
 
 # networks
 networks:
-  ukhuwahproject-network:
+  network-ukhuwahproject:
     name: network-ukhuwahproject
     driver: bridge
