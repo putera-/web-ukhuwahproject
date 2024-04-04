@@ -29,7 +29,7 @@
             <!-- REPLIES -->
             <div class="w-full pl-2 border-l border-l-gray-400">
                 <template v-for="reply in comment.replies" :key="reply.id">
-                    <ArticlesCommentReply :reply />
+                    <CommentReply :reply />
                 </template>
                 <div v-if="comment.replies.length < comment._count.replies"
                     class="underline font-light text-xs md:text-sm text-gray-500">Lihat semua balasan</div>
@@ -41,7 +41,7 @@
 <script setup lang="ts">
 import dayjs from 'dayjs'
 defineProps<{
-    comment: ArticleComment
+    comment: Comment
 }>()
 
 </script>

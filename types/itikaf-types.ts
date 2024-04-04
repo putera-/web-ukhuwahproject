@@ -14,26 +14,12 @@ interface Itikaf {
     createdAt: Date
     updatedAt: Date
     schedules?: ItikafSchedule[]
-}
-
-interface Photo {
-    id: string
-    path: string
-    path_md: string
-    index: number
-    // article?: Article
-    articleId: string
-}
-
-interface Asaatidz {
-    id?: string
-    name: string
-    profile: string
-    deleted: boolean
-    avatar?: string
-    avatar_md?: string
-    createdAt?: Date
-    updatedAt?: Date
+    likes?: Like[]
+    comments?: Comment[]
+    _count?: {
+        likes: number
+        comments: number
+    }
 }
 
 interface ItikafSchedule {
@@ -58,10 +44,15 @@ interface ItikafSchedule {
     total_man?: number
     total_woman?: number
     auth_participant?: boolean
-    likes: Like[]
+    likes?: Like[]
+    comments?: Comment[]
+    _count?: {
+        likes: number
+        comments: number
+    }
 }
 
-export interface ItikafParticipant {
+interface ItikafParticipant {
     id: string
     user?: User
     userId: string

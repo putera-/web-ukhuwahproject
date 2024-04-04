@@ -25,7 +25,7 @@
 <script setup lang="ts">
 import dayjs from 'dayjs'
 defineProps<{
-    reply: ArticleCommentReply
+    reply: CommentReply
 }>()
 
 </script>

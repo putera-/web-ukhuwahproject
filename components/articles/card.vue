@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 <template v-for="comment in article.comments" :key="comment.id">
-                    <ArticlesComment :comment />
+                    <Comment :comment />
                 </template>
 
             </div>

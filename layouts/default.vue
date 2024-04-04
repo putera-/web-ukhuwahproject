@@ -1,5 +1,5 @@
 <template>
-    <div class="drawer font-poppins" v-if="Client.client">
+    <div data-theme="light" class="drawer font-poppins" v-if="Client.client">
         <input v-model="showdrawer" type="checkbox" class="drawer-toggle" />
         <div class="drawer-content flex flex-col relative bg-gradient-to-r from-[#FEF5ED] to-[#F8D7B6]">
             <!-- Navbar -->
