@@ -93,17 +93,19 @@
             <template v-if="route.path == '/itikaf' || route.path == '/itikaf/'">
                 <div class="flex justify-between items-center border-t border-t-gray-300">
                     <div class="flex gap-4 items-center">
-                        <div class="font-semibold text-xl">Komentar</div>
-                        <div v-if="schedule.comments.length < schedule._count.comments"
-                            class="underline font-light text-xs md:text-sm text-gray-500">Lihat semua komentar
-                        </div>
+                        <template v-if="false">
+                            <div class="font-semibold text-xl">Komentar</div>
+                            <div v-if="schedule.comments.length < schedule._count.comments"
+                                class="underline font-light text-xs md:text-sm text-gray-500">Lihat semua komentar
+                            </div>
+                        </template>
                     </div>
                     <div class="flex gap-4">
                         <div class="flex items-center gap-2">
                             <IconsLove class="w-4" />
                             {{ schedule._count.likes }}
                         </div>
-                        <div class="flex items-center gap-2">
+                        <div v-if="false" class="flex items-center gap-2">
                             <IconsComment class="w-4" />
                             {{ schedule._count.comments }}
                         </div>
@@ -111,7 +113,7 @@
                 </div>
 
                 <!-- comment list -->
-                <template v-for="comment in schedule.comments" :key="comment.id">
+                <template v-if="false" v-for="comment in schedule.comments" :key="comment.id">
                     <Comment :comment />
                 </template>
             </template>
