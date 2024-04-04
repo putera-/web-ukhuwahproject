@@ -58,6 +58,7 @@ interface ItikafSchedule {
     total_man?: number
     total_woman?: number
     auth_participant?: boolean
+    likes: Like[]
 }
 
 export interface ItikafParticipant {
