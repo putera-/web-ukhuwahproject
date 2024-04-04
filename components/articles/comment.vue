@@ -10,6 +10,9 @@
             <div class="font-semibold">{{ comment.commenter.name }}</div>
             <div class="font-light text-xs md:text-sm">{{ comment.comment }}</div>
             <div class="flex gap-3 items-center">
+                <div class="font-light text-xs md:text-sm text-gray-500">
+                    {{ dayjs(comment.createdAt).format('D MMM YYYY HH:mm') }}
+                </div>
                 <div class="font-light text-xs md:text-sm text-gray-500">Balas</div>
                 <div class="flex gap-4">
                     <div class="flex items-center gap-2">
@@ -36,6 +39,7 @@
 </template>
 
 <script setup lang="ts">
+import dayjs from 'dayjs'
 defineProps<{
     comment: ArticleComment
 }>()

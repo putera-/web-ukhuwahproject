@@ -18,7 +18,7 @@
                     </template>
                     <div>
                         <div>{{ article.author.name }}</div>
-                        <div class="text-xs text-slate-500">{{ dayjs(article.createdAt).format('D MMM YYYY')
+                        <div class="text-xs text-slate-500">{{ dayjs(article.createdAt).format('D MMM YYYY HH:mm')
                             }}</div>
                     </div>
                 </div>

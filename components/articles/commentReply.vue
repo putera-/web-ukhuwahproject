@@ -9,7 +9,10 @@
         <div class="w-full">
             <div class="font-semibold">{{ reply.commenter.name }}</div>
             <div class="font-light text-xs md:text-sm">{{ reply.comment }}</div>
-            <div class="flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <div class="font-light text-xs md:text-sm text-gray-500">
+                    {{ dayjs(reply.createdAt).format('D MMM YYYY HH:mm') }}
+                </div>
                 <div class="flex items-center gap-2">
                     <IconsLove class="w-4" />
                     {{ reply._count.likes }}
@@ -20,6 +23,7 @@
 </template>
 
 <script setup lang="ts">
+import dayjs from 'dayjs'
 defineProps<{
     reply: ArticleCommentReply
 }>()
