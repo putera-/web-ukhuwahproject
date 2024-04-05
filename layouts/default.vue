@@ -48,7 +48,8 @@
                                         <summary class="rounded-full max-xl:text-base">
                                             <div
                                                 class="btn w-8 h-8 min-h-8 xl:w-8 xl:h-8 xl:min-h-8 btn-circle overflow-hidden">
-                                                <img v-if="Auth.user.avatar" :src="apiUri + Auth.user.avatar_md"
+                                                <img v-if="Auth.user.avatar_md"
+                                                    :src="isURL(Auth.user.avatar_md) ? Auth.user.avatar_md : apiUri + Auth.user.avatar_md"
                                                     class="min-w-full min-h-full">
                                                 <LucideUser v-else :size="20" class="text-primary" />
                                             </div>
