@@ -44,7 +44,7 @@
                 </template>
             </div>
 
-            <div>{{ schedule.description }}</div>
+            <div class="whitespace-pre-wrap">{{ schedule.description }}</div>
 
             <div class=" grid grid-cols-1 md:grid-cols-2 gap-4">
                 <!-- KAJIAN -->
@@ -121,9 +121,10 @@
                     <Comment :comment />
                 </template>
             </template>
-            <div v-if="schedule.comments.length < schedule._count.comments"
-                class="underline font-light text-xs md:text-sm text-gray-500">Lihat semua komentar
-            </div>
+            <button @click="Itikaf.loadMoreScheduleComments(schedule.id, getNextPage(schedule.comments.length))"
+                v-if="schedule.comments.length < schedule._count.comments"
+                class="underline font-light text-xs md:text-sm text-gray-500 w-min text-nowrap">Lihat komentar lainnya
+            </button>
 
             <slot />
         </div>

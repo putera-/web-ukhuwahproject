@@ -32,7 +32,7 @@
                     <CommentReply :reply />
                 </template>
                 <div v-if="comment.replies.length < comment._count.replies"
-                    class="underline font-light text-xs md:text-sm text-gray-500">Lihat semua balasan</div>
+                    class="underline font-light text-xs md:text-sm text-gray-500">Lihat balasan lainnya</div>
             </div>
         </div>
     </div>

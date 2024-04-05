@@ -115,6 +115,43 @@ export const useItikafStore = defineStore("itikaf", {
                     --schedule._count!.likes!;
                 }
             }
+        },
+        async loadMoreItikafComments(itikafId: string, page: number = 1): Promise<void> {
+            if (!this.itikaf) return;
+
+            try {
+                const Api = useApiStore();
+                const comments = await Api.get(`/comments/itikaf/${itikafId}/${page}`) as Comment[];
+
+
+                // TODO merge non existing data, supaya reply yg ke load ga ketutup
+                if (page == 1) {
+                    this.itikaf.comments = comments
+                } else {
+                    this.itikaf.comments = [...this.itikaf.comments, ...comments]
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        },
+        async loadMoreScheduleComments(scheduleId: string, page: number = 1): Promise<void> {
+            const schedule = this.schedules.find(s => s.id == scheduleId);
+            if (!schedule) return;
+
+            try {
+                const Api = useApiStore();
+                const comments = await Api.get(`/comments/itikaf-schedule/${scheduleId}/${page}`) as Comment[];
+
+
+                // TODO merge non existing data, supaya reply yg ke load ga ketutup
+                if (page == 1) {
+                    schedule.comments = comments
+                } else {
+                    schedule.comments = [...schedule.comments!, ...comments]
+                }
+            } catch (error) {
+                console.log(error)
+            }
         }
     }
 });

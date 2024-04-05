@@ -13,7 +13,7 @@
             </div>
 
             <!-- DESKRIPSI -->
-            <div class="mt-3">{{ Itikaf.itikaf.description }}</div>
+            <div class="mt-3 whitespace-pre-wrap">{{ Itikaf.itikaf.description }}</div>
             <div class="my-3">
                 <div v-if="Itikaf.itikaf.masjid" class="font-semibold">Lokasi: {{ Itikaf.itikaf.masjid }}</div>
                 <div v-if="Itikaf.itikaf.address">Alamat: {{ Itikaf.itikaf.address }}</div>
@@ -55,9 +55,10 @@
                 <Comment :comment />
             </template>
 
-            <div v-if="Itikaf.itikaf.comments.length < Itikaf.itikaf._count.comments"
-                class="underline font-light text-xs md:text-sm text-gray-500">Lihat semua komentar
-            </div>
+            <button @click="Itikaf.loadMoreItikafComments(Itikaf.itikaf.id, getNextPage(Itikaf.itikaf.comments.length))"
+                v-if="Itikaf.itikaf.comments.length < Itikaf.itikaf._count.comments"
+                class="underline font-light text-xs md:text-sm text-gray-500">Lihat komentar lainnya
+            </button>
         </div>
 
         <!-- JADWAL -->
