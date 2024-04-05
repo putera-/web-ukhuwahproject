@@ -31,28 +31,28 @@
 
             <!-- LIKES COMMENT -->
             <div class="flex justify-between items-center border-t border-t-gray-300 mb-2">
-                <div class="font-semibold text-xl">Komentar</div>
                 <div class="flex gap-4">
-                    <div class="flex items-center gap-2">
-                        <label class="swap swap-flip text-9xl">
-                            <!-- this hidden checkbox controls the state -->
-                            <input type="checkbox" :checked="Itikaf.itikaf.likes.length"
-                                @change="Itikaf.swapLikeItikaf(!Itikaf.itikaf.likes.length)" />
-                            <IconsLoving class="w-4 swap-on" />
-                            <IconsLove class="w-4 swap-off" />
-                        </label>
-                        {{ Itikaf.itikaf._count.likes }}
-                    </div>
+                    <div class="font-semibold text-xl">Komentar</div>
                     <div class="flex items-center gap-2">
                         <IconsComment class="w-4" />
                         {{ Itikaf.itikaf._count.comments }}
                     </div>
                 </div>
+                <div class="flex items-center gap-2">
+                    <label class="swap swap-flip text-9xl">
+                        <!-- this hidden checkbox controls the state -->
+                        <input type="checkbox" :checked="Itikaf.itikaf.likes.length"
+                            @change="Itikaf.swapLikeItikaf(!Itikaf.itikaf.likes.length)" />
+                        <IconsLoving class="w-4 swap-on" />
+                        <IconsLove class="w-4 swap-off" />
+                    </label>
+                    {{ Itikaf.itikaf._count.likes }}
+                </div>
             </div>
 
             <!-- comment list -->
             <template v-for="comment in Itikaf.itikaf.comments" :key="comment.id">
-                <Comment :comment />
+                <Comment :comment :itikafId="Itikaf.itikaf.id" />
             </template>
 
             <button @click="Itikaf.loadMoreItikafComments(Itikaf.itikaf.id, getNextPage(Itikaf.itikaf.comments.length))"

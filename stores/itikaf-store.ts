@@ -116,6 +116,87 @@ export const useItikafStore = defineStore("itikaf", {
                 }
             }
         },
+        async swapLikeItikafComment(like: boolean, commentId: string) {
+            const Api = useApiStore();
+            if (this.itikaf) {
+                const comment = this.itikaf.comments.find((c: Comment) => c.id == commentId) as Comment;
+
+                if (!comment) return;
+
+                if (like) {
+                    const dataLike = await Api.post('/likes/comment/' + commentId, {}) as Like;
+                    comment.likes = [dataLike];
+                    ++comment._count!.likes!;
+                } else {
+                    await Api.delete('/likes/comment/' + commentId);
+                    --comment._count!.likes!;
+                    comment.likes = [];
+                }
+            }
+        },
+        async swapLikeItikafScheduleComment(like: boolean, scheduleId: string, commentId: string) {
+            const Api = useApiStore();
+            if (this.itikaf) {
+                const schedule = this.schedules.find((s: ItikafSchedule) => s.id == scheduleId) as ItikafSchedule;
+                if (!schedule) return;
+
+                const comment = schedule.comments!.find((c: Comment) => c.id == commentId) as Comment;
+                if (!comment) return;
+
+                if (like) {
+                    const dataLike = await Api.post('/likes/comment/' + commentId, {}) as Like;
+                    comment.likes = [dataLike];
+                    ++comment._count!.likes!;
+                } else {
+                    await Api.delete('/likes/comment/' + commentId);
+                    --comment._count!.likes!;
+                    comment.likes = [];
+                }
+            }
+        },
+        async swapLikeItikafCommentReply(like: boolean, commentId: string, replyId: string) {
+            const Api = useApiStore();
+            if (this.itikaf) {
+                const comment = this.itikaf.comments.find((c: Comment) => c.id == commentId) as Comment;
+                if (!comment) return;
+
+                const reply = comment.replies!.find((r: CommentReply) => r.id == replyId) as CommentReply;
+                if (!reply) return;
+
+                if (like) {
+                    const dataLike = await Api.post('/likes/comment-reply/' + replyId, {}) as Like;
+                    reply.likes = [dataLike];
+                    ++reply._count!.likes!;
+                } else {
+                    await Api.delete('/likes/comment-reply/' + replyId);
+                    --reply._count!.likes!;
+                    reply.likes = [];
+                }
+            }
+        },
+        async swapLikeItikafScheduleCommentReply(like: boolean, scheduleId: string, commentId: string, replyId: string) {
+            const Api = useApiStore();
+            if (this.itikaf) {
+                const schedule = this.schedules.find(s => s.id == scheduleId) as ItikafSchedule;
+                if (!schedule) return;
+
+                const comment = schedule.comments!.find((c: Comment) => c.id == commentId) as Comment;
+                if (!comment) return;
+
+                const reply = comment.replies!.find((r: CommentReply) => r.id == replyId) as CommentReply;
+                if (!reply) return;
+
+                if (like) {
+                    const dataLike = await Api.post('/likes/comment-reply/' + replyId, {}) as Like;
+                    reply.likes = [dataLike];
+                    ++reply._count!.likes!;
+                } else {
+                    await Api.delete('/likes/comment-reply/' + replyId);
+                    --reply._count!.likes!;
+                    reply.likes = [];
+                }
+            }
+        },
         async loadMoreItikafComments(itikafId: string, page: number = 1): Promise<void> {
             if (!this.itikaf) return;
 
@@ -148,6 +229,47 @@ export const useItikafStore = defineStore("itikaf", {
                     schedule.comments = comments
                 } else {
                     schedule.comments = [...schedule.comments!, ...comments]
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        },
+        async loadMoreItikafCommentReplies(commentId: string, page: number = 1): Promise<void> {
+            const comment: Comment = this.itikaf.comments.find((s: Comment) => s.id == commentId) as Comment;
+            if (!comment) return;
+
+            try {
+                const Api = useApiStore();
+                const replies = await Api.get(`/comments/reply/${commentId}/${page}`) as CommentReply[];
+
+
+                // TODO merge non existing data, supaya reply yg ke load ga ketutup
+                if (page == 1) {
+                    comment.replies = replies
+                } else {
+                    comment.replies = [...comment.replies!, ...replies]
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        },
+        async loadMoreItikafScheduleCommentReplies(scheduleId: string, commentId: string, page: number = 1): Promise<void> {
+            const schedule: ItikafSchedule = this.schedules.find(s => s.id == scheduleId) as ItikafSchedule;
+            if (!schedule) return;
+
+            const comment: Comment = schedule.comments!.find((s: Comment) => s.id == commentId) as Comment;
+            if (!comment) return;
+
+            try {
+                const Api = useApiStore();
+                const replies = await Api.get(`/comments/reply/${commentId}/${page}`) as CommentReply[];
+
+
+                // TODO merge non existing data, supaya reply yg ke load ga ketutup
+                if (page == 1) {
+                    comment.replies = replies
+                } else {
+                    comment.replies = [...comment.replies!, ...replies]
                 }
             } catch (error) {
                 console.log(error)

@@ -14,7 +14,13 @@
                     {{ getRelativeTime(reply.createdAt) }}
                 </div>
                 <div class="flex items-center gap-2">
-                    <IconsLove class="w-4" />
+                    <label class="swap swap-flip text-9xl">
+                        <!-- this hidden checkbox controls the state -->
+                        <input type="checkbox" :checked="reply.likes.length"
+                            @change="$emit('swapLike', !reply.likes.length)" />
+                        <IconsLoving class="w-4 swap-on" />
+                        <IconsLove class="w-4 swap-off" />
+                    </label>
                     {{ reply._count.likes }}
                 </div>
             </div>
@@ -23,9 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import dayjs from 'dayjs'
 defineProps<{
     reply: CommentReply
-}>()
-
+}>();
 </script>

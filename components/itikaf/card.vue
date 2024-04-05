@@ -94,31 +94,26 @@
                 <div class="flex justify-between items-center border-t border-t-gray-300">
                     <div class="flex gap-4 items-center">
                         <div class="font-semibold text-xl">Komentar</div>
-                        <!-- <div v-if="schedule.comments.length < schedule._count.comments"
-                            class="underline font-light text-xs md:text-sm text-gray-500">Lihat semua komentar
-                        </div> -->
-                    </div>
-                    <div class="flex gap-4">
-                        <div class="flex items-center gap-2">
-                            <label class="swap swap-flip text-9xl">
-                                <!-- this hidden checkbox controls the state -->
-                                <input type="checkbox" :checked="schedule.likes.length"
-                                    @change="Itikaf.swapLikeSchedule(!schedule.likes.length, schedule.id)" />
-                                <IconsLoving class="w-4 swap-on" />
-                                <IconsLove class="w-4 swap-off" />
-                            </label>
-                            {{ schedule._count.likes }}
-                        </div>
                         <div class="flex items-center gap-2">
                             <IconsComment class="w-4" />
                             {{ schedule._count.comments }}
                         </div>
                     </div>
+                    <div class="flex items-center gap-2">
+                        <label class="swap swap-flip text-9xl">
+                            <!-- this hidden checkbox controls the state -->
+                            <input type="checkbox" :checked="schedule.likes.length"
+                                @change="Itikaf.swapLikeSchedule(!schedule.likes.length, schedule.id)" />
+                            <IconsLoving class="w-4 swap-on" />
+                            <IconsLove class="w-4 swap-off" />
+                        </label>
+                        {{ schedule._count.likes }}
+                    </div>
                 </div>
 
                 <!-- comment list -->
                 <template v-for="comment in schedule.comments" :key="comment.id">
-                    <Comment :comment />
+                    <Comment :comment :scheduleId="schedule.id" />
                 </template>
             </template>
             <button @click="Itikaf.loadMoreScheduleComments(schedule.id, getNextPage(schedule.comments.length))"
