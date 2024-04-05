@@ -30,15 +30,8 @@
             </div>
 
             <!-- LIKES COMMENT -->
-            <div class="flex justify-between items-center border-t border-t-gray-300">
-                <div class="flex gap-4 items-center">
-                    <template v-if="false">
-                        <div class="font-semibold text-xl">Komentar</div>
-                        <div v-if="Itikaf.itikaf.comments.length < Itikaf.itikaf._count.comments"
-                            class="underline font-light text-xs md:text-sm text-gray-500">Lihat semua komentar
-                        </div>
-                    </template>
-                </div>
+            <div class="flex justify-between items-center border-t border-t-gray-300 mb-2">
+                <div class="font-semibold text-xl">Komentar</div>
                 <div class="flex gap-4">
                     <div class="flex items-center gap-2">
                         <label class="swap swap-flip text-9xl">
@@ -50,7 +43,7 @@
                         </label>
                         {{ Itikaf.itikaf._count.likes }}
                     </div>
-                    <div v-show="false" class="flex items-center gap-2">
+                    <div class="flex items-center gap-2">
                         <IconsComment class="w-4" />
                         {{ Itikaf.itikaf._count.comments }}
                     </div>
@@ -58,9 +51,13 @@
             </div>
 
             <!-- comment list -->
-            <template v-if="false" v-for="comment in Itikaf.itikaf.comments" :key="comment.id">
+            <template v-for="comment in Itikaf.itikaf.comments" :key="comment.id">
                 <Comment :comment />
             </template>
+
+            <div v-if="Itikaf.itikaf.comments.length < Itikaf.itikaf._count.comments"
+                class="underline font-light text-xs md:text-sm text-gray-500">Lihat semua komentar
+            </div>
         </div>
 
         <!-- JADWAL -->
