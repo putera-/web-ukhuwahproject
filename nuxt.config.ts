@@ -16,6 +16,12 @@ export default defineNuxtConfig({
     },
   },
   modules: ['@pinia/nuxt', 'nuxt-lucide-icons'],
+  imports: {
+    dirs: ['types/*.ts', 'store/*.ts', 'types/**/*.ts']
+  },
+  typescript: {
+    strict: true
+  },
   ssr: false,
   app: {
     head: {

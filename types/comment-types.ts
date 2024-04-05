@@ -8,7 +8,11 @@ interface Comment {
     replies?: CommentReply[]
     createdAt: Date
     updatedAt: Date
-    like: Like[]
+    likes?: Like[]
+    _count?: {
+        likes?: number
+        comments?: number
+    }
 }
 
 interface CommentReply {
@@ -18,7 +22,11 @@ interface CommentReply {
     comment: string
     createdAt: Date
     updatedAt: Date
-    like: Like[]
+    likes?: Like[]
     Comment?: Comment
     commentId: string
+    _count?: {
+        likes?: number
+        comments?: number
+    }
 }

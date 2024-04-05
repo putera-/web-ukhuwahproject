@@ -39,11 +39,8 @@ export const useItikafStore = defineStore("itikaf", {
         async getSchedule(): Promise<void> {
             const Api = useApiStore();
             const Auth = useAuthStore();
-            if (Auth.user) {
-                this.schedules = await Api.get('/itikaf-schedules/me/' + this.year) as ItikafSchedule[]
-            } else {
-                this.schedules = await Api.get('/itikaf-schedules/' + this.year) as ItikafSchedule[]
-            }
+
+            this.schedules = await Api.get('/itikaf-schedules/' + this.year) as ItikafSchedule[]
         },
         async getScheduleById(id: string): Promise<ItikafSchedule> {
             const Api = useApiStore();
@@ -89,6 +86,35 @@ export const useItikafStore = defineStore("itikaf", {
             const Api = useApiStore();
 
             await Api.patch('/itikaf-participants/coupon_taken/' + id, {});
+        },
+        async swapLikeItikaf(like: boolean): Promise<void> {
+            const Api = useApiStore();
+            if (this.itikaf) {
+                if (like) {
+                    const dataLike = await Api.post('/likes/itikaf/' + this.itikaf.id, {});
+                    this.itikaf.likes = [dataLike];
+                    ++this.itikaf._count.likes;
+                } else {
+                    await Api.delete('/likes/itikaf/' + this.itikaf.id);
+                    --this.itikaf._count.likes;
+                    this.itikaf.likes = [];
+                }
+            }
+        },
+        async swapLikeSchedule(like: boolean, scheduleId: string): Promise<void> {
+            const Api = useApiStore();
+            const schedule: ItikafSchedule = this.schedules.find((s: ItikafSchedule) => s.id == scheduleId) as ItikafSchedule;
+            if (schedule) {
+                if (like) {
+                    const dataLike = await Api.post('/likes/itikaf-schedule/' + scheduleId, {}) as Like;
+                    schedule.likes = [dataLike];
+                    ++schedule._count!.likes!;
+                } else {
+                    await Api.delete('/likes/itikaf-schedule/' + scheduleId);
+                    schedule.likes = [];
+                    --schedule._count!.likes!;
+                }
+            }
         }
     }
 });

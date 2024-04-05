@@ -41,7 +41,13 @@
                 </div>
                 <div class="flex gap-4">
                     <div class="flex items-center gap-2">
-                        <IconsLove class="w-4" />
+                        <label class="swap swap-flip text-9xl">
+                            <!-- this hidden checkbox controls the state -->
+                            <input type="checkbox" :checked="Itikaf.itikaf.likes.length"
+                                @change="Itikaf.swapLikeItikaf(!Itikaf.itikaf.likes.length)" />
+                            <IconsLoving class="w-4 swap-on" />
+                            <IconsLove class="w-4 swap-off" />
+                        </label>
                         {{ Itikaf.itikaf._count.likes }}
                     </div>
                     <div v-show="false" class="flex items-center gap-2">

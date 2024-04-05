@@ -102,7 +102,13 @@
                     </div>
                     <div class="flex gap-4">
                         <div class="flex items-center gap-2">
-                            <IconsLove class="w-4" />
+                            <label class="swap swap-flip text-9xl">
+                                <!-- this hidden checkbox controls the state -->
+                                <input type="checkbox" :checked="schedule.likes.length"
+                                    @change="Itikaf.swapLikeSchedule(!schedule.likes.length, schedule.id)" />
+                                <IconsLoving class="w-4 swap-on" />
+                                <IconsLove class="w-4 swap-off" />
+                            </label>
                             {{ schedule._count.likes }}
                         </div>
                         <div v-if="false" class="flex items-center gap-2">
@@ -126,12 +132,14 @@
 
 <script setup lang="ts">
 import dayjs from 'dayjs';
+
 const props = defineProps<{
     schedule: ItikafSchedule
 }>();
 
 defineEmits(['toJoin', 'toCancelJoin', 'mySchedule', 'update'])
 
+const Itikaf = useItikafStore();
 const route = useRoute();
 
 const today = dayjs().format('YYYY-MM-DD');
