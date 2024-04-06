@@ -7,17 +7,9 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: web-ukhuwahproject
-    image: web-ukhuwahproject:1.0.3
+    image: web-ukhuwahproject:1.0.4
     restart: always
     ports:
       - 3000:3000
     environment:
       NUXT_PUBLIC_API_URI: https://api.ukhuwahproject.com
-    networks:
-      - network-ukhuwahproject
-
-# networks
-networks:
-  network-ukhuwahproject:
-    name: network-ukhuwahproject
-    driver: bridge

@@ -1,0 +1,15 @@
+version: "3.8"
+# services / containers
+services:
+  # express app
+  stag-web-ukhuwahproject:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: stag-web-ukhuwahproject
+    image: stag-web-ukhuwahproject:1.0.1
+    restart: always
+    ports:
+      - 3005:3000
+    environment:
+      NUXT_PUBLIC_API_URI: https://stagapi.ukhuwahproject.com
