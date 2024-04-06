@@ -1,13 +1,13 @@
 <template>
     <!-- bg-[#F8D7B6] -->
-    <div>
+    <div class="">
         <div class="flex items-center gap-2 text-gray-500" v-show="reply_to != ''">
             <div class="font-normal text-xs">Membalas <span class="font-medium">{{ reply_to }}</span></div>
             <button @click="reply_to = ''; commentId = undefined;">
                 <IconsCross class="w-6" />
             </button>
         </div>
-        <div class="px-2 flex items-center gap-2">
+        <div class="flex items-center gap-2">
             <textarea v-model="comment" rows="1" class="textarea textarea-warning rounded-full w-full max-w-xs"
                 placeholder="Tulis Komentar"></textarea>
             <button @click="send">

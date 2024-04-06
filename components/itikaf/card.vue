@@ -112,9 +112,12 @@
                 </div>
 
                 <!-- comment list -->
-                <template v-for="comment in schedule.comments" :key="comment.id">
-                    <Comment :comment :scheduleId="schedule.id" @reply="(c: Comment) => reply_to = c" />
-                </template>
+                <div class="flex flex-col gap-1">
+                    <template v-for="comment in schedule.comments" :key="comment.id">
+                        <Comment :comment :scheduleId="schedule.id" @reply="(c: Comment) => reply_to = c" />
+                    </template>
+                </div>
+
             </template>
             <template v-if="schedule.comments && schedule._count">
                 <button @click="Itikaf.loadMoreScheduleComments(schedule.id, getNextPage(schedule.comments.length))"

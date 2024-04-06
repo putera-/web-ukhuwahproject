@@ -59,8 +59,8 @@
 
             <!-- CEK TANGGAL -->
             <div class="modal-action">
-                <label @click="$emit('close')" class="btn">Tutup</label>
-                <label v-if="!isPrevDay" @click="joinItikaf" class="btn bg-[#EE9A49]">
+                <label @click="$emit('close')" class="btn rounded-full">Tutup</label>
+                <label v-if="!isPrevDay" @click="joinItikaf" class="btn bg-[#EE9A49] rounded-full">
                     {{ terdaftar ? 'Ubah Data' : 'Ikut' }}
                     <IconsLoading v-show="isLoading" class="w-10" />
                 </label>

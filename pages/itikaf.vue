@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full min-h-screen max-w-5xl mx-auto pt-20 px-4 md:px-6 my-6">
+    <div class="w-full min-h-screen max-w-5xl mx-auto pt-20 px-4 md:px-6 my-6 overflow-hidden">
 
         <div v-if="Itikaf.itikaf">
             <div class="text-center text-2xl md:text-3xl lg:text-4xl font-medium mb-4">
@@ -31,17 +31,17 @@
 
             <!-- LIKES COMMENT -->
             <div class="flex justify-between items-center border-t border-t-gray-300 mb-2">
-                <div class="flex gap-4">
+                <div class="flex gap-4" v-if="Itikaf.itikaf._count">
                     <div class="font-semibold text-xl">Komentar</div>
                     <div class="flex items-center gap-2">
                         <IconsComment class="w-4" />
                         {{ Itikaf.itikaf._count.comments }}
                     </div>
                 </div>
-                <div class="flex items-center gap-2">
-                    <label class="swap swap-flip text-9xl">
+                <div class="flex items-center gap-2" v-if="Itikaf.itikaf._count">
+                    <label class="swap swap-flip text-9xl" v-if="Itikaf.itikaf.likes">
                         <!-- this hidden checkbox controls the state -->
-                        <input type="checkbox" :checked="Itikaf.itikaf.likes.length"
+                        <input type="checkbox" :checked="Itikaf.itikaf.likes.length > 0"
                             @change="Itikaf.swapLikeItikaf(!Itikaf.itikaf.likes.length, route)" />
                         <IconsLoving class="w-4 swap-on" />
                         <IconsLove class="w-4 swap-off" />
@@ -51,14 +51,19 @@
             </div>
 
             <!-- comment list -->
-            <template v-for="comment in Itikaf.itikaf.comments" :key="comment.id">
-                <Comment :comment :itikafId="Itikaf.itikaf.id" @reply="(c: Comment) => reply_to = c" />
-            </template>
+            <div class="flex flex-col gap-1">
+                <template v-for="comment in Itikaf.itikaf.comments" :key="comment.id">
+                    <Comment :comment :itikafId="Itikaf.itikaf.id" @reply="(c: Comment) => reply_to = c" />
+                </template>
+            </div>
 
-            <button @click="Itikaf.loadMoreItikafComments(Itikaf.itikaf.id, getNextPage(Itikaf.itikaf.comments.length))"
-                v-if="Itikaf.itikaf.comments.length < Itikaf.itikaf._count.comments"
-                class="underline font-light text-xs md:text-sm text-gray-500">Lihat komentar lainnya
-            </button>
+            <template v-if="Itikaf.itikaf.comments && Itikaf.itikaf._count">
+                <button
+                    @click="Itikaf.loadMoreItikafComments(Itikaf.itikaf.id, getNextPage(Itikaf.itikaf.comments.length))"
+                    v-if="Itikaf.itikaf.comments.length < Itikaf.itikaf._count.comments"
+                    class="underline font-light text-xs md:text-sm text-gray-500">Lihat komentar lainnya
+                </button>
+            </template>
 
             <CommentWrite :comment="reply_to" :itikafId="Itikaf.itikaf.id" />
 

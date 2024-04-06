@@ -17,7 +17,7 @@
             </div>
         </div>
     </div>
-    <div class="max-w-7xl w-full mx-auto md:pt-40 p-3 md:p-10">
+    <div class="max-w-7xl w-full mx-auto md:pt-40 p-3 md:p-10 overflow-hidden">
 
         <!-- ITIKAF -->
         <div v-if="Itikaf.itikaf">

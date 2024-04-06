@@ -9,21 +9,23 @@
         <div class="w-full">
             <div class="font-semibold text-sm">{{ comment.commenter.name }}</div>
             <div class="font-light text-xs md:text-sm whitespace-pre-wrap">{{ comment.comment }}</div>
-            <div class="flex gap-3 items-center">
-                <div class="font-light text-xs md:text-sm text-gray-500 text-nowrap">
-                    {{ getRelativeTime(comment.createdAt) }}
-                </div>
-                <div class="mr-10 flex gap-4">
-                    <button @click="$emit('reply', comment)"
-                        class="font-light text-xs md:text-sm text-gray-500">Balas</button>
-                    <template v-if="Auth.user">
-                        <template v-if="Auth.user.role != 'MEMBER' || Auth.user.id == comment.userId">
-                            <button @click="confirm_remove = true; removeId = comment.id"
-                                class="font-light text-xs md:text-sm text-gray-500">Hapus</button>
+            <div class="flex max-sm:flex-col gap-3 sm:items-center">
+                <div class="flex gap-3">
+                    <div class="font-light text-xs md:text-sm text-gray-500 text-nowrap">
+                        {{ getRelativeTime(comment.createdAt) }}
+                    </div>
+                    <div class="mr-10 flex gap-4">
+                        <button @click="$emit('reply', comment)"
+                            class="font-light text-xs md:text-sm text-gray-500">Balas</button>
+                        <template v-if="Auth.user">
+                            <template v-if="Auth.user.role != 'MEMBER' || Auth.user.id == comment.userId">
+                                <button @click="confirm_remove = true; removeId = comment.id"
+                                    class="font-light text-xs md:text-sm text-gray-500">Hapus</button>
+                            </template>
                         </template>
-                    </template>
+                    </div>
                 </div>
-                <div class="flex gap-4">
+                <div class="flex gap-4 max-sm:justify-end">
                     <div class="flex items-center gap-2" v-if="comment._count">
                         <IconsComment class="w-4" />
                         {{ comment._count.replies }}
