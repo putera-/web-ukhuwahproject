@@ -93,7 +93,7 @@
             <template v-if="route.path == '/itikaf' || route.path == '/itikaf/'">
                 <div class="flex justify-between items-center border-t border-t-gray-300">
                     <div class="flex gap-4 items-center" v-if="schedule._count">
-                        <div class="font-semibold text-xl">Komentar</div>
+                        <div class="font-semibold">Komentar</div>
                         <div class="flex items-center gap-2">
                             <IconsComment class="w-4" />
                             {{ schedule._count.comments }}

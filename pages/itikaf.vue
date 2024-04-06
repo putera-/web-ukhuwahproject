@@ -35,7 +35,7 @@
             <!-- LIKES COMMENT -->
             <div class="flex justify-between items-center border-t border-t-gray-300 mb-2">
                 <div class="flex gap-4" v-if="Itikaf.itikaf._count">
-                    <div class="font-semibold text-xl">Komentar</div>
+                    <div class="font-semibold">Komentar</div>
                     <div class="flex items-center gap-2">
                         <IconsComment class="w-4" />
                         {{ Itikaf.itikaf._count.comments }}
