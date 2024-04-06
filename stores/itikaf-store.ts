@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import type { RouteLocationNormalizedLoaded } from "vue-router";
 
 interface ItikafState {
     itikaf?: Itikaf
@@ -87,7 +88,10 @@ export const useItikafStore = defineStore("itikaf", {
 
             await Api.patch('/itikaf-participants/coupon_taken/' + id, {});
         },
-        async swapLikeItikaf(like: boolean): Promise<void> {
+        async swapLikeItikaf(like: boolean, route: RouteLocationNormalizedLoaded): Promise<void> {
+            // check is already login
+            await isToLoginPage(route);
+
             const Api = useApiStore();
             if (this.itikaf) {
                 if (like) {
@@ -101,7 +105,10 @@ export const useItikafStore = defineStore("itikaf", {
                 }
             }
         },
-        async swapLikeSchedule(like: boolean, scheduleId: string): Promise<void> {
+        async swapLikeSchedule(like: boolean, scheduleId: string, route: RouteLocationNormalizedLoaded): Promise<void> {
+            // check is already login
+            await isToLoginPage(route);
+
             const Api = useApiStore();
             const schedule: ItikafSchedule = this.schedules.find((s: ItikafSchedule) => s.id == scheduleId) as ItikafSchedule;
             if (schedule) {

@@ -41,7 +41,7 @@
                 <div v-if="Itikaf.itikaf.masjid" class="font-semibold">Lokasi: {{ Itikaf.itikaf.masjid }}</div>
                 <div v-if="Itikaf.itikaf.address">Alamat: {{ Itikaf.itikaf.address }}</div>
             </div>
-            <NuxtLink to="/itikaf" class="btn bg-[#EE9A49] mt-2">Lihat Jadwal I'tikaf</NuxtLink>
+            <NuxtLink to="/itikaf" class="btn bg-[#EE9A49] mt-2 rounded-full">Lihat Jadwal I'tikaf</NuxtLink>
         </div>
     </div>
 </template>

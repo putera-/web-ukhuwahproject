@@ -42,7 +42,7 @@
                     <label class="swap swap-flip text-9xl">
                         <!-- this hidden checkbox controls the state -->
                         <input type="checkbox" :checked="Itikaf.itikaf.likes.length"
-                            @change="Itikaf.swapLikeItikaf(!Itikaf.itikaf.likes.length)" />
+                            @change="Itikaf.swapLikeItikaf(!Itikaf.itikaf.likes.length, route)" />
                         <IconsLoving class="w-4 swap-on" />
                         <IconsLove class="w-4 swap-off" />
                     </label>
@@ -103,23 +103,9 @@ const showJoinForm = ref(false);
 const showCancelJoinForm = ref(false);
 const selected_scheduleId = ref<null | string>(null);
 
-const Api = useApiStore();
-const Auth = useAuthStore();
+const route = useRoute();
 const toJoin = async (scheduleId: string): Promise<void> => {
-    checkToken();
-
-    if (!Api.access_token) {
-        toLoginPage();
-        return;
-    }
-
-    if (!Auth.user) {
-        await Auth.getUser();
-        if (!Auth.user) {
-            toLoginPage();
-            return;
-        }
-    }
+    await isToLoginPage(route);
 
     selected_scheduleId.value = scheduleId;
     showJoinForm.value = true;
@@ -132,12 +118,6 @@ const successJoin = () => {
     showSuccess.value = true;
 
     Itikaf.getSchedule();
-}
-
-const route = useRoute();
-const toLoginPage = () => {
-    window.localStorage.setItem('redirect_path', route.path)
-    navigateTo('/auth/login');
 }
 
 const toCancelJoin = (scheduleId: string) => {

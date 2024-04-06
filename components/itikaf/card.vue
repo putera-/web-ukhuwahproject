@@ -103,7 +103,7 @@
                         <label class="swap swap-flip text-9xl">
                             <!-- this hidden checkbox controls the state -->
                             <input type="checkbox" :checked="schedule.likes.length"
-                                @change="Itikaf.swapLikeSchedule(!schedule.likes.length, schedule.id)" />
+                                @change="Itikaf.swapLikeSchedule(!schedule.likes.length, schedule.id, route)" />
                             <IconsLoving class="w-4 swap-on" />
                             <IconsLove class="w-4 swap-off" />
                         </label>
@@ -113,7 +113,7 @@
 
                 <!-- comment list -->
                 <template v-for="comment in schedule.comments" :key="comment.id">
-                    <Comment :comment :scheduleId="schedule.id" />
+                    <Comment :comment :scheduleId="schedule.id" @reply="(c: Comment) => reply_to = c" />
                 </template>
             </template>
             <button @click="Itikaf.loadMoreScheduleComments(schedule.id, getNextPage(schedule.comments.length))"
@@ -121,6 +121,7 @@
                 class="underline font-light text-xs md:text-sm text-gray-500 w-min text-nowrap">Lihat komentar lainnya
             </button>
 
+            <CommentWrite :comment="reply_to" :itikafScheduleId="schedule.id" />
             <slot />
         </div>
     </div>
@@ -142,4 +143,6 @@ const today = dayjs().format('YYYY-MM-DD');
 const isTheDay = today == props.schedule.date;
 const isNextDay = new Date(today) < new Date(props.schedule.date);
 const isPrevDay = new Date(today) > new Date(props.schedule.date);
+
+const reply_to = ref<Comment | undefined>(undefined);
 </script>

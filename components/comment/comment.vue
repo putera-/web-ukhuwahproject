@@ -10,10 +10,11 @@
             <div class="font-semibold text-sm">{{ comment.commenter.name }}</div>
             <div class="font-light text-xs md:text-sm">{{ comment.comment }}</div>
             <div class="flex gap-3 items-center">
-                <div class="font-light text-xs md:text-sm text-gray-500">
+                <div class="font-light text-xs md:text-sm text-gray-500 text-nowrap">
                     {{ getRelativeTime(comment.createdAt) }}
                 </div>
-                <div class="font-light text-xs md:text-sm text-gray-500 mr-10">Balas</div>
+                <button @click="$emit('reply', comment)"
+                    class="font-light text-xs md:text-sm text-gray-500 mr-10">Balas</button>
                 <div class="flex gap-4">
                     <div class="flex items-center gap-2">
                         <IconsComment class="w-4" />
@@ -47,12 +48,13 @@
 </template>
 
 <script setup lang="ts">
-import dayjs from 'dayjs'
 const props = defineProps<{
     comment: Comment
     itikafId?: string
     scheduleId?: string
 }>();
+
+const route = useRoute();
 
 const Itikaf = useItikafStore();
 
@@ -67,6 +69,8 @@ const loadReplies = async () => {
 }
 
 const swapLike = async (like: boolean) => {
+    await isToLoginPage(route);
+
     if (props.itikafId) {
         await Itikaf.swapLikeItikafComment(like, props.comment.id);
     } else if (props.scheduleId) {
@@ -75,6 +79,7 @@ const swapLike = async (like: boolean) => {
 }
 
 const swapLikeReply = async (like: boolean, replyId: string) => {
+    await isToLoginPage(route);
 
     if (props.itikafId) {
         await Itikaf.swapLikeItikafCommentReply(like, props.comment.id, replyId);
