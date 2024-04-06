@@ -1,4 +1,7 @@
 <template>
+    <nuxt-link to="/admin/itikaf" class="btn btn-sm rounded-full bg-white/0 border-0">
+        <IconsArrowLeft class="w-8" />
+    </nuxt-link>
     <div v-if="data">
         <ItikafCard :schedule="data" @update="update">
             <div class="flex max-sm:flex-col justify-between gap-4 items-center mt-10">
