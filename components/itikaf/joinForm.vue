@@ -60,7 +60,7 @@
             <!-- CEK TANGGAL -->
             <div class="modal-action">
                 <label @click="$emit('close')" class="btn rounded-full">Tutup</label>
-                <label v-if="!isPrevDay" @click="joinItikaf" class="btn bg-[#EE9A49] rounded-full">
+                <label v-if="!isPrevDay" @click="confirm_join = true" class="btn bg-[#EE9A49] rounded-full">
                     {{ terdaftar ? 'Ubah Data' : 'Ikut' }}
                     <IconsLoading v-show="isLoading" class="w-10" />
                 </label>
@@ -69,6 +69,21 @@
         </div>
         <label class="modal-backdrop" @click="$emit('close')">Close</label>
     </div>
+    <LazyConfirmation v-if="confirm_join" :show="confirm_join" actionText="Ikut" @close="confirm_join = false"
+        @yes="joinItikaf">
+        <div class="mb-10 font-medium">
+            Apakah Yakin untuk ikut itikaf?
+        </div>
+        <template v-if="Client.client">
+            <div v-if="Client.client.bank_name"
+                class="max-md:text-center flex flex-col justify-center bg-gradient-to-r from-[#FEF5ED] to-[#F8D7B6] p-6 rounded-xl">
+                <div class="max-md:text-base mb-2 text-lg">Salurkan Donasi Terbaik Anda</div>
+                <div class="font-medium text-nowrap">{{ Client.client.bank_holder_name }}</div>
+                <div class="text-sm text-nowrap">{{ Client.client.bank_name }}</div>
+                <div class="text-sm text-nowrap">{{ Client.client.bank_account_no }}</div>
+            </div>
+        </template>
+    </LazyConfirmation>
 </template>
 
 <script setup lang="ts">
@@ -78,6 +93,8 @@ const props = defineProps<{
     scheduleId: string
 }>();
 const emits = defineEmits(['close', 'success']);
+
+const Client = useClientStore();
 
 const _show = ref(false);
 const isLoading = ref(false);
@@ -111,7 +128,7 @@ onBeforeMount(async (): Promise<void> => {
 
     const mySchedule = await Itikaf.getMySchedule(props.scheduleId) as ItikafParticipant;
 
-    if (mySchedule) {
+    if (mySchedule && mySchedule.participate != false) {
         terdaftar.value = true;
 
         formData.value = {
@@ -123,6 +140,8 @@ onBeforeMount(async (): Promise<void> => {
     }
 });
 
+const confirm_join = ref<boolean>(false);
+
 const Itikaf = useItikafStore();
 const joinItikaf = async () => {
     if (isLoading.value) return;
@@ -130,6 +149,7 @@ const joinItikaf = async () => {
     // reset
     fetchError.value = '';
     errors.value = {};
+    confirm_join.value = false;
 
     try {
         isLoading.value = true;
