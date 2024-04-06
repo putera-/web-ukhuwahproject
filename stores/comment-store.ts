@@ -68,6 +68,77 @@ export const useCommentStore = defineStore('use-comment', {
                     if (_comment?.replies) _comment.replies.unshift(new_comment_reply);
                 }
             }
-        }
+        },
+        async removeItikafComment(id: string): Promise<void> {
+            const Api = useApiStore();
+            const Itikaf = useItikafStore();
+
+            await Api.delete('/comments/' + id);
+
+            if (!Itikaf.itikaf) return;
+            if (!Itikaf.itikaf.comments) return;
+
+            const index = Itikaf.itikaf.comments.findIndex(c => c.id == id);
+            if (index != -1) {
+                Itikaf.itikaf.comments.splice(index, 1);
+            }
+        },
+        async removeItikafCommentReply(id: string, commentId: string): Promise<void> {
+            const Api = useApiStore();
+            const Itikaf = useItikafStore();
+
+            await Api.delete('/comments/reply/' + id);
+
+            if (!Itikaf.itikaf) return;
+            if (!Itikaf.itikaf.comments) return;
+
+            const comment = Itikaf.itikaf.comments.find((c: Comment) => c.id == commentId);
+            if (!comment) return;
+            if (!comment.replies) return;
+
+            const index = comment.replies.findIndex((r: CommentReply) => r.id == id);
+            if (index != -1) {
+                comment.replies.splice(index, 1);
+            }
+        },
+        async removeItikafScheduleComment(id: string, scheduleId: string): Promise<void> {
+            const Api = useApiStore();
+            const Itikaf = useItikafStore();
+
+            await Api.delete('/comments/' + id);
+
+            const schedule = Itikaf.schedules.find(s => s.id == scheduleId);
+            console.log(schedule);
+
+            if (!schedule) return;
+            console.log(schedule.comments);
+            if (!schedule.comments) return;
+
+            const index = schedule.comments.findIndex(c => c.id == id);
+            console.log(index);
+            if (index != -1) {
+                schedule.comments.splice(index, 1);
+            }
+        },
+        async removeItikafScheduleCommentReply(id: string, scheduleId: string, commentId: string): Promise<void> {
+            const Api = useApiStore();
+            const Itikaf = useItikafStore();
+
+            await Api.delete('/comments/reply/' + id);
+
+            const schedule = Itikaf.schedules.find(s => s.id == scheduleId);
+
+            if (!schedule) return;
+            if (!schedule.comments) return;
+
+            const comment = schedule.comments.find((c: Comment) => c.id == commentId);
+            if (!comment) return;
+            if (!comment.replies) return;
+
+            const index = comment.replies.findIndex((r: CommentReply) => r.id == id);
+            if (index != -1) {
+                comment.replies.splice(index, 1);
+            }
+        },
     }
 })

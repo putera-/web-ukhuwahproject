@@ -13,8 +13,16 @@
                 <div class="font-light text-xs md:text-sm text-gray-500 text-nowrap">
                     {{ getRelativeTime(comment.createdAt) }}
                 </div>
-                <button @click="$emit('reply', comment)"
-                    class="font-light text-xs md:text-sm text-gray-500 mr-10">Balas</button>
+                <div class="mr-10 flex gap-4">
+                    <button @click="$emit('reply', comment)"
+                        class="font-light text-xs md:text-sm text-gray-500">Balas</button>
+                    <template v-if="Auth.user">
+                        <template v-if="Auth.user.role != 'MEMBER' || Auth.user.id == comment.userId">
+                            <button @click="confirm_remove = true; removeId = comment.id"
+                                class="font-light text-xs md:text-sm text-gray-500">Hapus</button>
+                        </template>
+                    </template>
+                </div>
                 <div class="flex gap-4">
                     <div class="flex items-center gap-2">
                         <IconsComment class="w-4" />
@@ -45,9 +53,15 @@
             </div>
         </div>
     </div>
+    <LazyConfirmation v-if="confirm_remove" :show="confirm_remove" actionText="Hapus" @close="confirm_remove = false"
+        @yes="remove">
+        Apakah
+        Yakin untuk menghapus?
+    </LazyConfirmation>
 </template>
 
 <script setup lang="ts">
+defineEmits(['reply'])
 const props = defineProps<{
     comment: Comment
     itikafId?: string
@@ -57,6 +71,7 @@ const props = defineProps<{
 const route = useRoute();
 
 const Itikaf = useItikafStore();
+const Auth = useAuthStore();
 
 const loadReplies = async () => {
     const nextPage = getNextPage(props.comment.replies.length);
@@ -85,6 +100,24 @@ const swapLikeReply = async (like: boolean, replyId: string) => {
         await Itikaf.swapLikeItikafCommentReply(like, props.comment.id, replyId);
     } else if (props.scheduleId) {
         await Itikaf.swapLikeItikafScheduleCommentReply(like, props.scheduleId, props.comment.id, replyId);
+    }
+}
+
+const UseComment = useCommentStore();
+const confirm_remove = ref(false);
+const removeId = ref<string | null>(null)
+const remove = async () => {
+    if (!removeId.value) return;
+
+    try {
+        if (props.itikafId) {
+            await UseComment.removeItikafComment(removeId.value);
+        } else if (props.scheduleId) {
+            await UseComment.removeItikafScheduleComment(removeId.value, props.scheduleId);
+        }
+
+        confirm_remove.value = false;
+    } catch (error) {
     }
 }
 
