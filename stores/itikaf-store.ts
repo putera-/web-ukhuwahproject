@@ -7,13 +7,6 @@ interface ItikafState {
     year: string
 }
 
-interface JoinItikafForm {
-    "man": number
-    "woman": number
-    "vehicle_type"?: "Motor" | "Mobil" | ""
-    "vehicle_no"?: string
-}
-
 export const useItikafStore = defineStore("itikaf", {
     state: (): ItikafState => ({
         itikaf: undefined,

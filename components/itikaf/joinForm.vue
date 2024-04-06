@@ -104,7 +104,7 @@ const formData = ref<JoinItikafForm>({
 const terdaftar = ref(false);
 const isPrevDay = ref(false);
 onBeforeMount(async (): Promise<void> => {
-    const scheduleData: ItikafSchedule = Itikaf.schedules.find(s => s.id == props.scheduleId);
+    const scheduleData: ItikafSchedule = Itikaf.schedules.find(s => s.id == props.scheduleId) as ItikafSchedule;
 
     const today = dayjs().format('YYYY-MM-DD');
     isPrevDay.value = new Date(today) > new Date(scheduleData.date);

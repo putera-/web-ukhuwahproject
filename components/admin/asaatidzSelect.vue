@@ -50,7 +50,7 @@
 
 <script setup lang="ts">
 const props = defineProps<{
-    show: Boolean
+    show: boolean
     // data: Asaatidz | null
 }>();
 
@@ -59,7 +59,7 @@ const emits = defineEmits(['close', 'select']);
 const Astz = useAsaatidzStore();
 if (!Astz.data) Astz.get();
 
-const show_modal = ref(false);
+const show_modal = ref<boolean>(false);
 watchEffect(() => {
     show_modal.value = props.show;
 });

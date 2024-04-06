@@ -72,7 +72,7 @@
 import { toast } from 'vue3-toastify';
 
 const props = defineProps<{
-    show: Boolean
+    show: boolean
     data: Asaatidz | null
 }>();
 

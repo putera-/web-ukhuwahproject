@@ -15,6 +15,8 @@ export const useCommentStore = defineStore('use-comment', {
             const Api = useApiStore();
             const Itikaf = useItikafStore();
 
+            if (!Itikaf.itikaf) return;
+
             comment = Validate(isComment, comment);
 
             const new_comment: Comment = await Api.post('/comments/itikaf/' + Itikaf.itikaf.id, { comment }) as Comment;
@@ -50,6 +52,7 @@ export const useCommentStore = defineStore('use-comment', {
             if (!Itikaf.itikaf.comments) return;
 
             const _comment = Itikaf.itikaf.comments.find((c: Comment) => c.id == commentId);
+            if (!_comment) return;
 
             ++_comment._count!.replies!;
             if (_comment.replies) _comment.replies.unshift(new_comment_reply);

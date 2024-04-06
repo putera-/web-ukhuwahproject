@@ -1,5 +1,5 @@
 interface Asaatidz {
-    id?: string
+    id: string
     name: string
     profile: string
     deleted: boolean

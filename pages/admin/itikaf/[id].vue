@@ -22,8 +22,8 @@
                     <tbody>
                         <tr v-for="user in dataPeserta" class="hover">
                             <td>
-                                <div class="w-10 h-10 rounded-full overflow-hidden">
-                                    <template v-if="user.user.avatar">
+                                <div class="w-10 h-10 rounded-full overflow-hidden" v-if="user.user">
+                                    <template v-if="user.user.avatar_md">
                                         <img v-if="isURL(user.user.avatar_md)" :src="user.user.avatar_md" class="w-10">
                                         <img v-else :src="apiUri + user.user.avatar_md" class="w-10">
                                     </template>
@@ -32,14 +32,20 @@
                                         {{ user.user.name[0] }}
                                     </div>
                                 </div>
+                                <div v-else
+                                    class="w-10 h-10 rounded-full bg-gray-300 flex justify-center items-center text-xl">
+                                </div>
                             </td>
                             <td>
-                                <div class="font-medium text-base text-nowrap">{{ user.user.name }}</div>
-                                <a :href="`https://wa.me/${user.user.phone.replaceAll('-', '').replace(' ', '').replace('+', '')}`"
-                                    target="_blank" class="flex gap-2 items-center">
-                                    <IconsWhatsapp class="w-3" />
-                                    <div class="text-nowrap">{{ user.user.phone }}</div>
-                                </a>
+                                <template v-if="user.user">
+                                    <div class="font-medium text-base text-nowrap">{{ user.user.name }}</div>
+                                    <a :href="`https://wa.me/${user.user.phone.replaceAll('-', '').replace(' ', '').replace('+', '')}`"
+                                        target="_blank" class="flex gap-2 items-center">
+                                        <IconsWhatsapp class="w-3" />
+                                        <div class="text-nowrap">{{ user.user.phone }}</div>
+                                    </a>
+                                </template>
+
                                 <div v-if="user.vehicle" class="text-xs text-nowrap">
                                     {{ user.vehicle.vehicle_type }} : {{ user.vehicle.vehicle_no }}
                                 </div>
@@ -73,8 +79,8 @@
                     <div class="card-body max-sm:p-5">
                         <div class="flex max-sm:flex-col justify-between">
                             <div class="flex gap-4 items-center">
-                                <div class="w-8 h-8 rounded-full overflow-hidden">
-                                    <template v-if="user.user.avatar">
+                                <div class="w-8 h-8 rounded-full overflow-hidden" v-if="user.user">
+                                    <template v-if="user.user.avatar_md">
                                         <img v-if="isURL(user.user.avatar_md)" :src="user.user.avatar_md" class="w-8">
                                         <img v-else :src="apiUri + user.user.avatar_md" class="w-8">
                                     </template>
@@ -83,7 +89,7 @@
                                         {{ user.user.name[0] }}
                                     </div>
                                 </div>
-                                <div>
+                                <div v-if="user.user">
                                     <div class="font-medium text-base text-nowrap">{{ user.user.name }}</div>
                                     <a :href="`https://wa.me/${user.user.phone.replaceAll('-', '').replace(' ', '').replace('+', '')}`"
                                         target="_blank" class="flex gap-2 items-center">
@@ -153,7 +159,7 @@
     <Confirmation action-text="Ya, Serahkan Kupon" :show="confirmCoupon" @close="confirmCoupon = false"
         @yes="setCouponTaken">
         <div v-if="couponParticipant" class="text-xl">Kupon untuk <span class="font-semibold">{{
-        couponParticipant.user.name
+        couponParticipant.user!.name
                 }}</span>
         </div>
 
@@ -170,7 +176,7 @@ definePageMeta({
 });
 
 const route = useRoute();
-const id = route.params.id;
+const id: string = route.params.id as string;
 const Itikaf = useItikafStore();
 
 const data = ref<ItikafSchedule | null>(null);
@@ -204,11 +210,14 @@ const search = ref('');
 const dataPeserta = computed((): ItikafParticipant[] => {
     const filter = search.value.toLowerCase().trim();
 
+    if (!data.value) return [];
+    if (!data.value.participants) return [];
+
     if (filter == '') {
         return data.value.participants;
     } else {
         return data.value.participants.filter((user: ItikafParticipant) => {
-            return user.user.name.toLowerCase().includes(filter);
+            return user.user!.name.toLowerCase().includes(filter);
         })
     }
 });

@@ -43,7 +43,7 @@
                         <div class="text-center">{{ dayjs(Shalat.fajr).format('HH:mm') }}</div>
                         <div class="text-center">{{ dayjs(Shalat.dhuhr).format('HH:mm') }}</div>
                         <div class="text-center">{{ dayjs(Shalat.asr).format('HH:mm') }}</div>
-                        <div class="text-center">{{ dayjs(Shalat.marghrib).format('HH:mm') }}</div>
+                        <div class="text-center">{{ dayjs(Shalat.maghrib).format('HH:mm') }}</div>
                         <div class="text-center">{{ dayjs(Shalat.isha).format('HH:mm') }}</div>
                     </div>
                 </div>

@@ -208,7 +208,7 @@ const Itikaf = useItikafStore();
 const isLoading = ref(false);
 const show_modal = ref(true);
 
-const photo_preview = ref(undefined)
+const photo_preview = ref<string | undefined>(undefined)
 
 const form = ref<Record<string, any>>({
     date: undefined,

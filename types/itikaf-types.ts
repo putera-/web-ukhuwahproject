@@ -40,6 +40,14 @@ interface ItikafParticipant {
     updatedAt?: Date
 }
 
+
+interface JoinItikafForm {
+    "man": number
+    "woman": number
+    "vehicle_type"?: "Motor" | "Mobil" | ""
+    "vehicle_no"?: string
+}
+
 interface Vehicle {
     id: string
     user?: User
