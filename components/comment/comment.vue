@@ -44,7 +44,8 @@
             <!-- REPLIES -->
             <div class="w-full pl-2 border-l border-l-gray-400">
                 <template v-for="reply in comment.replies" :key="reply.id">
-                    <CommentReply :reply @swapLike="(like: boolean) => swapLikeReply(like, reply.id)" />
+                    <CommentReply :reply @swapLike="(like: boolean) => swapLikeReply(like, reply.id)"
+                        @remove="confirm_remove_reply = true; remove_comment_reply_id = comment.id; remove_reply_id = reply.id" />
                 </template>
                 <button @click="loadReplies" v-if="comment.replies.length < comment._count.replies"
                     class="underline font-light text-xs md:text-sm text-gray-500">
@@ -55,8 +56,11 @@
     </div>
     <LazyConfirmation v-if="confirm_remove" :show="confirm_remove" actionText="Hapus" @close="confirm_remove = false"
         @yes="remove">
-        Apakah
-        Yakin untuk menghapus?
+        Apakah Yakin untuk menghapus?
+    </LazyConfirmation>
+    <LazyConfirmation v-if="confirm_remove_reply" :show="confirm_remove_reply" actionText="Hapus"
+        @close="confirm_remove_reply = false" @yes="remove_reply">
+        Apakah Yakin untuk menghapus?
     </LazyConfirmation>
 </template>
 
@@ -106,7 +110,7 @@ const swapLikeReply = async (like: boolean, replyId: string) => {
 const UseComment = useCommentStore();
 const confirm_remove = ref(false);
 const removeId = ref<string | null>(null)
-const remove = async () => {
+const remove = async (): Promise<void> => {
     if (!removeId.value) return;
 
     try {
@@ -121,4 +125,20 @@ const remove = async () => {
     }
 }
 
+// REMOVE REPLY
+const confirm_remove_reply = ref(false);
+const remove_comment_reply_id = ref<string | null>(null);
+const remove_reply_id = ref<string | null>(null);
+const remove_reply = async (): Promise<void> => {
+    try {
+        if (props.itikafId) {
+            await UseComment.removeItikafCommentReply(remove_reply_id.value!, remove_comment_reply_id.value!);
+        } else if (props.scheduleId) {
+            await UseComment.removeItikafScheduleCommentReply(props.scheduleId, remove_reply_id.value!, remove_comment_reply_id.value!);
+        }
+
+        confirm_remove_reply.value = false;
+    } catch (error) {
+    }
+}
 </script>

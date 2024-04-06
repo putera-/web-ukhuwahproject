@@ -13,6 +13,12 @@
                 <div class="font-light text-xs md:text-sm text-gray-500 mr-10 text-nowrap">
                     {{ getRelativeTime(reply.createdAt) }}
                 </div>
+                <template v-if="Auth.user">
+                    <template v-if="Auth.user.role != 'MEMBER' || Auth.user.id == reply.userId">
+                        <button @click="$emit('remove')"
+                            class="font-light text-xs md:text-sm text-gray-500 mr-10">Hapus</button>
+                    </template>
+                </template>
                 <div class="flex items-center gap-2">
                     <label class="swap swap-flip text-9xl">
                         <!-- this hidden checkbox controls the state -->
@@ -29,7 +35,10 @@
 </template>
 
 <script setup lang="ts">
+defineEmits(['remove', 'swapLike']);
 defineProps<{
     reply: CommentReply
 }>();
+
+const Auth = useAuthStore();
 </script>

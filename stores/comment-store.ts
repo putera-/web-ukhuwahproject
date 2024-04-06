@@ -120,7 +120,7 @@ export const useCommentStore = defineStore('use-comment', {
                 schedule.comments.splice(index, 1);
             }
         },
-        async removeItikafScheduleCommentReply(id: string, scheduleId: string, commentId: string): Promise<void> {
+        async removeItikafScheduleCommentReply(scheduleId: string, id: string, commentId: string): Promise<void> {
             const Api = useApiStore();
             const Itikaf = useItikafStore();
 
