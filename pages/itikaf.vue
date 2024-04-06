@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full min-h-screen max-w-5xl mx-auto pt-20 px-4 md:px-6 my-6 overflow-hidden">
+    <div class="w-full min-h-screen max-w-5xl mx-auto pt-20 pb-10 px-4 md:px-6 my-6 overflow-hidden">
 
         <div v-if="Itikaf.itikaf">
             <div class="text-center text-2xl md:text-3xl lg:text-4xl font-medium mb-4">
