@@ -23,7 +23,7 @@ interface ItikafSchedule {
     likes?: Like[]
     comments?: Comment[]
     _count?: {
-        likes?: number
-        comments?: number
+        likes: number
+        comments: number
     }
 }

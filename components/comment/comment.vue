@@ -1,5 +1,5 @@
 <template>
-    <div class="flex gap-2">
+    <div class="flex gap-2" v-if="comment.commenter">
         <template v-if="comment.commenter.avatar_md">
             <img v-if="isURL(comment.commenter.avatar_md)" :src="comment.commenter.avatar_md" alt=""
                 class="flex-none rounded-full w-8 md:w-10 h-8 md:h-10">
@@ -24,14 +24,14 @@
                     </template>
                 </div>
                 <div class="flex gap-4">
-                    <div class="flex items-center gap-2">
+                    <div class="flex items-center gap-2" v-if="comment._count">
                         <IconsComment class="w-4" />
                         {{ comment._count.replies }}
                     </div>
-                    <div class="flex items-center gap-2">
+                    <div class="flex items-center gap-2" v-if="comment.likes && comment._count">
                         <label class="swap swap-flip text-9xl">
                             <!-- this hidden checkbox controls the state -->
-                            <input type="checkbox" :checked="comment.likes.length"
+                            <input type="checkbox" :checked="comment.likes.length > 0"
                                 @change="swapLike(!comment.likes.length)" />
                             <IconsLoving class="w-4 swap-on" />
                             <IconsLove class="w-4 swap-off" />
@@ -47,10 +47,12 @@
                     <CommentReply :reply @swapLike="(like: boolean) => swapLikeReply(like, reply.id)"
                         @remove="confirm_remove_reply = true; remove_comment_reply_id = comment.id; remove_reply_id = reply.id" />
                 </template>
-                <button @click="loadReplies" v-if="comment.replies.length < comment._count.replies"
-                    class="underline font-light text-xs md:text-sm text-gray-500">
-                    Lihat balasan lainnya
-                </button>
+                <template v-if="comment.replies && comment._count">
+                    <button @click="loadReplies" v-if="comment.replies.length < comment._count.replies"
+                        class="underline font-light text-xs md:text-sm text-gray-500">
+                        Lihat balasan lainnya
+                    </button>
+                </template>
             </div>
         </div>
     </div>
@@ -78,6 +80,8 @@ const Itikaf = useItikafStore();
 const Auth = useAuthStore();
 
 const loadReplies = async () => {
+    if (!props.comment.replies) return;
+
     const nextPage = getNextPage(props.comment.replies.length);
 
     if (props.itikafId) {

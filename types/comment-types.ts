@@ -6,12 +6,12 @@ interface Comment {
     articleId: string
     comment: string
     replies?: CommentReply[]
-    createdAt: Date
-    updatedAt: Date
+    createdAt: string
+    updatedAt: string
     likes?: Like[]
     _count?: {
-        likes?: number
-        comments?: number
+        likes: number
+        replies: number
     }
 }
 
@@ -20,13 +20,12 @@ interface CommentReply {
     commenter?: User
     userId: string
     comment: string
-    createdAt: Date
-    updatedAt: Date
+    createdAt: string
+    updatedAt: string
     likes?: Like[]
     Comment?: Comment
     commentId: string
     _count?: {
-        likes?: number
-        comments?: number
+        likes: number
     }
 }

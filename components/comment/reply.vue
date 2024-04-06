@@ -1,5 +1,5 @@
 <template>
-    <div class="flex gap-2">
+    <div class="flex gap-2" v-if="reply.commenter">
         <template v-if="reply.commenter.avatar_md">
             <img v-if="isURL(reply.commenter.avatar_md)" :src="reply.commenter.avatar_md" alt=""
                 class="flex-none rounded-full w-8 md:w-10 h-8 md:h-10">
@@ -19,10 +19,10 @@
                             class="font-light text-xs md:text-sm text-gray-500 mr-10">Hapus</button>
                     </template>
                 </template>
-                <div class="flex items-center gap-2">
+                <div class="flex items-center gap-2" v-if="reply.likes && reply._count">
                     <label class="swap swap-flip text-9xl">
                         <!-- this hidden checkbox controls the state -->
-                        <input type="checkbox" :checked="reply.likes.length"
+                        <input type="checkbox" :checked="reply.likes.length > 0"
                             @change="$emit('swapLike', !reply.likes.length)" />
                         <IconsLoving class="w-4 swap-on" />
                         <IconsLove class="w-4 swap-off" />
