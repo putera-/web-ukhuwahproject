@@ -7,7 +7,7 @@
                 <slot />
             </p>
             <div class="modal-action">
-                <label class="btn rounded-full" @click="$emit('close')">Close</label>
+                <label class="btn rounded-full" @click="$emit('close')">Tutup</label>
                 <label class="btn rounded-full bg-[#EE9A49]" @click="isLoading = true; $emit('yes')">
                     {{ actionText }}
                     <IconsLoading v-show="isLoading" class="w-8" />
