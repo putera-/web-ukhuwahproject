@@ -20,6 +20,7 @@
 <script setup lang="ts">
 const props = defineProps<{
     comment?: Comment
+    itikafId?: string
     itikafScheduleId?: string
 }>();
 
@@ -44,18 +45,49 @@ const route = useRoute();
 const send = async () => {
     await isToLoginPage(route);
 
-    // for itikaf schedule
-    if (props.itikafScheduleId) {
-        try {
-            await useComment.sendForItikafSchedule(props.itikafScheduleId, comment.value);
-
-            // reset
-            comment.value = '';
-            reply_to.value = '';
-            commentId.value = undefined;
-        } catch (error) {
-            console.log(error)
+    // for itikaf
+    if (props.itikafId) {
+        if (!commentId.value) {
+            // for itikaf
+            try {
+                await useComment.sendForItikaf(comment.value);
+                reset();
+            } catch (error) {
+            }
+        } else {
+            // for reply comment
+            try {
+                await useComment.replyItikafComment(commentId.value, comment.value);
+                reset();
+            } catch (error) {
+            }
         }
     }
+
+    // for itikaf schedule
+    if (props.itikafScheduleId) {
+        if (!commentId.value) {
+            // for itikaf schedule
+            try {
+                await useComment.sendForItikafSchedule(props.itikafScheduleId, comment.value);
+                reset();
+            } catch (error) {
+            }
+        } else {
+            // for reply comment
+            try {
+                await useComment.replyItikafScheduleComment(props.itikafScheduleId, commentId.value, comment.value);
+                reset();
+            } catch (error) {
+
+            }
+        }
+    }
+}
+
+const reset = () => {
+    comment.value = '';
+    reply_to.value = '';
+    commentId.value = undefined;
 }
 </script>

@@ -52,13 +52,16 @@
 
             <!-- comment list -->
             <template v-for="comment in Itikaf.itikaf.comments" :key="comment.id">
-                <Comment :comment :itikafId="Itikaf.itikaf.id" />
+                <Comment :comment :itikafId="Itikaf.itikaf.id" @reply="(c: Comment) => reply_to = c" />
             </template>
 
             <button @click="Itikaf.loadMoreItikafComments(Itikaf.itikaf.id, getNextPage(Itikaf.itikaf.comments.length))"
                 v-if="Itikaf.itikaf.comments.length < Itikaf.itikaf._count.comments"
                 class="underline font-light text-xs md:text-sm text-gray-500">Lihat komentar lainnya
             </button>
+
+            <CommentWrite :comment="reply_to" :itikafId="Itikaf.itikaf.id" />
+
         </div>
 
         <!-- JADWAL -->
@@ -137,4 +140,6 @@ const mySchedule = (scheduleId: string) => {
     selected_scheduleId.value = scheduleId;
     showJoinForm.value = true;
 }
+
+const reply_to = ref<Comment | undefined>(undefined);
 </script>

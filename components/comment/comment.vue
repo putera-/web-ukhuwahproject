@@ -8,7 +8,7 @@
         </template>
         <div class="w-full">
             <div class="font-semibold text-sm">{{ comment.commenter.name }}</div>
-            <div class="font-light text-xs md:text-sm">{{ comment.comment }}</div>
+            <div class="font-light text-xs md:text-sm whitespace-pre-wrap">{{ comment.comment }}</div>
             <div class="flex gap-3 items-center">
                 <div class="font-light text-xs md:text-sm text-gray-500 text-nowrap">
                     {{ getRelativeTime(comment.createdAt) }}

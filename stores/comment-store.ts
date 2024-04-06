@@ -11,6 +11,18 @@ export const useCommentStore = defineStore('use-comment', {
 
             return Api.post('/comments/article/' + articleId, { comment });
         },
+        async sendForItikaf(comment: string): Promise<void> {
+            const Api = useApiStore();
+            const Itikaf = useItikafStore();
+
+            comment = Validate(isComment, comment);
+
+            const new_comment: Comment = await Api.post('/comments/itikaf/' + Itikaf.itikaf.id, { comment }) as Comment;
+
+            if (Itikaf.itikaf) {
+                if (Itikaf.itikaf.comments) Itikaf.itikaf.comments.unshift(new_comment);
+            }
+        },
         async sendForItikafSchedule(scheduleId: string, comment: string): Promise<void> {
             const Api = useApiStore();
             const Itikaf = useItikafStore();
@@ -24,8 +36,38 @@ export const useCommentStore = defineStore('use-comment', {
                 if (schedule.comments) schedule.comments.unshift(new_comment);
             }
         },
-        reply() {
+        async replyItikafComment(commentId: string, comment: string): Promise<void> {
+            const Api = useApiStore();
+            const Itikaf = useItikafStore();
 
+            comment = Validate(isComment, comment);
+
+            const new_comment_reply: CommentReply = await Api.post('/comments/reply/' + commentId, { comment }) as CommentReply;
+
+            if (Itikaf.itikaf) {
+                if (Itikaf.itikaf.comments) {
+                    const _comment = Itikaf.itikaf.comments.find(c => c.id == commentId);
+
+                    if (_comment.replies) _comment.replies.unshift(new_comment_reply);
+                }
+            }
+        },
+        async replyItikafScheduleComment(scheduleId: string, commentId: string, comment: string): Promise<void> {
+            const Api = useApiStore();
+            const Itikaf = useItikafStore();
+
+            comment = Validate(isComment, comment);
+
+            const new_comment_reply: CommentReply = await Api.post('/comments/reply/' + commentId, { comment }) as CommentReply;
+
+            const schedule = Itikaf.schedules.find(s => s.id == scheduleId);
+            if (schedule) {
+                if (schedule.comments) {
+                    const _comment = schedule.comments.find(c => c.id == commentId);
+
+                    if (_comment?.replies) _comment.replies.unshift(new_comment_reply);
+                }
+            }
         }
     }
 })
