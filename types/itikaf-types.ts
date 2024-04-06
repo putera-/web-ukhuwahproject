@@ -40,7 +40,7 @@ interface ItikafParticipant {
     updatedAt?: Date
 }
 
-export interface Vehicle {
+interface Vehicle {
     id: string
     user?: User
     userId: string

@@ -30,12 +30,12 @@ export const useItikafStore = defineStore("itikaf", {
         async create(data: FormData) {
             const Api = useApiStore();
 
-            this.itikaf = await Api.post('/itikafs/' + this.year, data);
+            this.itikaf = await Api.post('/itikafs/' + this.year, data) as Itikaf;
         },
         async update(data: FormData) {
             const Api = useApiStore();
 
-            this.itikaf = await Api.patch('/itikafs/' + this.year, data);
+            this.itikaf = await Api.patch('/itikafs/' + this.year, data) as Itikaf;
         },
         async getSchedule(): Promise<void> {
             const Api = useApiStore();
@@ -69,7 +69,9 @@ export const useItikafStore = defineStore("itikaf", {
         async getMySchedule(scheduleId: string): Promise<ItikafParticipant> {
             const Api = useApiStore();
 
-            return Api.get('/itikaf-participants/me/' + scheduleId) as ItikafParticipant;
+            // TODO change this
+            const participants = await Api.get('/itikaf-participants/me/' + scheduleId) as ItikafParticipant;
+            return participants;
         },
         async createSchedule(data: FormData) {
             const Api = useApiStore();
@@ -95,12 +97,12 @@ export const useItikafStore = defineStore("itikaf", {
             const Api = useApiStore();
             if (this.itikaf) {
                 if (like) {
-                    const dataLike = await Api.post('/likes/itikaf/' + this.itikaf.id, {});
+                    const dataLike = await Api.post('/likes/itikaf/' + this.itikaf.id, {}) as Like;
                     this.itikaf.likes = [dataLike];
-                    ++this.itikaf._count.likes;
+                    if (this.itikaf._count) ++this.itikaf._count.likes;
                 } else {
                     await Api.delete('/likes/itikaf/' + this.itikaf.id);
-                    --this.itikaf._count.likes;
+                    if (this.itikaf._count) --this.itikaf._count.likes;
                     this.itikaf.likes = [];
                 }
             }
@@ -126,8 +128,9 @@ export const useItikafStore = defineStore("itikaf", {
         async swapLikeItikafComment(like: boolean, commentId: string) {
             const Api = useApiStore();
             if (this.itikaf) {
-                const comment = this.itikaf.comments.find((c: Comment) => c.id == commentId) as Comment;
+                if (!this.itikaf.comments) return;
 
+                const comment = this.itikaf.comments.find((c: Comment) => c.id == commentId) as Comment;
                 if (!comment) return;
 
                 if (like) {
@@ -164,6 +167,8 @@ export const useItikafStore = defineStore("itikaf", {
         async swapLikeItikafCommentReply(like: boolean, commentId: string, replyId: string) {
             const Api = useApiStore();
             if (this.itikaf) {
+                if (!this.itikaf.comments) return;
+
                 const comment = this.itikaf.comments.find((c: Comment) => c.id == commentId) as Comment;
                 if (!comment) return;
 
@@ -216,6 +221,7 @@ export const useItikafStore = defineStore("itikaf", {
                 if (page == 1) {
                     this.itikaf.comments = comments
                 } else {
+                    if (!this.itikaf.comments) return;
                     this.itikaf.comments = [...this.itikaf.comments, ...comments]
                 }
             } catch (error) {
@@ -242,6 +248,9 @@ export const useItikafStore = defineStore("itikaf", {
             }
         },
         async loadMoreItikafCommentReplies(commentId: string, page: number = 1): Promise<void> {
+            if (!this.itikaf) return;
+            if (!this.itikaf.comments) return;
+
             const comment: Comment = this.itikaf.comments.find((s: Comment) => s.id == commentId) as Comment;
             if (!comment) return;
 
@@ -276,7 +285,8 @@ export const useItikafStore = defineStore("itikaf", {
                 if (page == 1) {
                     comment.replies = replies
                 } else {
-                    comment.replies = [...comment.replies!, ...replies]
+                    if (!comment.replies) return;
+                    comment.replies = [...comment.replies, ...replies]
                 }
             } catch (error) {
                 console.log(error)
