@@ -5,8 +5,6 @@
             class="h-[30vh] md:h-[50vh] lg:h-[70vh] rounded-t-xl overflow-hidden relative bg-cover bg-center"
             :style="`background-image: url(${isURL(schedule.photo) ? schedule.photo : apiUri + schedule.photo});`">
             <div class="w-full h-full  bg-gradient-to-t from-white via-white/0 to-white/0 absolute"></div>
-            <!-- <img v-if="isURL(schedule.photo)" :src="schedule.photo" class="h-full mx-auto z-10">
-            <img v-else :src="apiUri + schedule.photo" class="h-full mx-auto z-10"> -->
         </div>
         <div v-else class="w-full h-40 md:h-52 lg:h-60 rounded-t-xl overflow-hidden relative">
             <div class="w-full h-full bg-gradient-to-t from-white to-[#F8D7B6] absolute"></div>
@@ -15,7 +13,7 @@
             <div class="flex max-md:flex-col md:justify-between items-center gap-2">
                 <div>
                     <div class="text-xl lg:text-2xl font-medium max-md:text-center">Itikaf Malam ke {{
-            schedule.day_index }}
+                        schedule.day_index }}
                     </div>
                     <div class="max-md:text-center">{{ dayjs(schedule.date).format('DD MMM YYYY') }}</div>
                 </div>
@@ -103,7 +101,7 @@
                         <label class="swap swap-flip text-9xl">
                             <!-- this hidden checkbox controls the state -->
                             <input type="checkbox" :checked="schedule.likes.length > 0"
-                                @change="Itikaf.swapLikeSchedule(!schedule.likes.length, schedule.id, route)" />
+                                @change="Itikaf.swapLikeSchedule(!schedule.likes!.length, schedule.id, route)" />
                             <IconsLoving class="w-4 swap-on" />
                             <IconsLove class="w-4 swap-off" />
                         </label>
@@ -120,7 +118,7 @@
 
             </template>
             <template v-if="schedule.comments && schedule._count">
-                <button @click="Itikaf.loadMoreScheduleComments(schedule.id, getNextPage(schedule.comments.length))"
+                <button @click="Itikaf.loadMoreScheduleComments(schedule.id, getNextPage(schedule.comments!.length))"
                     v-if="schedule.comments.length < schedule._count.comments"
                     class="underline font-light text-xs md:text-sm text-gray-500 w-min text-nowrap">Lihat komentar
                     lainnya

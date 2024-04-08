@@ -6,6 +6,10 @@
             <img v-else :src="apiUri + comment.commenter.avatar_md" alt=""
                 class="flex-none rounded-full w-8 md:w-10 h-8 md:h-10">
         </template>
+        <div v-else
+            class="flex-none rounded-full w-8 md:w-10 h-8 md:h-10 bg-gradient-to-br from-white to-[#EE9A49] flex justify-center items-center overflow-hidden text-gray-500 text-xl font-light">
+            {{ comment.commenter.name[0] }}
+        </div>
         <div class="w-full">
             <div class="font-semibold text-sm">{{ comment.commenter.name }}</div>
             <div class="font-light text-xs md:text-sm whitespace-pre-wrap">{{ comment.comment }}</div>
@@ -34,7 +38,7 @@
                         <label class="swap swap-flip text-9xl">
                             <!-- this hidden checkbox controls the state -->
                             <input type="checkbox" :checked="comment.likes.length > 0"
-                                @change="swapLike(!comment.likes.length)" />
+                                @change="swapLike(!comment.likes!.length)" />
                             <IconsLoving class="w-4 swap-on" />
                             <IconsLove class="w-4 swap-off" />
                         </label>
