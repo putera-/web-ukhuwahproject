@@ -215,6 +215,11 @@ export const useArticleStore = defineStore('article', {
             const Api = useApiStore();
 
             await Api.patch('/articles/publish/' + id, {});
+        },
+        async remove(id: string): Promise<void> {
+            const Api = useApiStore();
+
+            await Api.delete('/articles/' + id);
         }
     }
 })

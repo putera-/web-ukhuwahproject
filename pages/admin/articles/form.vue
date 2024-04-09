@@ -79,13 +79,23 @@
             </div>
         </label>
 
-        <div class="flex justify-end items-center gap-3">
-            <NuxtLink to="/admin/articles" class="btn rounded-full">Kembali</NuxtLink>
-            <button class="btn bg-[#EE9A49] rounded-full" @click="publishNow = false; confirmSave = true;">Simpan
-                Draft</button>
-            <button class="btn bg-[#EE9A49] rounded-full"
-                @click="publishedAt = new Date(); publishNow = true; confirmSave = true;">Simpan &
-                Publish</button>
+        <div class="flex justify-between">
+            <button class="max-sm:hidden btn max-md:btn-sm btn-error rounded-full w-min" v-if="id"
+                @click="remove">Hapus</button>
+
+            <div class="flex max-sm:flex-col sm:justify-end sm:items-center gap-2">
+                <NuxtLink to="/admin/articles" class="btn max-md:btn-sm rounded-full w-min">Kembali</NuxtLink>
+                <div class="flex gap-2">
+                    <button class="btn max-md:btn-sm bg-[#EE9A49] rounded-full"
+                        @click="publishNow = false; confirmSave = true;">Simpan
+                        Draft</button>
+                    <button class="btn max-md:btn-sm bg-[#EE9A49] rounded-full"
+                        @click="publishedAt = new Date(); publishNow = true; confirmSave = true;">Simpan &
+                        Publish</button>
+                </div>
+                <button class="sm:hidden btn max-md:btn-sm btn-error rounded-full w-min" v-if="id"
+                    @click="confirmRemove = true">Hapus</button>
+            </div>
         </div>
     </div>
 
@@ -107,6 +117,10 @@
         <template v-else>
             Simpan sebagai draft?
         </template>
+    </Confirmation>
+
+    <Confirmation action-text="Publish" :show="confirmRemove" @close="confirmRemove = false" @yes="remove">
+        Hapus artikel?
     </Confirmation>
 </template>
 
@@ -260,13 +274,19 @@ const save = async (): Promise<void> => {
         isLoading.value = false;
 
         if (error.isJoi) {
-            console.log(error.data)
             errors.value = error.data;
         } else {
             responseError.value = error.message;
         }
 
     }
+}
+
+const confirmRemove = ref(false);
+const remove = async () => {
+    await Article.remove(id);
+
+    navigateTo('/admin/articles')
 }
 
 </script>
