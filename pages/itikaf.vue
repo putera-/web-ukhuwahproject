@@ -8,8 +8,6 @@
 
             <div class="w-full h-[30vh] md:h-[50vh] lg:h-[70vh] overflow-hidden rounded-2xl bg-cover bg-center shadow-xl"
                 :style="`background-image: url(${isURL(Itikaf.itikaf.photo) ? Itikaf.itikaf.photo : apiUri + Itikaf.itikaf.photo});`">
-                <!-- <img v-if="isURL(Itikaf.itikaf.photo)" :src="Itikaf.itikaf.photo" class="h-full mx-auto rounded-2xl">
-                <img v-else :src="apiUri + Itikaf.itikaf.photo" class="h-full mx-auto rounded-2xl"> -->
             </div>
 
             <!-- DESKRIPSI -->
@@ -45,7 +43,7 @@
                     <label class="swap swap-flip text-9xl" v-if="Itikaf.itikaf.likes">
                         <!-- this hidden checkbox controls the state -->
                         <input type="checkbox" :checked="Itikaf.itikaf.likes.length > 0"
-                            @change="Itikaf.swapLikeItikaf(!Itikaf.itikaf.likes.length, route)" />
+                            @change="Itikaf.swapLikeItikaf(!Itikaf.itikaf!.likes!.length, route)" />
                         <IconsLoving class="w-4 swap-on" />
                         <IconsLove class="w-4 swap-off" />
                     </label>
@@ -62,7 +60,7 @@
 
             <template v-if="Itikaf.itikaf.comments && Itikaf.itikaf._count">
                 <button
-                    @click="Itikaf.loadMoreItikafComments(Itikaf.itikaf.id, getNextPage(Itikaf.itikaf.comments.length))"
+                    @click="Itikaf.loadMoreItikafComments(Itikaf.itikaf!.id, getNextPage(Itikaf.itikaf!.comments!.length))"
                     v-if="Itikaf.itikaf.comments.length < Itikaf.itikaf._count.comments"
                     class="underline font-light text-xs md:text-sm text-gray-500">Lihat komentar lainnya
                 </button>

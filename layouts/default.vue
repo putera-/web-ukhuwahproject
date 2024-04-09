@@ -36,6 +36,11 @@
                             <li>
                                 <NuxtLink to="/" class="rounded-full max-xl:text-base">Beranda</NuxtLink>
                             </li>
+
+                            <li>
+                                <NuxtLink to="/articles" class="rounded-full max-xl:text-base">Artikel</NuxtLink>
+                            </li>
+
                             <li v-if="Itikaf.itikaf">
                                 <NuxtLink to="/itikaf" class="rounded-full max-xl:text-base">Itikaf Ramadhan</NuxtLink>
                             </li>
@@ -122,6 +127,12 @@
                         <NuxtLink to="/" @click="showdrawer = false"
                             class="flex items-center bg-white/5 py-3 my-1 rounded-xl">
                             <IconsHome class="w-5" /> Beranda
+                        </NuxtLink>
+                    </li>
+                    <li>
+                        <NuxtLink to="/articles" @click="showdrawer = false"
+                            class="flex items-center bg-white/5 py-3 my-1 rounded-xl">
+                            <IconsPray class="w-5" /> Artikel
                         </NuxtLink>
                     </li>
                     <li v-if="Itikaf.itikaf">
