@@ -143,25 +143,48 @@ export const useArticleStore = defineStore('article', {
                 reply.likes = [];
             }
         },
+        async create(data: Record<string, any>, photos: Record<string, any>[]): Promise<void> {
+            const Api = useApiStore();
+
+            data = Validate(isArticle, data);
+
+            const formData = new FormData();
+
+            formData.append('title', data.title);
+            formData.append('content', data.content || '');
+
+            if (data.youtube) {
+                const youtubeUrlRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+
+                formData.append('youtubeId', data.youtube.match(youtubeUrlRegex)[1]);
+            }
+
+            for (let i = 0; i < photos.length; i++) {
+                const photo = photos[i];
+
+                if (photo.file) {
+                    formData.append('photos', photo.file)
+                }
+            }
+
+            await Api.post('/articles', formData) as Article;
+        },
         async update(data: Record<string, any>, photos: Record<string, any>[]): Promise<void> {
             const Api = useApiStore();
             if (!this.article) return;
 
             data = Validate(isArticle, data);
 
-            // data.photos = photos;
-
-            if (data.youtube) {
-                const youtubeUrlRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-
-                data.youtubeId = data.youtube.match(youtubeUrlRegex)[1]
-            }
-            delete data.youtube;
-
             const formData = new FormData();
 
             formData.append('title', data.title);
             formData.append('content', data.content || '');
+
+            if (data.youtube) {
+                const youtubeUrlRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+
+                formData.append('youtubeId', data.youtube.match(youtubeUrlRegex)[1]);
+            }
 
             for (let i = 0; i < photos.length; i++) {
                 const photo = photos[i];

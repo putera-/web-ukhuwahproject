@@ -31,7 +31,7 @@
         </label>
 
         <!-- photo -->
-        <template v-if="!youtubeId">
+        <template v-if="!isYoutube">
             <div class="label flex max-sm:flex-col sm:justify-between items-start sm:items-center">
                 <span class="label-text text-lg">Foto</span>
                 <div class="flex items-center gap-3">
@@ -115,7 +115,7 @@ const fileHTML = ref<HTMLInputElement | null>(null);
 const photos = ref<{ file?: File, path: string, id?: string }[]>([]);
 
 // const photos = ref<Photo[]>([]);
-const isYoutube = ref<boolean>(false);
+const isYoutube = ref<boolean>(route.query.youtube ? true : false);
 
 const errors = ref<Record<string, any>>({});
 const responseError = ref<string>('');
@@ -208,14 +208,22 @@ const update = async (): Promise<void> => {
             return { id: p.id, file: p.file }
         });
 
-        await Article.update(form.value, data_photos);
+
+        if (Article.article) {
+            await Article.update(form.value, data_photos);
+        } else {
+            await Article.create(form.value, data_photos);
+        }
 
         isLoading.value = false;
         toast.success('Success', {
             autoClose: 500
         });
+
+        if (!Article.article) {
+            navigateTo('/admin/articles')
+        }
     } catch (error: any) {
-        console.log(error);
         isLoading.value = false;
 
         if (error.isJoi) {
