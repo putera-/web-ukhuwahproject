@@ -1,5 +1,7 @@
 <template>
-    <div class="card shadow-lg bg-white rounded-2xl overflow-hidden">
+    <div class="card shadow-lg bg-white rounded-2xl overflow-hidden relative">
+        <button class="absolute top-5 right-5 btn btn-sm rounded-full bg-[#EE9A49] z-10"
+            v-if="route.path.includes('/admin') && article.status == 'DRAFT'">{{ article.status }}</button>
         <NuxtLink :to="'/articles/' + article.id">
             <template v-if="article.photos || article.youtubeId">
                 <div v-if="article.youtubeId"
@@ -24,7 +26,7 @@
             </NuxtLink>
             <div class="line-clamp-2 font-light">{{ article.content }}</div>
 
-            <div class="flex justify-between">
+            <div class="flex max-sm:flex-col justify-between gap-4">
                 <div class="flex items-center gap-2" v-if="article.author">
                     <template v-if="article.author.avatar_md">
                         <img v-if="isURL(article.author.avatar_md)" :src="article.author.avatar_md" alt=""
@@ -37,20 +39,32 @@
                         <div class="text-xs text-slate-500">{{ getRelativeTime(article.publishedAt) }}</div>
                     </div>
                 </div>
-                <div class="flex gap-4" v-if="article.likes && article._count">
-                    <div class="flex items-center gap-2">
-                        <label class="swap swap-flip text-9xl">
-                            <!-- this hidden checkbox controls the state -->
-                            <input type="checkbox" :checked="article.likes.length > 0"
-                                @change="Article.swapLike(!article!.likes!.length, article!.id, route)" />
-                            <IconsLoving class="w-4 swap-on" />
-                            <IconsLove class="w-4 swap-off" />
-                        </label>
-                        {{ article._count.likes }}
+                <div class="flex flex-col gap-2">
+                    <div class="flex gap-4 justify-center sm:justify-end" v-if="article._count">
+                        <div class="flex items-center gap-2">
+                            <template v-if="article.likes">
+                                <label class="swap swap-flip text-9xl">
+                                    <!-- this hidden checkbox controls the state -->
+                                    <input type="checkbox" :checked="article.likes.length > 0"
+                                        @change="Article.swapLike(!article!.likes!.length, article!.id, route)" />
+                                    <IconsLoving class="w-4 swap-on" />
+                                    <IconsLove class="w-4 swap-off" />
+                                </label>
+                            </template>
+                            <IconsLove v-else class="w-4 swap-off" />
+                            {{ article._count.likes }}
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <IconsComment class="w-4" />
+                            {{ article._count.comments }}
+                        </div>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <IconsComment class="w-4" />
-                        {{ article._count.comments }}
+
+                    <!-- admin only -->
+                    <div class="flex gap-4 justify-center sm:justify-end" v-if="route.path.includes('/admin')">
+                        <button class="btn btn-sm rounded-full bg-[#EE9A49]" v-if="article.status == 'DRAFT'">Publish
+                            Sekarang</button>
+                        <button class="btn btn-sm rounded-full">Ubah</button>
                     </div>
                 </div>
             </div>

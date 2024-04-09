@@ -22,6 +22,11 @@ export const useArticleStore = defineStore('article', {
 
             this.data = await Api.get(`/articles/published?search=${search}`) as Pagination<Article[]>
         },
+        async getAll(search = '') {
+            const Api = useApiStore();
+
+            this.data = await Api.get(`/articles?search=${search}`) as Pagination<Article[]>
+        },
         async getById(id: string): Promise<void> {
             const Api = useApiStore();
             const article = await Api.get('/articles/' + id) as Article;
