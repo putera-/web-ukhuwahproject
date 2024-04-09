@@ -125,7 +125,7 @@
                 </button>
             </template>
 
-            <CommentWrite :comment="reply_to" :itikafScheduleId="schedule.id" />
+            <CommentWrite :comment="reply_to" :itikafScheduleId="schedule.id" :focus="focusOnWriteComment" />
             <slot />
         </div>
     </div>
@@ -149,4 +149,11 @@ const isNextDay = new Date(today) < new Date(props.schedule.date);
 const isPrevDay = new Date(today) > new Date(props.schedule.date);
 
 const reply_to = ref<Comment | undefined>(undefined);
+const focusOnWriteComment = ref<boolean>(false);
+
+watchEffect(() => {
+    if (reply_to.value != undefined) {
+        focusOnWriteComment.value = true;
+    }
+});
 </script>

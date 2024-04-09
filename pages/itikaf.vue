@@ -66,7 +66,7 @@
                 </button>
             </template>
 
-            <CommentWrite :comment="reply_to" :itikafId="Itikaf.itikaf.id" />
+            <CommentWrite :comment="reply_to" :itikafId="Itikaf.itikaf.id" :focus="focusOnWriteComment" />
 
         </div>
 
@@ -148,4 +148,11 @@ const mySchedule = (scheduleId: string) => {
 }
 
 const reply_to = ref<Comment | undefined>(undefined);
+const focusOnWriteComment = ref<boolean>(false);
+
+watchEffect(() => {
+    if (reply_to.value != undefined) {
+        focusOnWriteComment.value = true;
+    }
+});
 </script>

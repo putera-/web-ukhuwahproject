@@ -56,7 +56,8 @@
                                                 <img v-if="Auth.user.avatar_md"
                                                     :src="isURL(Auth.user.avatar_md) ? Auth.user.avatar_md : apiUri + Auth.user.avatar_md"
                                                     class="min-w-full min-h-full">
-                                                <LucideUser v-else :size="20" class="text-primary" />
+                                                <div v-else class="text-gray-500 text-xl font-light">{{
+                                                    Auth.user.name[0] }}</div>
                                             </div>
                                             <div>{{ Auth.user.name }}</div>
                                         </summary>

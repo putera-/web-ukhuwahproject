@@ -8,8 +8,8 @@
             </button>
         </div>
         <div class="flex items-center gap-2">
-            <textarea v-model="comment" rows="1" class="textarea textarea-warning rounded-full w-full max-w-xs"
-                placeholder="Tulis Komentar"></textarea>
+            <textarea ref="commentInput" v-model="comment" rows="1"
+                class="textarea textarea-warning rounded-full w-full max-w-xs" placeholder="Tulis Komentar"></textarea>
             <button @click="send">
                 <IconsSend class="w-10" />
             </button>
@@ -23,10 +23,12 @@ const props = defineProps<{
     itikafId?: string
     itikafScheduleId?: string
     articleId?: string
+    focus: boolean
 }>();
 
 const reply_to = ref('');
 const commentId = ref<string | undefined>(undefined);
+const commentInput = ref<HTMLTextAreaElement>()
 
 watchEffect(() => {
     if (props.comment) {
@@ -36,6 +38,10 @@ watchEffect(() => {
         }
     } else {
         reply_to.value = '';
+    }
+
+    if (props.focus) {
+        commentInput.value?.focus();
     }
 });
 

@@ -22,7 +22,7 @@
         <div class="card-body max-sm:p-5 -mt-10 z-20">
             <NuxtLink :to="'/articles/' + article.id" class="text-xl lg:text-2xl font-medium">{{ article.title }}
             </NuxtLink>
-            <div class="line-clamp-3 font-light">{{ article.content }}</div>
+            <div class="line-clamp-2 font-light">{{ article.content }}</div>
 
             <div class="flex justify-between">
                 <div class="flex items-center gap-2" v-if="article.author">

@@ -96,7 +96,7 @@
                             Lihat komentar lainnya
                         </button>
                     </template>
-                    <CommentWrite :comment="reply_to" :articleId="article.id" />
+                    <CommentWrite :comment="reply_to" :articleId="article.id" :focus="focusOnWriteComment" />
                 </div>
             </div>
         </template>
@@ -124,8 +124,15 @@ watchEffect(() => {
 
 
 const reply_to = ref<Comment | undefined>(undefined);
+const focusOnWriteComment = ref<boolean>(false);
 
 onUnmounted(() => {
     Article.article = undefined;
-})
+});
+
+watchEffect(() => {
+    if (reply_to.value != undefined) {
+        focusOnWriteComment.value = true;
+    }
+});
 </script>
