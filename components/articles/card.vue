@@ -65,7 +65,8 @@
 
                     <!-- admin only -->
                     <div class="flex gap-4 justify-center sm:justify-end" v-if="route.path.includes('/admin')">
-                        <button class="btn btn-sm rounded-full bg-[#EE9A49]" v-if="article.status == 'DRAFT'">Publish
+                        <button @click="confirmPublish = true" class="btn btn-sm rounded-full bg-[#EE9A49]"
+                            v-if="article.status == 'DRAFT'">Publish
                             Sekarang</button>
                         <NuxtLink :to="'/admin/articles/form?id=' + article.id" class="btn btn-sm rounded-full">Ubah
                         </NuxtLink>
@@ -88,14 +89,25 @@
             </div> -->
         </div>
     </div>
+
+    <Confirmation action-text="Publish" :show="confirmPublish" @close="confirmPublish = false" @yes="publish">
+        Publish sekarang?
+    </Confirmation>
 </template>
 
 <script setup lang="ts">
-defineProps<{
+const props = defineProps<{
     article: Article
 }>()
 
 const Article = useArticleStore();
 const route = useRoute();
 
+const confirmPublish = ref(false);
+const publish = async () => {
+    await Article.publish(props.article.id);
+    Article.getAll();
+
+    confirmPublish.value = false;
+}
 </script>

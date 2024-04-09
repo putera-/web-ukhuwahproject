@@ -79,11 +79,24 @@
             </div>
         </label>
 
-        <div class="flex justify-end items-center gap-4">
-            <NuxtLink to="/admin/articles" class="btn rounded-full">Batal</NuxtLink>
-            <button class="btn bg-[#EE9A49] rounded-full" @click="update">Simpan</button>
+        <div class="flex justify-end items-center gap-3">
+            <NuxtLink to="/admin/articles" class="btn rounded-full">Kembali</NuxtLink>
+            <button class="btn bg-[#EE9A49] rounded-full" @click="publishNow = false; confirmSave = true;">Simpan
+                Draft</button>
+            <button class="btn bg-[#EE9A49] rounded-full" @click="publishNow = true; confirmSave = true;">Simpan &
+                Publish</button>
         </div>
     </div>
+
+    <Confirmation :action-text="publishNow ? 'Simpan & Publish' : 'Simpan'" :show="confirmSave"
+        @close="confirmSave = false" @yes="save">
+        <template v-if="publishNow">
+            Simpan dan publish?
+        </template>
+        <template v-else>
+            Simpan sebagai draft?
+        </template>
+    </Confirmation>
 </template>
 
 <script setup lang="ts">
@@ -102,7 +115,7 @@ const id = route.query.id as string;
 
 const Article = useArticleStore();
 
-Article.getById(id);
+if (id) Article.getById(id);
 
 const form = ref<Record<string, any>>({
     title: '',
@@ -194,7 +207,10 @@ const removePhoto = (index: number) => {
     photos.value.splice(index, 1);
 }
 
-const update = async (): Promise<void> => {
+
+const publishNow = ref(false);
+const confirmSave = ref(false);
+const save = async (): Promise<void> => {
     if (isLoading.value) return;
 
     isLoading.value = true;
@@ -210,11 +226,12 @@ const update = async (): Promise<void> => {
 
 
         if (Article.article) {
-            await Article.update(form.value, data_photos);
+            await Article.update(form.value, data_photos, publishNow.value);
         } else {
-            await Article.create(form.value, data_photos);
+            await Article.create(form.value, data_photos, publishNow.value);
         }
 
+        confirmSave.value = false;
         isLoading.value = false;
         toast.success('Success', {
             autoClose: 500
@@ -224,6 +241,7 @@ const update = async (): Promise<void> => {
             navigateTo('/admin/articles')
         }
     } catch (error: any) {
+        confirmSave.value = false;
         isLoading.value = false;
 
         if (error.isJoi) {
