@@ -37,9 +37,15 @@
                         <div class="text-xs text-slate-500">{{ getRelativeTime(article.publishedAt) }}</div>
                     </div>
                 </div>
-                <div class="flex gap-4" v-if="article._count">
+                <div class="flex gap-4" v-if="article.likes && article._count">
                     <div class="flex items-center gap-2">
-                        <IconsLove class="w-4" />
+                        <label class="swap swap-flip text-9xl">
+                            <!-- this hidden checkbox controls the state -->
+                            <input type="checkbox" :checked="article.likes.length > 0"
+                                @change="Article.swapLike(!article!.likes!.length, article!.id, route)" />
+                            <IconsLoving class="w-4 swap-on" />
+                            <IconsLove class="w-4 swap-off" />
+                        </label>
                         {{ article._count.likes }}
                     </div>
                     <div class="flex items-center gap-2">
@@ -67,9 +73,11 @@
 </template>
 
 <script setup lang="ts">
-import dayjs from 'dayjs'
 defineProps<{
     article: Article
 }>()
+
+const Article = useArticleStore();
+const route = useRoute();
 
 </script>

@@ -22,6 +22,7 @@ const props = defineProps<{
     comment?: Comment
     itikafId?: string
     itikafScheduleId?: string
+    articleId?: string
 }>();
 
 const reply_to = ref('');
@@ -77,6 +78,26 @@ const send = async () => {
             // for reply comment
             try {
                 await useComment.replyItikafScheduleComment(props.itikafScheduleId, commentId.value, comment.value);
+                reset();
+            } catch (error) {
+
+            }
+        }
+    }
+
+    // for article
+    if (props.articleId) {
+        if (!commentId.value) {
+            // for itikaf schedule
+            try {
+                await useComment.sendForArticle(props.articleId, comment.value);
+                reset();
+            } catch (error) {
+            }
+        } else {
+            // for reply comment
+            try {
+                await useComment.replyArticleComment(props.articleId, commentId.value, comment.value);
                 reset();
             } catch (error) {
 

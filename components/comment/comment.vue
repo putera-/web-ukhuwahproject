@@ -78,11 +78,13 @@ const props = defineProps<{
     comment: Comment
     itikafId?: string
     scheduleId?: string
+    articleId?: string
 }>();
 
 const route = useRoute();
 
 const Itikaf = useItikafStore();
+const Article = useArticleStore();
 const Auth = useAuthStore();
 
 const loadReplies = async () => {
@@ -94,6 +96,8 @@ const loadReplies = async () => {
         await Itikaf.loadMoreItikafCommentReplies(props.comment.id, nextPage)
     } else if (props.scheduleId) {
         await Itikaf.loadMoreItikafScheduleCommentReplies(props.scheduleId, props.comment.id, nextPage)
+    } else if (props.articleId) {
+        await Article.loadMoreCommentReplies(props.articleId, props.comment.id, nextPage)
     }
 }
 
@@ -104,6 +108,8 @@ const swapLike = async (like: boolean) => {
         await Itikaf.swapLikeItikafComment(like, props.comment.id);
     } else if (props.scheduleId) {
         await Itikaf.swapLikeItikafScheduleComment(like, props.scheduleId, props.comment.id);
+    } else if (props.articleId) {
+        await Article.swapLikeComment(like, props.articleId, props.comment.id);
     }
 }
 
@@ -114,6 +120,8 @@ const swapLikeReply = async (like: boolean, replyId: string) => {
         await Itikaf.swapLikeItikafCommentReply(like, props.comment.id, replyId);
     } else if (props.scheduleId) {
         await Itikaf.swapLikeItikafScheduleCommentReply(like, props.scheduleId, props.comment.id, replyId);
+    } else if (props.articleId) {
+        await Article.swapLikeCommentReply(like, props.articleId, props.comment.id, replyId);
     }
 }
 
@@ -128,6 +136,8 @@ const remove = async (): Promise<void> => {
             await UseComment.removeItikafComment(removeId.value);
         } else if (props.scheduleId) {
             await UseComment.removeItikafScheduleComment(removeId.value, props.scheduleId);
+        } else if (props.articleId) {
+            await UseComment.removeArticleComment(removeId.value, props.articleId);
         }
 
         confirm_remove.value = false;
@@ -145,6 +155,8 @@ const remove_reply = async (): Promise<void> => {
             await UseComment.removeItikafCommentReply(remove_reply_id.value!, remove_comment_reply_id.value!);
         } else if (props.scheduleId) {
             await UseComment.removeItikafScheduleCommentReply(props.scheduleId, remove_reply_id.value!, remove_comment_reply_id.value!);
+        } else if (props.articleId) {
+            await UseComment.removeArticleCommentReply(props.articleId, remove_reply_id.value!, remove_comment_reply_id.value!);
         }
 
         confirm_remove_reply.value = false;

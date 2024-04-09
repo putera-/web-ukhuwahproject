@@ -1,9 +1,13 @@
+import type { RouteLocationNormalizedLoaded } from "vue-router";
+
 interface ArticleState {
-    data?: Pagination<Article>
+    data?: Pagination<Article[]>
+    article?: Article
 }
 export const useArticleStore = defineStore('article', {
     state: (): ArticleState => ({
-        data: undefined
+        data: undefined,
+        article: undefined
     }),
     getters: {
         articles: (state) => state.data ? state.data.data : [],
@@ -16,13 +20,117 @@ export const useArticleStore = defineStore('article', {
         async getPublisheds(search = '') {
             const Api = useApiStore();
 
-            this.data = await Api.get(`/articles/published?search=${search}`) as Pagination<Article>
+            this.data = await Api.get(`/articles/published?search=${search}`) as Pagination<Article[]>
         },
-        async getById(id: string): Promise<Article> {
+        async getById(id: string): Promise<void> {
             const Api = useApiStore();
             const article = await Api.get('/articles/' + id) as Article;
 
-            return article;
-        }
+            this.article = article;
+        },
+        async loadMoreComments(articleId: string, page: number = 1): Promise<void> {
+            if (!this.article) return;
+
+            try {
+                const Api = useApiStore();
+                const comments = await Api.get(`/comments/article/${articleId}/${page}`) as Comment[];
+
+
+                // TODO merge non existing data, supaya reply yg ke load ga ketutup
+                if (page == 1) {
+                    this.article.comments = comments
+                } else {
+                    this.article.comments = [...this.article.comments!, ...comments]
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        },
+        async loadMoreCommentReplies(articleId: string, commentId: string, page: number = 1): Promise<void> {
+            if (!this.article) return;
+
+            const comment: Comment = this.article.comments!.find((s: Comment) => s.id == commentId) as Comment;
+            if (!comment) return;
+
+            try {
+                const Api = useApiStore();
+                const replies = await Api.get(`/comments/reply/${commentId}/${page}`) as CommentReply[];
+
+
+                // TODO merge non existing data, supaya reply yg ke load ga ketutup
+                if (page == 1) {
+                    comment.replies = replies
+                } else {
+                    if (!comment.replies) return;
+                    comment.replies = [...comment.replies, ...replies]
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        },
+        async swapLike(like: boolean, articleId: string, route: RouteLocationNormalizedLoaded): Promise<void> {
+            // check is already login
+            await isToLoginPage(route);
+
+            const Api = useApiStore();
+            let article;
+
+            if (this.article) {
+                article = this.article;
+            } else {
+                article = this.articles.find(a => a.id == articleId);
+            }
+
+            if (article) {
+                if (like) {
+                    const dataLike = await Api.post('/likes/article/' + articleId, {}) as Like;
+                    article.likes = [dataLike];
+                    ++article._count!.likes!;
+                } else {
+                    await Api.delete('/likes/article/' + articleId);
+                    article.likes = [];
+                    --article._count!.likes!;
+                }
+            }
+        },
+        // swapLikeComment
+        async swapLikeComment(like: boolean, scheduleId: string, commentId: string) {
+            const Api = useApiStore();
+            if (!this.article) return;
+
+            const comment = this.article.comments!.find((c: Comment) => c.id == commentId) as Comment;
+            if (!comment) return;
+
+            if (like) {
+                const dataLike = await Api.post('/likes/comment/' + commentId, {}) as Like;
+                comment.likes = [dataLike];
+                ++comment._count!.likes!;
+            } else {
+                await Api.delete('/likes/comment/' + commentId);
+                --comment._count!.likes!;
+                comment.likes = [];
+            }
+        },
+        // swapLikeCommentReply
+        async swapLikeCommentReply(like: boolean, scheduleId: string, commentId: string, replyId: string) {
+            const Api = useApiStore();
+            if (!this.article) return;
+
+            const comment = this.article.comments!.find((c: Comment) => c.id == commentId) as Comment;
+            if (!comment) return;
+
+            const reply = comment.replies!.find((r: CommentReply) => r.id == replyId) as CommentReply;
+            if (!reply) return;
+
+            if (like) {
+                const dataLike = await Api.post('/likes/comment-reply/' + replyId, {}) as Like;
+                reply.likes = [dataLike];
+                ++reply._count!.likes!;
+            } else {
+                await Api.delete('/likes/comment-reply/' + replyId);
+                --reply._count!.likes!;
+                reply.likes = [];
+            }
+        },
     }
 })

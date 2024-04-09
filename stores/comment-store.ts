@@ -4,12 +4,18 @@ const isComment = Joi.string().min(1).trim().required().label('Comment');
 
 export const useCommentStore = defineStore('use-comment', {
     actions: {
-        async sendForArticle(articleId: string, comment: string) {
+        async sendForArticle(articleId: string, comment: string): Promise<void> {
             const Api = useApiStore();
+            const Article = useArticleStore();
+
+            if (!Article.article) return;
 
             comment = Validate(isComment, comment);
 
-            return Api.post('/comments/article/' + articleId, { comment });
+            const new_comment: Comment = await Api.post('/comments/article/' + articleId, { comment }) as Comment;
+
+            ++Article.article._count!.comments!;
+            if (Article.article.comments) Article.article.comments.unshift(new_comment);
         },
         async sendForItikaf(comment: string): Promise<void> {
             const Api = useApiStore();
@@ -21,10 +27,8 @@ export const useCommentStore = defineStore('use-comment', {
 
             const new_comment: Comment = await Api.post('/comments/itikaf/' + Itikaf.itikaf.id, { comment }) as Comment;
 
-            if (Itikaf.itikaf) {
-                ++Itikaf.itikaf._count!.comments!;
-                if (Itikaf.itikaf.comments) Itikaf.itikaf.comments.unshift(new_comment);
-            }
+            ++Itikaf.itikaf._count!.comments!;
+            if (Itikaf.itikaf.comments) Itikaf.itikaf.comments.unshift(new_comment);
         },
         async sendForItikafSchedule(scheduleId: string, comment: string): Promise<void> {
             const Api = useApiStore();
@@ -69,6 +73,23 @@ export const useCommentStore = defineStore('use-comment', {
             if (!schedule) return;
             if (!schedule.comments) return;
             const _comment = schedule.comments.find((c: Comment) => c.id == commentId);
+            if (!_comment) return;
+
+            ++_comment._count!.replies!;
+            if (_comment?.replies) _comment.replies.unshift(new_comment_reply);
+        },
+        async replyArticleComment(articleId: string, commentId: string, comment: string): Promise<void> {
+            const Api = useApiStore();
+            const Article = useArticleStore();
+
+            if (!Article.article) return;
+
+            comment = Validate(isComment, comment);
+
+            const new_comment_reply: CommentReply = await Api.post('/comments/reply/' + commentId, { comment }) as CommentReply;
+
+            if (!Article.article.comments) return;
+            const _comment = Article.article.comments.find((c: Comment) => c.id == commentId);
             if (!_comment) return;
 
             ++_comment._count!.replies!;
@@ -137,6 +158,42 @@ export const useCommentStore = defineStore('use-comment', {
             if (!schedule.comments) return;
 
             const comment = schedule.comments.find((c: Comment) => c.id == commentId);
+            if (!comment) return;
+            if (!comment.replies) return;
+
+            --comment._count!.replies!;
+            const index = comment.replies.findIndex((r: CommentReply) => r.id == id);
+            if (index != -1) {
+                comment.replies.splice(index, 1);
+            }
+        },
+        async removeArticleComment(id: string, articleId: string): Promise<void> {
+            const Api = useApiStore();
+            const Article = useArticleStore();
+
+            if (!Article.article) return;
+
+            await Api.delete('/comments/' + id);
+
+            if (!Article.article.comments) return;
+
+            --Article.article._count!.comments!;
+            const index = Article.article.comments.findIndex(c => c.id == id);
+            if (index != -1) {
+                Article.article.comments.splice(index, 1);
+            }
+        },
+        async removeArticleCommentReply(articleId: string, id: string, commentId: string): Promise<void> {
+            const Api = useApiStore();
+            const Article = useArticleStore();
+
+            if (!Article.article) return;
+
+            await Api.delete('/comments/reply/' + id);
+
+            if (!Article.article.comments) return;
+
+            const comment = Article.article.comments.find((c: Comment) => c.id == commentId);
             if (!comment) return;
             if (!comment.replies) return;
 
