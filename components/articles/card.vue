@@ -64,7 +64,7 @@
                     <div class="flex gap-4 justify-center sm:justify-end" v-if="route.path.includes('/admin')">
                         <button class="btn btn-sm rounded-full bg-[#EE9A49]" v-if="article.status == 'DRAFT'">Publish
                             Sekarang</button>
-                        <button class="btn btn-sm rounded-full">Ubah</button>
+                        <NuxtLink :to="'/admin/articles/' + article.id" class="btn btn-sm rounded-full">Ubah</NuxtLink>
                     </div>
                 </div>
             </div>

@@ -27,6 +27,12 @@ export const useArticleStore = defineStore('article', {
 
             this.data = await Api.get(`/articles?search=${search}`) as Pagination<Article[]>
         },
+        async getPublishedById(id: string): Promise<void> {
+            const Api = useApiStore();
+            const article = await Api.get('/articles/published/' + id) as Article;
+
+            this.article = article;
+        },
         async getById(id: string): Promise<void> {
             const Api = useApiStore();
             const article = await Api.get('/articles/' + id) as Article;
@@ -137,5 +143,23 @@ export const useArticleStore = defineStore('article', {
                 reply.likes = [];
             }
         },
+        async update(data: Record<string, any>, photos: Record<string, any>[]): Promise<void> {
+            const Api = useApiStore();
+            if (!this.article) return;
+
+            data = Validate(isArticle, data);
+
+            data.photos = photos;
+
+            if (data.youtube) {
+                const youtubeUrlRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+
+                data.youtubeId = data.youtube.match(youtubeUrlRegex)[1]
+
+                delete data.youtube;
+            }
+
+            await Api.patch('/articles/' + this.article.id, data) as Article;
+        }
     }
 })

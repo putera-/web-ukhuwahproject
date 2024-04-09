@@ -116,7 +116,7 @@ const route = useRoute();
 const id: string = route.params.id as string;
 const article = ref<Article | undefined>(undefined);
 
-Article.getById(id);
+Article.getPublishedById(id);
 
 watchEffect(() => {
     if (Article.article) article.value = Article.article

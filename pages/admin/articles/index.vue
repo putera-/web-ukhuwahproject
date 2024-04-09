@@ -21,6 +21,6 @@ definePageMeta({
 const Article = useArticleStore();
 onBeforeMount(async () => {
     await Article.getAll()
-})
+});
 
 </script>
