@@ -143,7 +143,7 @@ export const useArticleStore = defineStore('article', {
                 reply.likes = [];
             }
         },
-        async create(data: Record<string, any>, photos: Record<string, any>[], publishNow: boolean = false): Promise<void> {
+        async create(data: Record<string, any>, photos: Record<string, any>[], publishNow: boolean = false, publishedAt: Date): Promise<void> {
             const Api = useApiStore();
 
             data = Validate(isArticle, data);
@@ -152,7 +152,11 @@ export const useArticleStore = defineStore('article', {
 
             formData.append('title', data.title);
             formData.append('content', data.content || '');
-            formData.append('status', publishNow ? 'PUBLISH' : 'DRAFT')
+            formData.append('status', publishNow ? 'PUBLISH' : 'DRAFT');
+
+            if (publishNow) {
+                formData.append('publishedAt', publishedAt.toISOString());
+            }
 
             if (data.youtube) {
                 const youtubeUrlRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
@@ -170,7 +174,7 @@ export const useArticleStore = defineStore('article', {
 
             await Api.post('/articles', formData) as Article;
         },
-        async update(data: Record<string, any>, photos: Record<string, any>[], publishNow: boolean = false): Promise<void> {
+        async update(data: Record<string, any>, photos: Record<string, any>[], publishNow: boolean = false, publishedAt: Date): Promise<void> {
             const Api = useApiStore();
             if (!this.article) return;
 
@@ -180,7 +184,11 @@ export const useArticleStore = defineStore('article', {
 
             formData.append('title', data.title);
             formData.append('content', data.content || '');
-            formData.append('status', publishNow ? 'PUBLISH' : 'DRAFT')
+            formData.append('status', publishNow ? 'PUBLISH' : 'DRAFT');
+
+            if (publishNow) {
+                formData.append('publishedAt', publishedAt.toISOString());
+            }
 
             if (data.youtube) {
                 const youtubeUrlRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;

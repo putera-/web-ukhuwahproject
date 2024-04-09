@@ -1,7 +1,7 @@
 <template>
     <input type="checkbox" v-model="_show" class="modal-toggle" />
     <div class="modal" role="dialog">
-        <div class="modal-box rounded-2xl">
+        <div class="modal-box rounded-2xl overflow-visible">
             <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" @click="$emit('close')">✕</button>
             <p class="py-4">
                 <slot />

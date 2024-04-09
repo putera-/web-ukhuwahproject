@@ -83,7 +83,8 @@
             <NuxtLink to="/admin/articles" class="btn rounded-full">Kembali</NuxtLink>
             <button class="btn bg-[#EE9A49] rounded-full" @click="publishNow = false; confirmSave = true;">Simpan
                 Draft</button>
-            <button class="btn bg-[#EE9A49] rounded-full" @click="publishNow = true; confirmSave = true;">Simpan &
+            <button class="btn bg-[#EE9A49] rounded-full"
+                @click="publishedAt = new Date(); publishNow = true; confirmSave = true;">Simpan &
                 Publish</button>
         </div>
     </div>
@@ -91,7 +92,17 @@
     <Confirmation :action-text="publishNow ? 'Simpan & Publish' : 'Simpan'" :show="confirmSave"
         @close="confirmSave = false" @yes="save">
         <template v-if="publishNow">
-            Simpan dan publish?
+            <div>
+                Simpan dan publish?
+            </div>
+            <DatePicker v-model="publishedAt" color="orange" mode="dateTime">
+                <template #default="{ togglePopover }">
+                    <button class="btn btn-outline border-neutral/25 rounded-full font-normal" @click="togglePopover">
+                        {{ !publishedAt ? '-' : dayjs(publishedAt).format('D MMM YYYY H:mm') }}
+                    </button>
+                </template>
+            </DatePicker>
+
         </template>
         <template v-else>
             Simpan sebagai draft?
@@ -100,6 +111,9 @@
 </template>
 
 <script setup lang="ts">
+import { DatePicker } from 'v-calendar';
+import 'v-calendar/dist/style.css'
+import dayjs from 'dayjs';
 import draggable from 'vuedraggable'
 import { toast } from 'vue3-toastify';
 
@@ -210,6 +224,7 @@ const removePhoto = (index: number) => {
 
 const publishNow = ref(false);
 const confirmSave = ref(false);
+const publishedAt = ref(new Date());
 const save = async (): Promise<void> => {
     if (isLoading.value) return;
 
@@ -226,9 +241,9 @@ const save = async (): Promise<void> => {
 
 
         if (Article.article) {
-            await Article.update(form.value, data_photos, publishNow.value);
+            await Article.update(form.value, data_photos, publishNow.value, publishedAt.value);
         } else {
-            await Article.create(form.value, data_photos, publishNow.value);
+            await Article.create(form.value, data_photos, publishNow.value, publishedAt.value);
         }
 
         confirmSave.value = false;
