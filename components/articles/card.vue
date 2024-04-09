@@ -2,7 +2,8 @@
     <div class="card shadow-lg bg-white rounded-2xl overflow-hidden relative">
         <button class="absolute top-5 right-5 btn btn-sm rounded-full bg-[#EE9A49] z-10"
             v-if="route.path.includes('/admin') && article.status == 'DRAFT'">{{ article.status }}</button>
-        <NuxtLink :to="'/articles/' + article.id">
+        <NuxtLink
+            :to="route.path.includes('/admin') ? '/admin/articles/form?id=' + article.id : '/articles/' + article.id">
             <template v-if="article.photos || article.youtubeId">
                 <div v-if="article.youtubeId"
                     class="h-[30vh] md:h-[50vh] lg:h-[70vh] rounded-t-xl overflow-hidden relative bg-cover bg-center"
@@ -22,7 +23,9 @@
             </div>
         </NuxtLink>
         <div class="card-body max-sm:p-5 -mt-10 z-20">
-            <NuxtLink :to="'/articles/' + article.id" class="text-xl lg:text-2xl font-medium">{{ article.title }}
+            <NuxtLink
+                :to="route.path.includes('/admin') ? '/admin/articles/form?id=' + article.id : '/articles/' + article.id"
+                class="text-xl lg:text-2xl font-medium">{{ article.title }}
             </NuxtLink>
             <div class="line-clamp-2 font-light">{{ article.content }}</div>
 
@@ -64,7 +67,8 @@
                     <div class="flex gap-4 justify-center sm:justify-end" v-if="route.path.includes('/admin')">
                         <button class="btn btn-sm rounded-full bg-[#EE9A49]" v-if="article.status == 'DRAFT'">Publish
                             Sekarang</button>
-                        <NuxtLink :to="'/admin/articles/' + article.id" class="btn btn-sm rounded-full">Ubah</NuxtLink>
+                        <NuxtLink :to="'/admin/articles/form?id=' + article.id" class="btn btn-sm rounded-full">Ubah
+                        </NuxtLink>
                     </div>
                 </div>
             </div>

@@ -4,5 +4,5 @@ const youtubeUrlRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]
 export const isArticle = Joi.object({
     title: isString.required().label("Judul"),
     content: isText.allow(null, '').label("Konten"),
-    youtube: Joi.string().regex(youtubeUrlRegex).optional().label("Youtube URL")
+    youtube: Joi.string().regex(youtubeUrlRegex).allow(null, '').optional().label("Youtube URL")
 });

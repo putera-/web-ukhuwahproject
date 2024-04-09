@@ -149,17 +149,34 @@ export const useArticleStore = defineStore('article', {
 
             data = Validate(isArticle, data);
 
-            data.photos = photos;
+            // data.photos = photos;
 
             if (data.youtube) {
                 const youtubeUrlRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
 
                 data.youtubeId = data.youtube.match(youtubeUrlRegex)[1]
+            }
+            delete data.youtube;
 
-                delete data.youtube;
+            const formData = new FormData();
+
+            formData.append('title', data.title);
+            formData.append('content', data.content || '');
+
+            for (let i = 0; i < photos.length; i++) {
+                const photo = photos[i];
+
+                if (photo.id) {
+                    formData.append(`photos[${i}][id]`, photo.id);
+                    formData.append(`photos[${i}][index]`, String(i));
+                }
+
+                if (photo.file) {
+                    formData.append('new_photos', photo.file)
+                }
             }
 
-            await Api.patch('/articles/' + this.article.id, data) as Article;
+            this.article = await Api.patch('/articles/' + this.article.id, formData) as Article;
         }
     }
 })
