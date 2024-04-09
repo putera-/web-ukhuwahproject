@@ -133,7 +133,7 @@
                     <li>
                         <NuxtLink to="/articles" @click="showdrawer = false"
                             class="flex items-center bg-white/5 py-3 my-1 rounded-xl">
-                            <IconsPray class="w-5" /> Artikel
+                            <IconsKitab class="w-5" /> Artikel
                         </NuxtLink>
                     </li>
                     <li v-if="Itikaf.itikaf">
