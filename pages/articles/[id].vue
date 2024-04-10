@@ -104,6 +104,23 @@
 </template>
 
 <script setup lang="ts">
+const route = useRoute();
+const id: string = route.params.id as string;
+
+
+// seo
+const ar = await $fetch('/api/articles/' + id) as Article;
+
+useSeoMeta({
+    title: () => ar.title,
+    ogTitle: () => ar.title,
+    description: () => ar.content,
+    ogDescription: () => ar.content,
+    ogImage: () => ar.youtubeId ? `https://img.youtube.com/vi/${ar.youtubeId}/maxresdefault.jpg` : ar.photos!.length ? apiUri + ar.photos![0].path_md : '',
+    twitterCard: 'summary_large_image'
+});
+
+
 import { Carousel, Navigation, Pagination, Slide } from 'vue3-carousel'
 import 'vue3-carousel/dist/carousel.css'
 
@@ -112,25 +129,13 @@ definePageMeta({
 });
 
 const Article = useArticleStore();
-const route = useRoute();
-const id: string = route.params.id as string;
 const article = ref<Article | undefined>(undefined);
 
+
 await Article.getPublishedById(id);
-
-useSeoMeta({
-    title: () => Article.article!.title,
-    ogTitle: () => Article.article!.title,
-    description: () => Article.article!.content,
-    ogDescription: () => Article.article!.content,
-    ogImage: () => Article.article!.photos!.length ? Article.article!.photos![0].path_md : '',
-    twitterCard: 'summary_large_image'
-});
-
 watchEffect(() => {
-    if (Article.article) article.value = Article.article
+    if (Article.article) article.value = Article.article;
 });
-
 
 const reply_to = ref<Comment | undefined>(undefined);
 const focusOnWriteComment = ref<boolean>(false);
