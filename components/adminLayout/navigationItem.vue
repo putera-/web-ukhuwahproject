@@ -26,6 +26,8 @@
 </template>
 
 <script setup>
+defineEmits(['clicked'])
+
 defineProps({
     menu: Object
 });

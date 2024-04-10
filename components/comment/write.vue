@@ -8,8 +8,8 @@
             </button>
         </div>
         <div class="flex items-center gap-2">
-            <textarea v-model="comment" rows="1" class="textarea textarea-warning rounded-full w-full max-w-xs"
-                placeholder="Tulis Komentar"></textarea>
+            <textarea ref="commentInput" v-model="comment" rows="1"
+                class="textarea textarea-warning rounded-full w-full max-w-xs" placeholder="Tulis Komentar"></textarea>
             <button @click="send">
                 <IconsSend class="w-10" />
             </button>
@@ -22,10 +22,13 @@ const props = defineProps<{
     comment?: Comment
     itikafId?: string
     itikafScheduleId?: string
+    articleId?: string
+    focus: boolean
 }>();
 
 const reply_to = ref('');
 const commentId = ref<string | undefined>(undefined);
+const commentInput = ref<HTMLTextAreaElement>()
 
 watchEffect(() => {
     if (props.comment) {
@@ -35,6 +38,10 @@ watchEffect(() => {
         }
     } else {
         reply_to.value = '';
+    }
+
+    if (props.focus) {
+        commentInput.value?.focus();
     }
 });
 
@@ -77,6 +84,26 @@ const send = async () => {
             // for reply comment
             try {
                 await useComment.replyItikafScheduleComment(props.itikafScheduleId, commentId.value, comment.value);
+                reset();
+            } catch (error) {
+
+            }
+        }
+    }
+
+    // for article
+    if (props.articleId) {
+        if (!commentId.value) {
+            // for itikaf schedule
+            try {
+                await useComment.sendForArticle(props.articleId, comment.value);
+                reset();
+            } catch (error) {
+            }
+        } else {
+            // for reply comment
+            try {
+                await useComment.replyArticleComment(props.articleId, commentId.value, comment.value);
                 reset();
             } catch (error) {
 

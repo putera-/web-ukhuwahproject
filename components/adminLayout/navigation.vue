@@ -33,11 +33,11 @@ const menus: Menu[] = [
         to: "/admin/org",
         icon: resolveComponent("LucideBuilding")
     },
-    // {
-    //     title: "Profile",
-    //     to: "/admin/profile",
-    //     icon: resolveComponent("LucideUserRound")
-    // },
+    {
+        title: "Artikel",
+        to: "/admin/articles",
+        icon: resolveComponent("IconsKitab")
+    },
     {
         title: "Itikaf",
         to: "/admin/itikaf",

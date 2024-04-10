@@ -1,6 +1,6 @@
 <template>
-    <div class="w-full min-h-screen max-w-5xl mx-auto pt-20 px-4 md:px-6 my-6">
-        <div class="font-semibold text-2xl">Artikel Ukhuwah Project</div>
+    <div class="w-full min-h-screen max-w-5xl mx-auto pt-20 pb-10 px-4 md:px-6 my-6 overflow-hidden">
+        <div class="text-center text-2xl md:text-3xl lg:text-4xl font-medium mb-4">Artikel Ukhuwah Project</div>
 
         <div class="flex flex-col gap-6">
             <template v-for="article in Article.articles" :key="article.id">
