@@ -21,6 +21,8 @@ export const isToLoginPage = async (route: RouteLocationNormalizedLoaded) => {
 }
 
 const toLoginPage = (route: RouteLocationNormalizedLoaded) => {
-    window.localStorage.setItem('redirect_path', route.path)
+    const redirect_path = useCookie('redirect_path');
+    redirect_path.value = route.path;
+    // window.localStorage.setItem('redirect_path', route.path)
     navigateTo('/auth/login');
 }

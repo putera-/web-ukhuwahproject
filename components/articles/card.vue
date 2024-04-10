@@ -99,6 +99,7 @@
 const props = defineProps<{
     article: Article
 }>()
+const { public: { apiUri } } = useRuntimeConfig();
 
 const Article = useArticleStore();
 const route = useRoute();

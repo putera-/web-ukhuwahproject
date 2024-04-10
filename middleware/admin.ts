@@ -4,33 +4,33 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 
     checkToken();
 
-    const getUser = async () => {
-        await Auth.getUser();
-        if (Auth.user) {
-            return navigateTo('/');
-        } else {
-            Api.reset();
-        }
-    }
-
     if (to.path == '/auth/login' || to.path == '/auth/register') {
         if (!Auth.user && Api.access_token) {
-            await getUser();
+            await Auth.getUser();
+            if (Auth.user) {
+                return navigateTo('/');
+            } else {
+                Api.reset();
+            }
         }
     } else {
         if (!Api.access_token) {
             return navigateTo('/auth/login');
         } else {
             if (!Auth.user) {
-                await getUser();
+                await Auth.getUser();
+                if (!Auth.user) {
+                    Api.reset();
+                }
             }
         }
     }
 
-
-    const adminRoles = ['SUPERUSER', 'ADMIN', 'STAFF'];
-    // redirect ke home admin
-    if (!adminRoles.includes(Auth.user!.role)) {
-        return navigateTo("/");
+    if (Auth.user) {
+        const adminRoles = ['SUPERUSER', 'ADMIN', 'STAFF'];
+        // redirect ke home admin
+        if (!adminRoles.includes(Auth.user.role)) {
+            return navigateTo("/");
+        }
     }
 });

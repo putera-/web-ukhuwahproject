@@ -81,6 +81,7 @@ const props = defineProps<{
     articleId?: string
 }>();
 
+const { public: { apiUri } } = useRuntimeConfig();
 const route = useRoute();
 
 const Itikaf = useItikafStore();

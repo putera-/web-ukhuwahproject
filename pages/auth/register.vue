@@ -67,8 +67,8 @@
                                 </div>
                             </label>
                             <div class="text-xs text-error my-1" v-if="errors.confirm_password">{{
-                                    errors.confirm_password
-                                }}</div>
+                                errors.confirm_password
+                            }}</div>
                         </div>
 
                         <!-- login button -->
@@ -122,7 +122,7 @@ const handleRegister = async () => {
     try {
         await AuthStore.register(formData.value);
     } catch (error: any) {
-        if (error instanceof JoiError) {
+        if (error.isJoi) {
             errors.value = error.data
         } else {
             fetchError.value = error.message;

@@ -22,7 +22,7 @@ export default defineNuxtConfig({
   typescript: {
     strict: true
   },
-  ssr: false,
+  // ssr: false,
   // app: {
   //   head: {
   //     title: _meta.title,

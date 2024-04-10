@@ -102,7 +102,7 @@ const doLogin = async (): Promise<void> => {
     try {
         await AuthStore.login(loginForm.value);
     } catch (error: any) {
-        if (error instanceof JoiError) {
+        if (error.isJoi) {
             errors.value = error.data
         } else {
             fetchError.value = error.message;

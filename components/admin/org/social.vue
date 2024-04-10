@@ -85,7 +85,7 @@ const doUpdate = async () => {
             autoClose: 3000
         });
     } catch (error: any) {
-        if (error instanceof JoiError) {
+        if (error.isJoi) {
             errors.value = error.data
         } else {
             responseError.value = error.message;

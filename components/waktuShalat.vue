@@ -40,11 +40,11 @@
                         <div class="text-center">ISYA</div>
                     </div>
                     <div class="w-full grid grid-cols-5 bg-[#FEF5ED] rounded-xl py-3">
-                        <div class="text-center">{{ dayjs(Shalat.fajr).format('HH:mm') }}</div>
+                        <!-- <div class="text-center">{{ dayjs(Shalat.fajr).format('HH:mm') }}</div>
                         <div class="text-center">{{ dayjs(Shalat.dhuhr).format('HH:mm') }}</div>
                         <div class="text-center">{{ dayjs(Shalat.asr).format('HH:mm') }}</div>
                         <div class="text-center">{{ dayjs(Shalat.maghrib).format('HH:mm') }}</div>
-                        <div class="text-center">{{ dayjs(Shalat.isha).format('HH:mm') }}</div>
+                        <div class="text-center">{{ dayjs(Shalat.isha).format('HH:mm') }}</div> -->
                     </div>
                 </div>
             </div>

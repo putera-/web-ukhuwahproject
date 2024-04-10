@@ -35,13 +35,15 @@ export const useAuthStore = defineStore("auth", {
             Api.access_token = response.access_token;
             Api.exp = response.exp;
 
-            window.localStorage.setItem("access_token", response.access_token);
-            window.localStorage.setItem("exp", response.exp.toString());
+            this.setCookie(response);
 
-            const redirect_path = window.localStorage.getItem('redirect_path');
+            const _redirect_path = useCookie('redirect_path');
+            const redirect_path = _redirect_path.value;
+            // const redirect_path = window.localStorage.getItem('redirect_path');
 
             if (redirect_path) {
-                window.localStorage.removeItem('redirect_path')
+                // window.localStorage.removeItem('redirect_path')
+                _redirect_path.value = undefined;
                 navigateTo(redirect_path);
             } else {
                 const adminRoles = ['SUPERUSER', 'ADMIN', 'STAFF'];
@@ -66,13 +68,15 @@ export const useAuthStore = defineStore("auth", {
             Api.access_token = response.access_token;
             Api.exp = response.exp;
 
-            window.localStorage.setItem("access_token", response.access_token);
-            window.localStorage.setItem("exp", response.exp.toString());
+            this.setCookie(response);
 
-            const redirect_path = window.localStorage.getItem('redirect_path');
+            const _redirect_path = useCookie('redirect_path');
+            const redirect_path = _redirect_path.value;
+            // const redirect_path = window.localStorage.getItem('redirect_path');
 
             if (redirect_path) {
-                window.localStorage.removeItem('redirect_path')
+                // window.localStorage.removeItem('redirect_path')
+                _redirect_path.value = undefined;
                 navigateTo(redirect_path);
             } else {
                 // redirect ke home admin
@@ -108,5 +112,14 @@ export const useAuthStore = defineStore("auth", {
             // fetch user update
             await Api.patch("/auth/change_password", data) as User;
         },
+        setCookie(data: Record<string, any>) {
+            const token = useCookie('access_token')
+            const exp = useCookie('exp');
+            token.value = data.access_token;
+            exp.value = data.exp.toString();
+
+            // window.localStorage.setItem("access_token", data.access_token);
+            // window.localStorage.setItem("exp", data.exp.toString());
+        }
     },
 });

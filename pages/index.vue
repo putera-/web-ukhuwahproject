@@ -50,24 +50,27 @@
 definePageMeta({
     middleware: ['onlyauth']
 });
+const { public: { apiUri } } = useRuntimeConfig();
 
 const Client = useClientStore();
 const Itikaf = useItikafStore();
+const Shalat = useShalatStore()
+// if (!Shalat.data) Shalat.get();
 await Itikaf.get();
 
 
 // SEO and META
-const title = `${Client.client?.name} - ${Client.client?.slogan}`;
-const description = "Ied Mubarak, Semalat Hari Raya Idul Fitri 1445H / 2024 M. Taqobbalallahu minna wa minkum. Taqobbal yaa Kariim";
+// const title = `${Client.client?.name} - ${Client.client?.slogan}`;
+// const description = "Ied Mubarak, Semalat Hari Raya Idul Fitri 1445H / 2024 M. Taqobbalallahu minna wa minkum. Taqobbal yaa Kariim";
 
-useSeoMeta({
-    title: () => title,
-    ogTitle: () => title,
-    description: () => description,
-    ogDescription: () => description,
-    ogImage: () => apiUri + Client.client?.logo_sm,
-    twitterCard: 'summary_large_image'
-});
+// useSeoMeta({
+//     title: () => title,
+//     ogTitle: () => title,
+//     description: () => description,
+//     ogDescription: () => description,
+//     ogImage: () => apiUri! + Client.client?.logo_sm,
+//     twitterCard: 'summary_large_image'
+// });
 // END: SEO and META
 
 </script>

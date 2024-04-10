@@ -140,6 +140,7 @@ const props = defineProps<{
 
 defineEmits(['toJoin', 'toCancelJoin', 'mySchedule', 'update'])
 
+const { public: { apiUri } } = useRuntimeConfig();
 const Itikaf = useItikafStore();
 const route = useRoute();
 

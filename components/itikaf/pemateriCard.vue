@@ -29,5 +29,6 @@ defineProps<{
     pemateri: Asaatidz
     posisi: string
 }>()
+const { public: { apiUri } } = useRuntimeConfig();
 
 </script>

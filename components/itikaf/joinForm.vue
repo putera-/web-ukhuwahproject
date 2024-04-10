@@ -158,7 +158,7 @@ const joinItikaf = async () => {
 
         emits('success')
     } catch (error: any) {
-        if (error instanceof JoiError) {
+        if (error.isJoi) {
             errors.value = error.data
         } else {
             fetchError.value = error.message;

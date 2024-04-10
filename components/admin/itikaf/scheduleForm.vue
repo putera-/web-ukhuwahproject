@@ -200,6 +200,7 @@ const props = defineProps<{
     show: boolean
     data: ItikafSchedule | null
 }>();
+const { public: { apiUri } } = useRuntimeConfig();
 
 const emits = defineEmits(['close', 'saved']);
 
@@ -230,6 +231,16 @@ watchEffect(() => {
         form.value.imam_tarawih = props.data.imam_tarawih;
         form.value.imam_qiyamul_lail = props.data.imam_qiyamul_lail;
         form.value.ustadz_kajian = props.data.ustadz_kajian;
+    } else {
+        photo_preview.value = undefined;
+        form.value = {
+            date: undefined,
+            day_index: undefined,
+            description: '',
+            imam_tarawih: undefined,
+            imam_qiyamul_lail: undefined,
+            ustadz_kajian: undefined
+        };
     }
 });
 
@@ -319,7 +330,7 @@ const doUpdate = async () => {
             autoClose: 3000
         });
     } catch (error: any) {
-        if (error instanceof JoiError) {
+        if (error.isJoi) {
             errors.value = error.data
         } else {
             responseError.value = error.message;

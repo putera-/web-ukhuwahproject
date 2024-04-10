@@ -22,21 +22,24 @@
                     <LucideAlignLeft :size="24" />
                 </label>
 
-                <NuxtLink to="/admin" class="lg:absolute pr-2 mr-2 text-xl font-semibold flex gap-4 items-center"
-                    v-if="Client.client">
-                    <!-- LOGO -->
-                    <template v-if="Client.client.logo">
-                        <img v-if="isURL(Client.client.logo)" :src="Client.client.logo"
-                            :alt="Client.client.name + 'Logo'" class="w-10">
-                        <img v-else :src="apiUri + Client.client.logo" :alt="Client.client.name + 'Logo'" class="w-10">
-                    </template>
-                    <IconsMosque v-else class="w-10" />
+                <ClientOnly>
+                    <NuxtLink to="/admin" class="lg:absolute pr-2 mr-2 text-xl font-semibold flex gap-4 items-center"
+                        v-if="Client.client">
+                        <!-- LOGO -->
+                        <template v-if="Client.client.logo">
+                            <img v-if="isURL(Client.client.logo)" :src="Client.client.logo"
+                                :alt="Client.client.name + 'Logo'" class="w-10">
+                            <img v-else :src="apiUri + Client.client.logo" :alt="Client.client.name + 'Logo'"
+                                class="w-10">
+                        </template>
+                        <IconsMosque v-else class="w-10" />
 
-                    <div class="flex flex-col">
-                        <div class="uppercase max-sm:text-base">{{ Client.client.name }}</div>
-                        <div class="text-xs font-normal text-slate-500">{{ Client.client.slogan }}</div>
-                    </div>
-                </NuxtLink>
+                        <div class="flex flex-col">
+                            <div class="uppercase max-sm:text-base">{{ Client.client.name }}</div>
+                            <div class="text-xs font-normal text-slate-500">{{ Client.client.slogan }}</div>
+                        </div>
+                    </NuxtLink>
+                </ClientOnly>
 
                 <!-- sisi kanan -->
                 <div class="grow flex justify-end items-center lg:pl-4">
@@ -50,32 +53,34 @@
                     </div> -->
 
                     <!-- avatar / account -->
-                    <div class="dropdown dropdown-end">
-                        <div tabindex="0" role="button" class="btn w-10 h-10 min-h-10 btn-circle overflow-hidden">
-                            <img v-if="Auth.user.avatar" :src="apiUri + Auth.user.avatar_md"
-                                class="min-w-full min-h-full">
-                            <LucideUser v-else :size="24" class="text-primary" />
-                        </div>
-                        <div class="dropdown-content z-[2] menu bg-base-100 shadow rounded w-52">
-                            <div class="p-2 border-b">
-                                <div class="font-semibold">{{ Auth.user.name }}</div> <!-- State user name -->
-                                <div class="text-xs">{{ Auth.user.email }}</div> <!-- State user email -->
+                    <ClientOnly>
+                        <div class="dropdown dropdown-end">
+                            <div tabindex="0" role="button" class="btn w-10 h-10 min-h-10 btn-circle overflow-hidden">
+                                <img v-if="Auth.user.avatar" :src="apiUri + Auth.user.avatar_md"
+                                    class="min-w-full min-h-full">
+                                <LucideUser v-else :size="24" class="text-primary" />
                             </div>
-                            <ul tabindex="0" class="p-2">
-                                <li>
-                                    <NuxtLink to="/admin/profile">
-                                        <LucideUser :size="16" /> Profile
-                                    </NuxtLink>
-                                </li>
-                                <li>
-                                    <button @click="Auth.logout">
-                                        <LucideLogOut :size="16" />
-                                        Logout
-                                    </button>
-                                </li>
-                            </ul>
+                            <div class="dropdown-content z-[2] menu bg-base-100 shadow rounded w-52">
+                                <div class="p-2 border-b">
+                                    <div class="font-semibold">{{ Auth.user.name }}</div> <!-- State user name -->
+                                    <div class="text-xs">{{ Auth.user.email }}</div> <!-- State user email -->
+                                </div>
+                                <ul tabindex="0" class="p-2">
+                                    <li>
+                                        <NuxtLink to="/admin/profile">
+                                            <LucideUser :size="16" /> Profile
+                                        </NuxtLink>
+                                    </li>
+                                    <li>
+                                        <button @click="Auth.logout">
+                                            <LucideLogOut :size="16" />
+                                            Logout
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
+                    </ClientOnly>
                 </div>
 
             </div>
@@ -98,23 +103,25 @@
                         <div
                             class="menu bg-neutral p-4 lg:rounded-l-3xl w-[250px] max-lg:min-h-screen lg:min-h-full text-white">
 
-                            <NuxtLink to="/admin"
-                                class="md:hidden px-2 mx-2 text-xl font-semibold flex flex-col items-center gap-3"
-                                v-if="Client.client">
-                                <!-- LOGO -->
-                                <template v-if="Client.client.logo">
-                                    <img v-if="isURL(Client.client.logo)" :src="Client.client.logo"
-                                        :alt="Client.client.name + 'Logo'" class="w-28">
-                                    <img v-else :src="apiUri + Client.client.logo" :alt="Client.client.name + 'Logo'"
-                                        class="w-28">
-                                </template>
-                                <IconsMosque v-else class="w-28" />
+                            <ClientOnly>
+                                <NuxtLink to="/admin"
+                                    class="md:hidden px-2 mx-2 text-xl font-semibold flex flex-col items-center gap-3"
+                                    v-if="Client.client">
+                                    <!-- LOGO -->
+                                    <template v-if="Client.client.logo">
+                                        <img v-if="isURL(Client.client.logo)" :src="Client.client.logo"
+                                            :alt="Client.client.name + 'Logo'" class="w-28">
+                                        <img v-else :src="apiUri + Client.client.logo"
+                                            :alt="Client.client.name + 'Logo'" class="w-28">
+                                    </template>
+                                    <IconsMosque v-else class="w-28" />
 
-                                <div class="flex flex-col text-center">
-                                    <div class="uppercase">{{ Client.client.name }}</div>
-                                    <div class="text-xs font-normal text-slate-500">{{ Client.client.slogan }}</div>
-                                </div>
-                            </NuxtLink>
+                                    <div class="flex flex-col text-center">
+                                        <div class="uppercase">{{ Client.client.name }}</div>
+                                        <div class="text-xs font-normal text-slate-500">{{ Client.client.slogan }}</div>
+                                    </div>
+                                </NuxtLink>
+                            </ClientOnly>
 
                             <!-- NAVIGATION -->
                             <AdminLayoutNavigation @clicked="show_drawer = false" />
@@ -135,7 +142,7 @@ if (!Client.client) Client.get();
 const show_drawer = ref(false);
 
 const Auth = useAuthStore();
-// const { public: { apiUri } } = useRuntimeConfig();
+const { public: { apiUri } } = useRuntimeConfig();
 
 </script>
 

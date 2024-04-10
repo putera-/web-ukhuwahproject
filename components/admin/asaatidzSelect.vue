@@ -54,6 +54,7 @@ const props = defineProps<{
     // data: Asaatidz | null
 }>();
 
+const { public: { apiUri } } = useRuntimeConfig();
 const emits = defineEmits(['close', 'select']);
 
 const Astz = useAsaatidzStore();

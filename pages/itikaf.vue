@@ -97,7 +97,7 @@ definePageMeta({
     middleware: ['onlyauth']
 });
 
-// import dayjs from 'dayjs';
+const { public: { apiUri } } = useRuntimeConfig();
 
 const Itikaf = useItikafStore();
 

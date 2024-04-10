@@ -61,6 +61,7 @@ definePageMeta({
     ]
 });
 
+const { public: { apiUri } } = useRuntimeConfig();
 const Astz = useAsaatidzStore();
 Astz.get();
 

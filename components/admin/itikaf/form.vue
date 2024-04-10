@@ -56,7 +56,8 @@
             <input v-model="form.contact_person_name" type="text" placeholder="Kontak Person"
                 class="input md:input-lg rounded-full bg-[#E8E5F8] input-bordered w-full max-w-xs" />
             <div class="label">
-                <span class="label-text-alt text-error" v-if="errors.contact_person_name">{{ errors.contact_person_name
+                <span class="label-text-alt text-error" v-if="errors.contact_person_name">{{
+                    errors.contact_person_name
                     }}</span>
             </div>
         </label>
@@ -69,8 +70,8 @@
                 class="input md:input-lg rounded-full bg-[#E8E5F8] input-bordered w-full max-w-xs" />
             <div class="label">
                 <span class="label-text-alt text-error" v-if="errors.contact_person_phone">{{
-            errors.contact_person_phone
-        }}</span>
+                    errors.contact_person_phone
+                    }}</span>
             </div>
         </label>
         <label class="form-control w-full max-w-lg">
@@ -101,12 +102,13 @@
 
 <script setup lang="ts">
 import { toast } from 'vue3-toastify';
+const { public: { apiUri } } = useRuntimeConfig();
 const route = useRoute();
 const Itikaf = useItikafStore();
 
 const emits = defineEmits(['saved', 'cancel']);
 
-const photo_preview = ref(Itikaf.itikaf ? (isURL(Itikaf.itikaf.photo) ? Itikaf.itikaf.photo : apiUri + Itikaf.itikaf.photo) : undefined)
+const photo_preview = ref<string | undefined>(Itikaf.itikaf ? (isURL(Itikaf.itikaf.photo) ? Itikaf.itikaf.photo : apiUri + Itikaf.itikaf.photo) : undefined)
 
 const form = ref<Record<string, any>>({
     masjid: '',
@@ -119,6 +121,7 @@ onBeforeMount(async () => {
     await Itikaf.get();
 
     if (Itikaf.itikaf) {
+        photo_preview.value = isURL(Itikaf.itikaf.photo) ? Itikaf.itikaf.photo : apiUri + Itikaf.itikaf.photo;
         form.value = {
             masjid: Itikaf.itikaf.masjid,
             address: Itikaf.itikaf.address,
@@ -194,7 +197,7 @@ const doUpdate = async () => {
             autoClose: 3000
         });
     } catch (error: any) {
-        if (error instanceof JoiError) {
+        if (error.isJoi) {
             errors.value = error.data
         } else {
             responseError.value = error.message;

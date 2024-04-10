@@ -43,6 +43,7 @@ defineEmits(['remove', 'swapLike']);
 defineProps<{
     reply: CommentReply
 }>();
+const { public: { apiUri } } = useRuntimeConfig();
 
 const Auth = useAuthStore();
 </script>

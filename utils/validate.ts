@@ -1,4 +1,14 @@
-import { JoiError } from "./joiError";
+class JoiError extends Error {
+    isJoi: boolean;
+    data: any;
+    constructor(data: any) {
+
+        super();
+
+        this.isJoi = true;
+        this.data = data;
+    }
+}
 
 export const Validate = (schema: any, request: any) => {
     const result = schema.validate(request, {

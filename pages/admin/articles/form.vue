@@ -138,6 +138,8 @@ definePageMeta({
     ]
 });
 
+const { public: { apiUri } } = useRuntimeConfig();
+
 const route = useRoute();
 const id = route.query.id as string;
 

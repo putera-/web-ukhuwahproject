@@ -50,7 +50,7 @@
 <script setup lang="ts">
 import { toast } from 'vue3-toastify';
 
-// const { public: { apiUri } } = useRuntimeConfig();
+const { public: { apiUri } } = useRuntimeConfig();
 const Auth = useAuthStore();
 
 const form = ref({
@@ -116,7 +116,7 @@ const doUpdate = async () => {
             autoClose: 3000
         });
     } catch (error: any) {
-        if (error instanceof JoiError) {
+        if (error.isJoi) {
             errors.value = error.data
         } else {
             responseError.value = error.message;
