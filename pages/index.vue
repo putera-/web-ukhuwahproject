@@ -59,13 +59,21 @@ await Itikaf.get();
 // SEO and META
 const title = `${Client.client?.name} - ${Client.client?.slogan}`;
 const description = "Website " + Client.client?.name;
+// useSeoMeta({
+//     title,
+//     description,
+//     ogTitle: title,
+//     ogDescription: description,
+//     ogImage: Client.client?.logo_sm,
+//     twitterCard: 'summary_large_image',
+// });
 useSeoMeta({
-    title,
-    description,
-    ogTitle: title,
-    ogDescription: description,
-    ogImage: Client.client?.logo_sm,
-    twitterCard: 'summary_large_image',
+    title: () => title,
+    ogTitle: () => title,
+    description: () => description,
+    ogDescription: () => description,
+    ogImage: () => Client.client?.logo_sm,
+    twitterCard: 'summary_large_image'
 });
 // END: SEO and META
 

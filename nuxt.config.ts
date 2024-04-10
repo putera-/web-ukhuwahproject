@@ -23,19 +23,19 @@ export default defineNuxtConfig({
     strict: true
   },
   ssr: false,
-  app: {
-    head: {
-      title: _meta.title,
-      meta: meta,
-      charset: 'utf-8',
-      viewport: 'width=device-width, initial-scale=1',
-      link: [
-        {
-          rel: 'icon',
-          type: 'image/x-icon',
-          href: '/favicon.ico'
-        }
-      ]
-    }
-  }
+  // app: {
+  //   head: {
+  //     title: _meta.title,
+  //     meta: meta,
+  //     charset: 'utf-8',
+  //     viewport: 'width=device-width, initial-scale=1',
+  //     link: [
+  //       {
+  //         rel: 'icon',
+  //         type: 'image/x-icon',
+  //         href: '/favicon.ico'
+  //       }
+  //     ]
+  //   }
+  // }
 })

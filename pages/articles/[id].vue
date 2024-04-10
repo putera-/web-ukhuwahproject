@@ -116,7 +116,16 @@ const route = useRoute();
 const id: string = route.params.id as string;
 const article = ref<Article | undefined>(undefined);
 
-Article.getPublishedById(id);
+await Article.getPublishedById(id);
+
+useSeoMeta({
+    title: () => Article.article!.title,
+    ogTitle: () => Article.article!.title,
+    description: () => Article.article!.content,
+    ogDescription: () => Article.article!.content,
+    ogImage: () => Article.article!.photos!.length ? Article.article!.photos![0].path_md : '',
+    twitterCard: 'summary_large_image'
+});
 
 watchEffect(() => {
     if (Article.article) article.value = Article.article
