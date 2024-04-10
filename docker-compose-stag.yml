@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: stag-web-ukhuwahproject
-    image: stag-web-ukhuwahproject:1.0.5
+    image: stag-web-ukhuwahproject:1.0.6
     restart: always
     ports:
       - 3005:3000
