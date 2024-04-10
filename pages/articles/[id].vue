@@ -118,18 +118,19 @@ const { public: { apiUri } } = useRuntimeConfig();
 const route = useRoute();
 const id: string = route.params.id as string;
 
+const Client = useClientStore();
 const Article = useArticleStore();
-Article.getPublishedById(id);
+await Article.getPublishedById(id);
 
 // seo
-// const ar = await $fetch('/api/articles/' + id) as Article;
-
+const title = (Article.article ? Article.article.title : '') + ' - ' + Client.client?.name;
+const description = Article.article ? Article.article.content : '';
 useSeoMeta({
-    title: () => Article.article ? Article.article.title : '',
-    ogTitle: () => Article.article ? Article.article.title : '',
-    description: () => Article.article ? Article.article.content : '',
-    ogDescription: () => Article.article ? Article.article.content : '',
-    ogImage: () => Article.article ? Article.article.youtubeId ? `https://img.youtube.com/vi/${ar.youtubeId}/maxresdefault.jpg` : Article.article.photos!.length ? apiUri + Article.article.photos![0].path_md : '' : '',
+    title: () => title,
+    ogTitle: () => title,
+    description: () => description,
+    ogDescription: () => description,
+    ogImage: () => Article.article ? Article.article.youtubeId ? `https://img.youtube.com/vi/${Article.article.youtubeId}/sddefault.jpg` : Article.article.photos!.length ? apiUri + Article.article.photos![0].path_md : '' : '',
     twitterCard: 'summary_large_image'
 });
 

@@ -99,13 +99,24 @@ definePageMeta({
 
 const { public: { apiUri } } = useRuntimeConfig();
 
+const Client = useClientStore();
 const Itikaf = useItikafStore();
 
-onBeforeMount(async () => {
-    await Promise.all([
-        Itikaf.get(),
-        Itikaf.getSchedule()
-    ]);
+await Promise.all([
+    Itikaf.get(),
+    Itikaf.getSchedule()
+]);
+
+
+const title = `Itikaf Ramadhan ${Itikaf.itikaf!.hijri_year} /  ${Itikaf.itikaf!.year} ` + `- ${Client.client?.name} - ${Client.client?.slogan}`;
+const description = "I\'tikaf 10 Hari Terakhir Ramadhan 1445 Di Masjid Al-Adhim. Ramadhan ini kita I\'tikaf bersama keluarga dan teman teman. Membaca Al-Quran, Qiyamul Lail. Konsultasi Syariah, Berdzikir dan Berdoa. Ditemani secangkir kopi agar Ibadah Makin Hepi";
+useSeoMeta({
+    title: () => title,
+    ogTitle: () => title,
+    description: () => description,
+    ogDescription: () => description,
+    ogImage: () => apiUri! + Client.client?.logo_sm,
+    twitterCard: 'summary_large_image'
 });
 
 const showJoinForm = ref(false);
