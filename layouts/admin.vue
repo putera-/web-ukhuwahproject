@@ -137,7 +137,7 @@
 import 'vue3-toastify/dist/index.css';
 
 const Client = useClientStore();
-if (!Client.client) Client.get();
+if (!Client.client) await Client.get();
 
 const show_drawer = ref(false);
 

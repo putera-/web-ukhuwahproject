@@ -187,9 +187,11 @@ const Auth = useAuthStore();
 
 const Client = useClientStore();
 const Itikaf = useItikafStore();
-if (!Itikaf.itikaf) Itikaf.get();
-if (!Client.client) Client.get();
+const promises = []
+if (!Itikaf.itikaf) promises.push(Itikaf.get());
+if (!Client.client) promises.push(Client.get());
 
+await Promise.all(promises)
 </script>
 
 <style scoped>
