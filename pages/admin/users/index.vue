@@ -4,7 +4,7 @@
         <div class="card-body max-sm:p-5">
             <input v-model="search" type="text" placeholder="Cari"
                 class="input input-bordered rounded-full w-full max-w-xs" />
-            <div class="overflow-x-auto max-md:hidden">
+            <div class="overflow-x-auto overflow-y-hidden max-md:hidden">
                 <table class="table">
                     <!-- head -->
                     <thead>
