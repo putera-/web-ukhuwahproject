@@ -1,10 +1,10 @@
 <template>
-    <h2 class="font-semibold">User</h2>
-    <div class="card bg-base-100 shadow-xl">
-        <div class="card-body">
+    <div class="text-3xl font-semibold my-3 max-sm:text-center">User</div>
+    <div class="card bg-base-100 rounded-2xl shadow-xl">
+        <div class="card-body max-sm:p-5">
             <input v-model="search" type="text" placeholder="Cari"
                 class="input input-bordered rounded-full w-full max-w-xs" />
-            <div class="overflow-x-auto">
+            <div class="overflow-x-auto max-md:hidden">
                 <table class="table">
                     <!-- head -->
                     <thead>
@@ -64,12 +64,61 @@
                     </tbody>
                 </table>
             </div>
+            <div class="md:hidden mb-20 flex flex-col gap-3 md:gap-5">
+                <div v-for="user in data" class="card shadow-lg bg-slate-200 rounded-2xl">
+                    <div class="card-body max-sm:p-5">
+                        <div class="flex justify-between items-center">
+                            <div class="badge badge-warning">{{ user.role }}</div>
+                            <div class="dropdown dropdown-end">
+                                <div tabindex="0" role="button" class="">
+                                    <LucideEllipsisVertical :size="16" />
+                                </div>
+                                <ul tabindex="0"
+                                    class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40">
+                                    <li><button class="btn btn-xs rounded-full"
+                                            @click="userUpdate = user; selectRole = user.role; showUpdateRole = true;">
+                                            Ubah Role
+                                        </button></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 items-center">
+                            <div class="w-8 h-8 rounded-full overflow-hidden">
+                                <template v-if="user.avatar_md">
+                                    <img v-if="isURL(user.avatar_md)" :src="user.avatar_md" class="w-8">
+                                    <img v-else :src="apiUri + user.avatar_md" class="w-8">
+                                </template>
+                                <div v-else
+                                    class="w-8 h-8 rounded-full bg-gray-300 flex justify-center items-center text-lg">
+                                    {{ user.name[0] }}
+                                </div>
+                            </div>
+                            <div>
+                                <div class="font-medium text-base text-nowrap">{{ user.name }}</div>
+                                <a :href="`https://wa.me/${user.phone.replaceAll('-', '').replace(' ', '').replace('+', '')}`"
+                                    target="_blank" class="flex gap-2 items-center">
+                                    <IconsWhatsapp class="w-3" />
+                                    <div class="text-nowrap text-sm">{{ user.phone }}</div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="divider my-1"></div>
+                        <label class="flex items-center max-sm:justify-center gap-4 cursor-pointer">
+                            <span class="label-text">Not Active</span>
+                            <input type="checkbox" class="toggle toggle-warning rounded-full" :checked="user.active"
+                                :disabled="Auth.user!.id == user.id"
+                                @change="(e: any) => switchActive(user.id, e.target.checked)" />
+                            <span class="label-text">Active</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <LazyConfirmation v-if="userUpdate" action-text="Update Role" :show="showUpdateRole" @close="showUpdateRole = false"
         @yes="setRole">
-        <div>Ubah role untuk {{ userUpdate.name }}</div>
+        <div>Ubah role untuk <span class="font-semibold">{{ userUpdate.name }}</span></div>
 
         <label class="form-control w-full max-w-xs">
             <div class="label">
