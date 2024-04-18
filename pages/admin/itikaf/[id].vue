@@ -162,7 +162,7 @@
     <Confirmation action-text="Ya, Serahkan Kupon" :show="confirmCoupon" @close="confirmCoupon = false"
         @yes="setCouponTaken">
         <div v-if="couponParticipant" class="text-xl">Kupon untuk <span class="font-semibold">{{
-        couponParticipant.user!.name
+            couponParticipant.user!.name
                 }}</span>
         </div>
 
@@ -178,6 +178,7 @@ definePageMeta({
     ]
 });
 
+const { public: { apiUri } } = useRuntimeConfig();
 const route = useRoute();
 const id: string = route.params.id as string;
 const Itikaf = useItikafStore();

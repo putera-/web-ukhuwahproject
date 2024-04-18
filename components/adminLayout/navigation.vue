@@ -49,11 +49,6 @@ const menus: Menu[] = [
         icon: resolveComponent("LucideGraduationCap"),
     },
     // {
-    //     title: "Experience",
-    //     to: "/admin/experience",
-    //     icon: resolveComponent("LucideAward"),
-    // },
-    // {
     //     title: "Skill",
     //     to: "/admin/skill",
     //     icon: resolveComponent("LucideWrench"),
@@ -64,6 +59,18 @@ const menus: Menu[] = [
     //     icon: resolveComponent("LucideNewspaper"),
     // }
 ];
+
+const Auth = useAuthStore();
+
+if (Auth.user) {
+    if (Auth.user.role == 'SUPERUSER' || Auth.user.role == 'ADMIN') {
+        menus.push({
+            title: "Users",
+            to: "/admin/users",
+            icon: resolveComponent("LucideUsers"),
+        })
+    }
+}
 
 </script>
 
