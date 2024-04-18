@@ -26,7 +26,7 @@
                     </thead>
                     <tbody>
                         <!-- row 1 -->
-                        <template v-for="user in data">
+                        <template v-for="user in data" :key="user.id">
                             <tr class="hover">
                                 <th>
                                     <template v-if="user.avatar_md">
@@ -75,7 +75,7 @@
                 </table>
             </div>
             <div class="md:hidden mb-20 flex flex-col gap-3 md:gap-5">
-                <div v-for="user in data" class="card shadow-lg bg-slate-200 rounded-2xl">
+                <div v-for="user in data" :key="user.id" class="card shadow-lg bg-slate-200 rounded-2xl">
                     <div class="card-body max-sm:p-5">
                         <div class="flex justify-between items-center">
                             <div class="badge badge-warning">{{ user.role }}</div>

@@ -23,7 +23,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="user in dataPeserta" class="hover">
+                        <tr v-for="user in dataPeserta" :key="user.id" class="hover">
                             <td>
                                 <div class="w-10 h-10 rounded-full overflow-hidden" v-if="user.user">
                                     <template v-if="user.user.avatar_md">
@@ -78,7 +78,7 @@
                 </table>
             </div>
             <div class="lg:hidden mb-20 flex flex-col gap-3 md:gap-5">
-                <div v-for="user in dataPeserta" class="card shadow-lg bg-slate-200 rounded-2xl">
+                <div v-for="user in dataPeserta" :key="user.id" class="card shadow-lg bg-slate-200 rounded-2xl">
                     <div class="card-body max-sm:p-5">
                         <div class="flex max-sm:flex-col justify-between">
                             <div class="flex gap-4 items-center">
