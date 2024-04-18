@@ -2,8 +2,17 @@
     <div class="text-3xl font-semibold my-3 max-sm:text-center">User</div>
     <div class="card bg-base-100 rounded-2xl shadow-xl">
         <div class="card-body max-sm:p-5">
-            <input v-model="search" type="text" placeholder="Cari"
-                class="input input-bordered rounded-full w-full max-w-xs" />
+            <div class="flex gap-4">
+                <input v-model="search" type="text" placeholder="Cari"
+                    class="input max-sm:input-sm input-bordered rounded-full w-full max-w-xs" />
+                <select v-model="filterRole" class="select max-sm:select-sm select-bordered rounded-full"
+                    @change="search = ''">
+                    <option value="">Semua Role</option>
+                    <option value="ADMIN">Admin</option>
+                    <option value="STAFF">Staff</option>
+                    <option value="MEMBER">Member</option>
+                </select>
+            </div>
             <div class="overflow-x-auto overflow-y-hidden max-md:hidden">
                 <table class="table">
                     <!-- head -->
@@ -38,6 +47,7 @@
                                         <IconsWhatsapp class="w-3" />
                                         <div class="text-nowrap">{{ user.phone }}</div>
                                     </a>
+                                    <div>{{ user.email }}</div>
                                 </td>
                                 <td class="text-center">{{ user.role }}</td>
                                 <td class="text-center">
@@ -153,13 +163,25 @@ const UserStore = useUserStore();
 UserStore.get();
 
 const search = ref<string>('');
-
+const filterRole = ref<string>('');
 const data = computed(() => {
     const filter = search.value.toLowerCase().trim();
 
-    if (filter == '') return UserStore.users;
+    if (filter == '') {
+        if (filterRole.value == '') return UserStore.users;
 
-    return UserStore.users.filter(u => u.name.toLowerCase().includes(filter))
+        return UserStore.users.filter(u => u.role == filterRole.value);
+    }
+
+    return UserStore.users.filter(u => {
+        const find = u.name.toLowerCase().includes(filter);
+
+        if (filterRole.value == '') return find;
+
+        const findRole = u.role == filterRole.value;
+
+        return find && findRole;
+    })
 });
 
 const switchActive = (id: string, checked: boolean) => {
