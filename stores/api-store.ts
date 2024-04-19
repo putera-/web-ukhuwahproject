@@ -193,8 +193,16 @@ export const useApiStore = defineStore('api', {
             this.access_token = undefined;
             this.exp = undefined;
 
-            window.localStorage.removeItem("access_token");
-            window.localStorage.removeItem("exp");
+            const token = useCookie('access_token', { maxAge: new Date().getTime() })
+            const exp = useCookie('exp');
+            token.value = '';
+            exp.value = '';
+
+
+            // useCookie('access_token', { maxAge: new Date().getTime() })
+            // useCookie('exp', { maxAge: new Date().getTime() });
+            // window.localStorage.removeItem("access_token");
+            // window.localStorage.removeItem("exp");
         }
     }
 });
