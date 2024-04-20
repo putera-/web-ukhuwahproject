@@ -1,0 +1,4 @@
+services:
+  stag-web-ukhuwahproject:
+    environment:
+      NUXT_PUBLIC_MIDTRANS_CLIENT_KEY:
