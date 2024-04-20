@@ -79,6 +79,7 @@ const props = defineProps<{
     itikafId?: string
     scheduleId?: string
     articleId?: string
+    campaignId?: string
 }>();
 
 const { public: { apiUri } } = useRuntimeConfig();
@@ -86,6 +87,7 @@ const route = useRoute();
 
 const Itikaf = useItikafStore();
 const Article = useArticleStore();
+const Campaign = useCampaignStore();
 const Auth = useAuthStore();
 
 const loadReplies = async () => {
@@ -99,6 +101,8 @@ const loadReplies = async () => {
         await Itikaf.loadMoreItikafScheduleCommentReplies(props.scheduleId, props.comment.id, nextPage)
     } else if (props.articleId) {
         await Article.loadMoreCommentReplies(props.articleId, props.comment.id, nextPage)
+    } else if (props.campaignId) {
+        await Campaign.loadMoreCommentReplies(props.campaignId, props.comment.id, nextPage)
     }
 }
 
@@ -111,6 +115,8 @@ const swapLike = async (like: boolean) => {
         await Itikaf.swapLikeItikafScheduleComment(like, props.scheduleId, props.comment.id);
     } else if (props.articleId) {
         await Article.swapLikeComment(like, props.articleId, props.comment.id);
+    } else if (props.campaignId) {
+        await Campaign.swapLikeComment(like, props.campaignId, props.comment.id);
     }
 }
 
@@ -123,6 +129,8 @@ const swapLikeReply = async (like: boolean, replyId: string) => {
         await Itikaf.swapLikeItikafScheduleCommentReply(like, props.scheduleId, props.comment.id, replyId);
     } else if (props.articleId) {
         await Article.swapLikeCommentReply(like, props.articleId, props.comment.id, replyId);
+    } else if (props.campaignId) {
+        await Campaign.swapLikeCommentReply(like, props.campaignId, props.comment.id, replyId);
     }
 }
 
@@ -139,6 +147,8 @@ const remove = async (): Promise<void> => {
             await UseComment.removeItikafScheduleComment(removeId.value, props.scheduleId);
         } else if (props.articleId) {
             await UseComment.removeArticleComment(removeId.value, props.articleId);
+        } else if (props.campaignId) {
+            await UseComment.removeCampaignComment(removeId.value, props.campaignId);
         }
 
         confirm_remove.value = false;
@@ -158,6 +168,8 @@ const remove_reply = async (): Promise<void> => {
             await UseComment.removeItikafScheduleCommentReply(props.scheduleId, remove_reply_id.value!, remove_comment_reply_id.value!);
         } else if (props.articleId) {
             await UseComment.removeArticleCommentReply(props.articleId, remove_reply_id.value!, remove_comment_reply_id.value!);
+        } else if (props.campaignId) {
+            await UseComment.removeCampaignCommentReply(props.campaignId, remove_reply_id.value!, remove_comment_reply_id.value!);
         }
 
         confirm_remove_reply.value = false;

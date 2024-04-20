@@ -23,6 +23,7 @@ const props = defineProps<{
     itikafId?: string
     itikafScheduleId?: string
     articleId?: string
+    campaignId?: string
     focus: boolean
 }>();
 
@@ -104,6 +105,26 @@ const send = async () => {
             // for reply comment
             try {
                 await useComment.replyArticleComment(props.articleId, commentId.value, comment.value);
+                reset();
+            } catch (error) {
+
+            }
+        }
+    }
+
+    // for campaign
+    if (props.campaignId) {
+        if (!commentId.value) {
+            // for itikaf schedule
+            try {
+                await useComment.sendForCampaign(props.campaignId, comment.value);
+                reset();
+            } catch (error) {
+            }
+        } else {
+            // for reply comment
+            try {
+                await useComment.replyCampaignComment(props.campaignId, commentId.value, comment.value);
                 reset();
             } catch (error) {
 

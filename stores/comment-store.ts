@@ -17,6 +17,19 @@ export const useCommentStore = defineStore('use-comment', {
             ++Article.article._count!.comments!;
             if (Article.article.comments) Article.article.comments.unshift(new_comment);
         },
+        async sendForCampaign(campaignId: string, comment: string): Promise<void> {
+            const Api = useApiStore();
+            const Campaign = useCampaignStore();
+
+            if (!Campaign.campaign) return;
+
+            comment = Validate(isComment, comment);
+
+            const new_comment: Comment = await Api.post('/comments/campaign/' + campaignId, { comment }) as Comment;
+
+            ++Campaign.campaign._count!.comments!;
+            if (Campaign.campaign.comments) Campaign.campaign.comments.unshift(new_comment);
+        },
         async sendForItikaf(comment: string): Promise<void> {
             const Api = useApiStore();
             const Itikaf = useItikafStore();
@@ -90,6 +103,23 @@ export const useCommentStore = defineStore('use-comment', {
 
             if (!Article.article.comments) return;
             const _comment = Article.article.comments.find((c: Comment) => c.id == commentId);
+            if (!_comment) return;
+
+            ++_comment._count!.replies!;
+            if (_comment?.replies) _comment.replies.unshift(new_comment_reply);
+        },
+        async replyCampaignComment(campaignId: string, commentId: string, comment: string): Promise<void> {
+            const Api = useApiStore();
+            const Campaign = useCampaignStore();
+
+            if (!Campaign.campaign) return;
+
+            comment = Validate(isComment, comment);
+
+            const new_comment_reply: CommentReply = await Api.post('/comments/reply/' + commentId, { comment }) as CommentReply;
+
+            if (!Campaign.campaign.comments) return;
+            const _comment = Campaign.campaign.comments.find((c: Comment) => c.id == commentId);
             if (!_comment) return;
 
             ++_comment._count!.replies!;
@@ -183,6 +213,22 @@ export const useCommentStore = defineStore('use-comment', {
                 Article.article.comments.splice(index, 1);
             }
         },
+        async removeCampaignComment(id: string, campaignId: string): Promise<void> {
+            const Api = useApiStore();
+            const Campaign = useCampaignStore();
+
+            if (!Campaign.campaign) return;
+
+            await Api.delete('/comments/' + id);
+
+            if (!Campaign.campaign.comments) return;
+
+            --Campaign.campaign._count!.comments!;
+            const index = Campaign.campaign.comments.findIndex(c => c.id == id);
+            if (index != -1) {
+                Campaign.campaign.comments.splice(index, 1);
+            }
+        },
         async removeArticleCommentReply(articleId: string, id: string, commentId: string): Promise<void> {
             const Api = useApiStore();
             const Article = useArticleStore();
@@ -194,6 +240,26 @@ export const useCommentStore = defineStore('use-comment', {
             if (!Article.article.comments) return;
 
             const comment = Article.article.comments.find((c: Comment) => c.id == commentId);
+            if (!comment) return;
+            if (!comment.replies) return;
+
+            --comment._count!.replies!;
+            const index = comment.replies.findIndex((r: CommentReply) => r.id == id);
+            if (index != -1) {
+                comment.replies.splice(index, 1);
+            }
+        },
+        async removeCampaignCommentReply(articleId: string, id: string, commentId: string): Promise<void> {
+            const Api = useApiStore();
+            const Campaign = useCampaignStore();
+
+            if (!Campaign.campaign) return;
+
+            await Api.delete('/comments/reply/' + id);
+
+            if (!Campaign.campaign.comments) return;
+
+            const comment = Campaign.campaign.comments.find((c: Comment) => c.id == commentId);
             if (!comment) return;
             if (!comment.replies) return;
 

@@ -3,7 +3,13 @@ interface Comment {
     commenter?: User
     userId: string
     Article?: Article
-    articleId: string
+    articleId?: string
+    Itikaf?: Itikaf
+    itikafId?: string
+    ItikafSchedule?: ItikafSchedule
+    itikafScheduleId?: string
+    Campaign?: Campaign
+    campaignId?: string
     comment: string
     replies?: CommentReply[]
     createdAt: string

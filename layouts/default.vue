@@ -44,10 +44,14 @@
                             </li>
 
                             <ClientOnly>
-                                <li v-if="Itikaf.itikaf">
-                                    <NuxtLink to="/itikaf" class="rounded-full max-xl:text-base">Itikaf Ramadhan
+                                <li>
+                                    <NuxtLink to="/campaigns" class="rounded-full max-xl:text-base">Ukhuwah Peduli
                                     </NuxtLink>
                                 </li>
+                                <!-- <li v-if="Itikaf.itikaf">
+                                    <NuxtLink to="/itikaf" class="rounded-full max-xl:text-base">Itikaf Ramadhan
+                                    </NuxtLink>
+                                </li> -->
                                 <li v-if="!Auth.user">
                                     <NuxtLink to="/auth/login" class="rounded-full max-xl:text-base">Login</NuxtLink>
                                 </li>
@@ -147,16 +151,28 @@
                                 <IconsKitab class="w-5" /> Artikel
                             </NuxtLink>
                         </li>
-                        <li v-if="Itikaf.itikaf">
+                        <li>
+                            <NuxtLink to="/campaigns" @click="showdrawer = false"
+                                class="flex items-center bg-white/5 py-3 my-1 rounded-xl">
+                                <IconsPray class="w-5" /> Ukhuwah Peduli
+                            </NuxtLink>
+                        </li>
+                        <!-- <li v-if="Itikaf.itikaf">
                             <NuxtLink to="/itikaf" @click="showdrawer = false"
                                 class="flex items-center bg-white/5 py-3 my-1 rounded-xl">
                                 <IconsPray class="w-5" /> Itikaf Ramadhan
                             </NuxtLink>
-                        </li>
+                        </li> -->
                         <li v-if="!Auth.user">
                             <NuxtLink to="/auth/login" @click="showdrawer = false"
                                 class="flex items-center bg-white/5 py-3 my-1 rounded-xl">
                                 <IconsEnter class="w-5" /> Login
+                            </NuxtLink>
+                        </li>
+                        <li>
+                            <NuxtLink to="/campaign/sfsdfs" @click="showdrawer = false"
+                                class="flex items-center bg-white/5 py-3 my-1 rounded-xl">
+                                <IconsEnter class="w-5" /> Test Payment
                             </NuxtLink>
                         </li>
                         <template v-if="Auth.user">

@@ -19,6 +19,8 @@ interface Like {
     itikafId?: string
     ItikafSchedule?: ItikafSchedule
     itikafScheduleId?: string
+    Campaign?: Campaign
+    campaignId?: string
     createdAt: Date
 }
 
