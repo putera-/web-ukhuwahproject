@@ -23,15 +23,21 @@
             </NuxtLink>
             <div class="line-clamp-3 font-light">{{ campaign.description }}</div>
 
-            <div class="flex flex-col">
-                <div class="text-slate-500">Dibutuhkan: {{ toRupiah(campaign.target_amount) }}</div>
-                <div class="">Terkumpul:
-                    <span class="font-semibold"> {{ toRupiah(campaign.collected_amount) }}</span>
+            <div class="flex justify-between items-center">
+                <div class="flex flex-col">
+                    <div class="text-slate-500">Dibutuhkan: {{ toRupiah(campaign.target_amount) }}</div>
+                    <div class="">Terkumpul:
+                        <span class="font-semibold"> {{ toRupiah(campaign.collected_amount) }}</span>
+                    </div>
                 </div>
-                <input type="range" min="0"
-                    :max="campaign.collected_amount > campaign.target_amount ? campaign.collected_amount : campaign.target_amount"
-                    :value="campaign.collected_amount" class="range range-xs range-warning" disabled />
+                <NuxtLink :to="'/campaigns/' + campaign.id" class="btn btn-sm rounded-full btn-warning">
+                    Ikut Donasi
+                </NuxtLink>
             </div>
+
+            <input type="range" min="0"
+                :max="campaign.collected_amount > campaign.target_amount ? campaign.collected_amount : campaign.target_amount"
+                :value="campaign.collected_amount" class="range range-xs range-warning" disabled />
 
             <div class="flex max-sm:flex-col justify-between gap-4">
                 <div class="flex justify-between gap-2">
@@ -39,41 +45,40 @@
                         <div class="text-xs font-medium text-slate-500">Diterbitkan:</div>
                         <div class="text-xs text-slate-500">{{ getRelativeTime(campaign.publishedAt) }}</div>
                     </div>
-                    <div>Sisa {{ dayjs(campaign.due_date).diff(dayjs(), 'days') }} hari lagi</div>
                 </div>
-                <div class="flex flex-col gap-2">
-                    <div class="flex gap-4 justify-center sm:justify-end" v-if="campaign._count">
-                        <div class="flex items-center gap-2">
-                            <template v-if="campaign.likes">
-                                <label class="swap swap-flip text-9xl">
-                                    <!-- this hidden checkbox controls the state -->
-                                    <input type="checkbox" :checked="campaign.likes.length > 0"
-                                        @change="CampaignStore.swapLike(!campaign!.likes!.length, campaign!.id, route)" />
-                                    <IconsLoving class="w-4 swap-on" />
-                                    <IconsLove class="w-4 swap-off" />
-                                </label>
-                            </template>
-                            <IconsLove v-else class="w-4 swap-off" />
-                            {{ campaign._count.likes }}
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <IconsComment class="w-4" />
-                            {{ campaign._count.comments }}
-                        </div>
-                    </div>
+                <div>
 
-                    <!-- admin only -->
-                    <div class="flex gap-4 justify-center sm:justify-end" v-if="route.path.includes('/admin')">
-                        <!-- <button @click="confirmPublish = true" class="btn btn-sm rounded-full bg-[#EE9A49]"
-                            v-if="article.status == 'DRAFT'">Publish
-                            Sekarang</button> -->
-                        <!-- <NuxtLink :to="'/admin/campaign/form?id=' + campaign.id" class="btn btn-sm rounded-full">Ubah
-                        </NuxtLink> -->
-                    </div>
-                    <NuxtLink v-else :to="'/campaigns/' + campaign.id" class="btn btn-sm rounded-full btn-warning">
-                        Ikut Donasi
-                    </NuxtLink>
                 </div>
+            </div>
+            <div class="flex flex-col gap-2">
+                <div class="flex gap-4 justify-center sm:justify-end" v-if="campaign._count">
+                    <div class="flex items-center gap-2">
+                        <template v-if="campaign.likes">
+                            <label class="swap swap-flip text-9xl">
+                                <!-- this hidden checkbox controls the state -->
+                                <input type="checkbox" :checked="campaign.likes.length > 0"
+                                    @change="CampaignStore.swapLike(!campaign!.likes!.length, campaign!.id, route)" />
+                                <IconsLoving class="w-4 swap-on" />
+                                <IconsLove class="w-4 swap-off" />
+                            </label>
+                        </template>
+                        <IconsLove v-else class="w-4 swap-off" />
+                        {{ campaign._count.likes }}
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <IconsComment class="w-4" />
+                        {{ campaign._count.comments }}
+                    </div>
+                </div>
+
+                <!-- admin only -->
+                <!-- <div class="flex gap-4 justify-center sm:justify-end" v-if="route.path.includes('/admin')"> -->
+                <!-- <button @click="confirmPublish = true" class="btn btn-sm rounded-full bg-[#EE9A49]"
+                        v-if="article.status == 'DRAFT'">Publish
+                        Sekarang</button> -->
+                <!-- <NuxtLink :to="'/admin/campaign/form?id=' + campaign.id" class="btn btn-sm rounded-full">Ubah
+                    </NuxtLink> -->
+                <!-- </div> -->
             </div>
 
             <!-- comments -->

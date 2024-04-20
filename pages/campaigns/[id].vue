@@ -31,7 +31,8 @@
                             <div class="flex items-center gap-2">
                                 <div>
                                     <div class="text-xs font-medium text-slate-500">Diterbitkan:</div>
-                                    <div class="text-xs text-slate-500">{{ getRelativeTime(campaign.publishedAt) }}
+                                    <div class="text-xs text-slate-500">
+                                        {{ getRelativeTime(campaign.publishedAt) }}
                                     </div>
                                 </div>
                             </div>
