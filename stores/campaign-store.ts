@@ -29,6 +29,10 @@ export const useCampaignStore = defineStore('campaign-store', {
 
             this.campaign = campaign;
         },
+        async findByTransaction(id: string): Promise<Transaction> {
+            const Api = useApiStore();
+            return await Api.get('/campaigns/transaction/' + id) as Transaction;
+        },
         async loadMoreComments(campaignId: string, page: number = 1): Promise<void> {
             if (!this.campaign) return;
 

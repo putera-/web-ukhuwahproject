@@ -1,7 +1,7 @@
 interface MidtransCallback {
     id: string
-    transaction?: Transaction
-    TransactionId: string
+    Transaction?: Transaction
+    transactionId: string
     callback_data: string
     createdAt: string
 }
@@ -12,7 +12,6 @@ interface Transaction {
     donationId: string
     gross_amount: number
     midtransToken: string
-    midtransOrderId: string
     status: string
     paidAt?: string
     createdAt: string

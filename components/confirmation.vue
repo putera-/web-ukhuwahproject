@@ -8,7 +8,7 @@
             </p>
             <div class="modal-action">
                 <label class="btn rounded-full" @click="$emit('close')">Tutup</label>
-                <label class="btn rounded-full bg-[#EE9A49]" @click="isLoading = true; $emit('yes')">
+                <label class="btn rounded-full btn-warning" @click="isLoading = true; $emit('yes')">
                     {{ actionText }}
                     <IconsLoading v-show="isLoading" class="w-8" />
                 </label>

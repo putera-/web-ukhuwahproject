@@ -57,6 +57,8 @@
                         </div>
                         <div class="font-light whitespace-pre-wrap">{{ campaign.description }}</div>
 
+                        <div class="divider my-0"></div>
+
                         <div class="flex flex-col">
                             <div class="flex justify-between items-center">
                                 <div>
@@ -65,7 +67,7 @@
                                         <span class="font-semibold"> {{ toRupiah(campaign.collected_amount) }}</span>
                                     </div>
                                 </div>
-                                <button class="btn btn-sm rounded-full btn-warning">
+                                <button class="btn btn-sm rounded-full btn-warning" @click="tryDonate">
                                     Ikut Donasi
                                 </button>
                             </div>
@@ -74,13 +76,14 @@
                                 :value="campaign.collected_amount" class="range range-xs range-warning" disabled />
                         </div>
 
+                        <div class="divider my-0"></div>
 
                         <div class="flex justify-between gap-4 text-xs font-medium text-slate-500">
                             <div>{{ campaign._count?.donations }} donatur</div>
                             <div>Sisa {{ dayjs(campaign.due_date).diff(dayjs(), 'days') }} hari lagi</div>
                         </div>
 
-                        <div class="font-medium">Donasi:</div>
+                        <div class="font-medium">Donatur:</div>
                         <div v-if="campaign.donations" class="flex flex-col divide-y-2">
                             <template v-for="donation in campaign.donations">
                                 <div class="flex items-center gap-2 py-2">
@@ -133,6 +136,20 @@
             </template>
         </ClientOnly>
     </div>
+
+    <LazyConfirmation v-if="showTransaction && campaign" action-text="Bayar" :show="showTransaction"
+        @close="showTransaction = false" @yes="checkout">
+        <div class="font-semibold">{{ campaign.title }}</div>
+
+        <label class="form-control w-full max-w-xs">
+            <div class="label">
+                <span class="label-text">Jumlah Donasi?</span>
+            </div>
+            <input v-model="amount" v-maska data-maska="9.99#.###" data-maska-reversed
+                data-maska-tokens="9:[0-9]:repeated" placeholder="Jumlah donasi"
+                class="input input-bordered w-full max-w-xs rounded-full" />
+        </label>
+    </LazyConfirmation>
 </template>
 
 <script setup lang="ts">
@@ -143,7 +160,8 @@ definePageMeta({
     middleware: ['onlyauth']
 });
 
-const { public: { apiUri } } = useRuntimeConfig();
+const config = useRuntimeConfig();
+const apiUri = config.public.apiUri;
 
 const route = useRoute();
 const id: string = route.params.id as string;
@@ -183,4 +201,49 @@ watchEffect(() => {
         focusOnWriteComment.value = true;
     }
 });
+
+
+// PAYMENT
+const midtransClientKey = config.public.midtransClientKey;
+const midtransUri = config.public.production ? "https://app.midtrans.com" : "https://app.sandbox.midtrans.com";
+
+useHead({
+    script: [
+        {
+            src: midtransUri + '/snap/snap.js',
+            async: true,
+            'data-client-key': midtransClientKey
+        }
+    ]
+});
+
+onBeforeUnmount(() => {
+    // remove midtrans payment iframe
+    const scriptTag = document.getElementById('snap-midtrans') as HTMLElement;
+    if (scriptTag) document.body.removeChild(scriptTag);
+});
+
+const showTransaction = ref<boolean>(false);
+
+const tryDonate = async () => {
+    await isToLoginPage(route);
+    amount.value = '';
+    showTransaction.value = true
+}
+
+const Transaction = useTransaction();
+const amount = ref<string>()
+const checkout = async () => {
+    try {
+        if (!amount.value) return;
+
+        const _amount = amount.value.replaceAll('.', '');
+        const response = await Transaction.createCampaignTransaction(+_amount, campaign.value!.id, window.location.href);
+
+        // @ts-ignore
+        window.snap.pay(response.midtransToken)
+    } catch (error) {
+        console.log(error)
+    }
+}
 </script>

@@ -12,7 +12,9 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
+      production: "",
       apiUri: "",
+      midtransClientKey: ""
     },
   },
   modules: ['@pinia/nuxt', 'nuxt-lucide-icons'],
