@@ -169,12 +169,6 @@
                                 <IconsEnter class="w-5" /> Login
                             </NuxtLink>
                         </li>
-                        <li>
-                            <NuxtLink to="/campaign/sfsdfs" @click="showdrawer = false"
-                                class="flex items-center bg-white/5 py-3 my-1 rounded-xl">
-                                <IconsEnter class="w-5" /> Test Payment
-                            </NuxtLink>
-                        </li>
                         <template v-if="Auth.user">
                             <li>
                                 <NuxtLink v-if="Auth.user.role != 'MEMBER'" to="/admin" @click="showdrawer = false"

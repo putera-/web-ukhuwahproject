@@ -80,7 +80,11 @@
                         <div class="divider my-0"></div>
 
                         <div class="flex justify-between gap-4 text-xs font-medium text-slate-500">
-                            <div>{{ campaign._count?.donations }} donatur</div>
+                            <button @click="showDonationsList = true" class="flex items-center">
+                                {{ campaign._count?.donations }}
+                                donatur
+                                <LucideChevronRight :size="16" />
+                            </button>
                             <div>Sisa {{ dayjs(campaign.due_date).diff(dayjs(), 'days') }} hari lagi</div>
                         </div>
 
@@ -151,6 +155,9 @@
                 class="input input-bordered w-full max-w-xs rounded-full" />
         </label>
     </LazyConfirmation>
+
+    <LazyCampaignsDonations v-if="showDonationsList && campaign" :show="showDonationsList" :campaignId="campaign.id"
+        @close="showDonationsList = false" />
 </template>
 
 <script setup lang="ts">
@@ -247,4 +254,6 @@ const checkout = async () => {
         console.log(error)
     }
 }
+
+const showDonationsList = ref<boolean>(false);
 </script>
